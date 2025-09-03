@@ -1,0 +1,11 @@
+@reference "tailwindcss";
+
+@layer base {
+  .navMenuLink {
+    @apply italic !text-base font-[700] !text-white hover:!bg-gray-700/50 !p-2 !pr-3 transition-all duration-300;
+  }
+
+  .headerShadow {
+    @apply drop-shadow-[0_6px_6px_rgba(0,0,0,0.4)];
+  }
+}

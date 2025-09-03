@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@400;700;800&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -69,6 +70,10 @@ a {
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme {
+  --color-fullwayRed: #DC0014;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -108,7 +113,7 @@ a {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
+  --card-foreground: oklch(55.984% 0.21598 27.937);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
@@ -143,6 +148,7 @@ a {
     @apply border-border outline-ring/50;
   }
   body {
+    font-family: "Prompt", sans-serif;
     @apply bg-background text-foreground;
   }
 }

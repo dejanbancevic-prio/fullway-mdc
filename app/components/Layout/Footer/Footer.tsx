@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const Footer = () => {
   return (
-    <div>2025 Fullway. All Rights Reserved</div>
-  )
-}
+    // 
+    <div className="bottom-0 flex flex-col justify-center items-center bg-black text-white ">
+      <h1>2025 Fullway. All Rights Reserved</h1>
+    </div>
+  );
+};
 
-export default Footer
+export default Footer;
