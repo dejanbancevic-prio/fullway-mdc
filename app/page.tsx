@@ -1,14 +1,14 @@
-import Image from "next/image";
 import HeroBanner from "./components/HomePage/HeroBanner";
+import MostPopularTire from "./components/HomePage/MostPopularTire";
 
 const HomePage = () => {
   return (
-    <main className="flex flex-col w-full ">
+    <main className="flex flex-col items-center">
       <HeroBanner />
 
-      {/* <div className="flex flex-col gap-20">
-        <h1 className="text-5xl italic">BEST TIRES</h1>
-        <h1 className="text-5xl italic">BEST TIRES</h1>
+      <MostPopularTire />
+
+      {/* <div className="w-full max-w-7xl ">
         <h1 className="text-5xl italic">BEST TIRES</h1>
         <h1 className="text-5xl italic">BEST TIRES</h1>
         <h1 className="text-5xl italic">BEST TIRES</h1>
@@ -20,7 +20,6 @@ const HomePage = () => {
         <h1 className="text-5xl italic">BEST TIRES</h1>
         <h1 className="text-5xl italic">BEST TIRES</h1>
       </div> */}
-    
     </main>
   );
 };
