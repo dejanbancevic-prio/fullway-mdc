@@ -36,11 +36,9 @@ const Header = () => {
               <Link href="/contact">CONTACT</Link>
             </Button>
 
-            <ButtonSkew
-              style={"text-base font-[700] px-[1.5rem]"}
-              component={<Link href="/category">FIND TIRES</Link>}
-            />
-
+            <Button className="buttonSkew text-base font-[700] px-[1.5rem]">
+              <Link href="/category">FIND TIRES</Link>
+            </Button>
           </div>
         </div>
       </div>

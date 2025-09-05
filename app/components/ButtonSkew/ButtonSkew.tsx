@@ -5,12 +5,16 @@ type ButtonSkewProps = {
   text?: String;
   component?: React.ReactNode;
   style?: String;
+  onClick?: () => void;
 };
 
-const ButtonSkew = ({ text, component, style }: ButtonSkewProps) => {
+ // NOT IN USE AT THE MOMENT
+const ButtonSkew = ({ text, component, style, onClick }: ButtonSkewProps) => {
+
   return (
     <Button
       className={`rounded-none border bg-transparent border-white text-white skew-x-[-15deg] hover:bg-white hover:text-black transition ${style}`}
+      onClick={() => {onClick ?? null}}
     >
       {text ? text: component}
     </Button>

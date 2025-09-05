@@ -4,9 +4,9 @@ const HeroBanner = () => {
   return (
     <div className="w-full">
       <img
-        src="./images/homePage/fullway-hero-image-placeholder.jpg"
+        src="./images/HomePage/fullway-hero-image-placeholder.jpg"
         alt="Fullway Logo"
-        className="relative object-cover h-screen w-full"
+        className=" object-cover h-screen w-full"
       />
 
       <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-black/70 to-transparent" />

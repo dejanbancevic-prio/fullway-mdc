@@ -1,14 +1,16 @@
 import React from "react";
-import ButtonSkew from "../ButtonSkew/ButtonSkew";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import SidebarTriggerButton from "../../AppSidebar/CustomTrigger";
+import WheelMotion from "./WheelMotion";
 
 const MostPopularTire = () => {
   return (
     <div className="w-full border-t-5 border-fullwayRed">
       <img
-        src="./images/homePage/fullway-bg-image-red-suv.jpg"
+        src="./images/HomePage/MostPopularTire/fullway-bg-image-red-suv.jpg"
         alt="Fullway Logo"
-        className="relative object-cover h-screen w-full "
+        className="relative object-cover w-full h-[calc(100vh-6rem)]"
       />
 
       <div className="absolute -bottom-236 -left-0 w-full h-235 bg-gradient-to-l from-black/100 to-transparent" />
@@ -29,11 +31,7 @@ const MostPopularTire = () => {
       <div className="absolute -bottom-195 w-full">
         <div className="max-w-7xl flex justify-between mx-auto ">
           <div className="">
-            <img
-              src="./images/homePage/fullway-tire-frontview-w-wheel-template.png"
-              alt="Fullway Tire"
-              className=" size-[433px] "
-            />
+            <WheelMotion />
           </div>
           <div className="flex flex-col gap-[3.906rem]">
             <div className="w-full border-b-1 border-white" />
@@ -63,10 +61,7 @@ const MostPopularTire = () => {
               </div>
 
               <div className="flex items-center gap-[1.5rem]">
-                <ButtonSkew
-                  text="BUY NOW"
-                  style={"text-base font-[700] px-[2rem]"}
-                />
+                <SidebarTriggerButton />
                 <Link href="/" className="font-[400] underline ">
                   Learn More
                 </Link>

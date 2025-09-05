@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LayoutWrapper from "./components/Layout/LayoutWrapper/LayoutWrapper";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import AppSidebar from "./components/AppSidebar/AppSidebar";
 
 export const metadata: Metadata = {
   title: "Fullway",
