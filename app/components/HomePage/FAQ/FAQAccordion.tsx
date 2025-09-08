@@ -11,10 +11,9 @@ const FAQAccordion = () => {
       type="single"
       collapsible
       className="w-full border-b-1 border-black"
-     
     >
       <AccordionItem value="item-1" className="border-b-1 border-black">
-        <AccordionTrigger className="font-[600] text-[1.25rem]">
+        <AccordionTrigger className="font-[600] text-[1.25rem] cursor-pointer">
           WHO MAKES FULLWAY TIRES
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -30,7 +29,7 @@ const FAQAccordion = () => {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2" className="border-b-1 border-black">
-        <AccordionTrigger className="font-[600] text-[1.25rem]">
+        <AccordionTrigger className="font-[600] text-[1.25rem] cursor-pointer">
           ARE FULLWAY TIRES GOOD OR BAD?
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -46,7 +45,7 @@ const FAQAccordion = () => {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3" className="border-b-1 border-black">
-        <AccordionTrigger className="font-[600] text-[1.25rem]">
+        <AccordionTrigger className="font-[600] text-[1.25rem] cursor-pointer">
           WHERE ARE FULLWAY TIRES MADE?
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -63,7 +62,7 @@ const FAQAccordion = () => {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-4" className="border-b-1 border-black">
-        <AccordionTrigger className="font-[600] text-[1.25rem]">
+        <AccordionTrigger className="font-[600] text-[1.25rem] cursor-pointer">
           QUESTION #4
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-4 text-balance">
@@ -80,7 +79,7 @@ const FAQAccordion = () => {
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-5" className="border-b-1  border-black">
-        <AccordionTrigger className="font-[600] text-[1.25rem]">
+        <AccordionTrigger className="font-[600] text-[1.25rem] cursor-pointer">
           QUESTION #5
         </AccordionTrigger>
         <AccordionContent className="flex flex-col gap-4 text-balance">

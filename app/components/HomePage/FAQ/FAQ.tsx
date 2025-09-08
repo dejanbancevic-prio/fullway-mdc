@@ -5,8 +5,8 @@ import FAQAccordion from "./FAQAccordion";
 
 const FAQ = () => {
   return (
-    <div className="relative w-full bg-white">
-      <div className="max-w-7xl mx-auto text-black py-[3rem]">
+    <div className="relative w-full bg-fullwayGrey">
+      <div className="max-w-7xl mx-auto text-black pt-[3rem]">
         <div className="flex flex-col ">
           <p className="font-[400] text-[1.125rem] italic">HERE TO HELP YOU</p>
 
@@ -18,7 +18,7 @@ const FAQ = () => {
 
           <div className="flex justify-center">
             <Button className="buttonSkew-white text-base font-[700] w-[14.688rem] mt-[1.5rem]">
-              <Link href="/">SHOP ALL TIRES</Link>
+              <Link href="/">VIEW ALL QUESTIONS</Link>
             </Button>
           </div>
         </div>

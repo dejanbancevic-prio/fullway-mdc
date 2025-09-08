@@ -2,15 +2,14 @@ import React from "react";
 import "./Header.css";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import ButtonSkew from "../../ButtonSkew/ButtonSkew";
 
 const Header = () => {
   return (
     <header className="top-0 flex justify-center items-center ">
-      <div className="fixed w-full top-0 h-20 bg-gradient-to-b from-black/80  to-transparent z-30 " />
+      <div className="fixed w-full top-0 h-[5rem] bg-gradient-to-b from-black/80 to-transparent z-30" />
 
-      <div className="fixed top-4 z-40 w-full max-w-7xl">
-        <div className="flex justify-between items-center">
+      <div className="fixed top-[1rem] z-40 w-full max-w-7xl">
+        <div className="hidden md:flex justify-between items-center">
           <Link href="/">
             <img
               src="icons/logo/Fullway-Logo-White.svg"
@@ -40,6 +39,22 @@ const Header = () => {
               <Link href="/category">FIND TIRES</Link>
             </Button>
           </div>
+        </div>
+
+        <div className="md:hidden flex justify-between items-center mx-[1.5rem]">
+          <Link href="/">
+            <img
+              src="icons/logo/Fullway-Logo-White.svg"
+              alt="Fullway Logo"
+              className="w-[9.25rem] h-[1.75rem]"
+            />
+          </Link>
+
+          <img
+            src="icons/other/Hamburger-Icon.svg"
+            alt="Fullway Logo"
+            className="w-[2rem] h-[1.2rem]"
+          />
         </div>
       </div>
     </header>

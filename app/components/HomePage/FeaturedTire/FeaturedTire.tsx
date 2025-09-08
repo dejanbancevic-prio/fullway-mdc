@@ -10,12 +10,11 @@ const FeaturedTire = () => {
       <img
         src="./images/HomePage/FeaturedTires/fullway-featuredtires-bg-image.jpg"
         alt="Fullway Logo"
-        className="object-cover h-[38.688rem] w-full"
+        className="object-cover h-[42.688rem] w-full"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent" />
-       <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
+      <div className="absolute inset-0 bg-[linear-gradient(153deg,#1D1D1D_34.17%,rgba(29,29,29,0)_81.69%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(161deg,rgba(220,0,20,0)_40.32%,rgba(220,0,20,0.15)_98.53%)]" />
 
       <div className="absolute inset-0 flex items-center">
         <div className="max-w-7xl mx-auto w-full flex justify-between items-start">

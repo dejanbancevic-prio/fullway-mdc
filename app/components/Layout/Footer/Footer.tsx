@@ -6,7 +6,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <div className="bottom-0 w-full bg-black">
-      <div className="flex max-w-7xl justify-between mx-auto my-12">
+      <div className="flex max-w-7xl justify-between mx-auto mt-[10rem] mb-[3rem]">
         <div className="flex flex-col justify-between gap-[1.5rem]">
           <img
             src="/icons/logo/Fullway-Logo-White.svg"
@@ -27,7 +27,7 @@ const Footer = () => {
               placeholder="example@mail.com"
               className="rounded-none w-[17.688rem]"
             />
-            <Button className="bg-white text-black rounded-none italic text-base font-[600] hover:text-white">
+            <Button className="bg-white text-black rounded-none italic text-base font-[600] hover:text-white cursor-pointer">
               SIGN UP
             </Button>
           </div>
