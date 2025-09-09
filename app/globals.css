@@ -61,7 +61,7 @@ body {
 
 @theme {
   --color-fullwayRed: #dc0014;
-  --color-fullwayGrey: #1D1D1D;
+  --color-fullwayGrey: #F7F7F7;
 }
 
 :root {
@@ -136,11 +136,16 @@ body {
 @layer base {
 
   .buttonSkew{
-    @apply !rounded-none border !bg-transparent border-white text-white skew-x-[-15deg] hover:!bg-white hover:!text-black transition;
+    @apply !rounded-none border !bg-transparent border-white text-white skew-x-[-15deg] hover:!bg-white hover:!text-black transition cursor-pointer;
   }
   .buttonSkew-white{
-    @apply !rounded-none border !bg-transparent border-black !text-black skew-x-[-15deg] hover:!bg-black hover:!text-white transition;
+    @apply !rounded-none border !bg-transparent border-black !text-black skew-x-[-15deg] hover:!bg-black hover:!text-white transition cursor-pointer;
   }
+   .buttonWidget{
+    @apply italic !rounded-none !font-[800] w-[17.125rem] md:w-[9.875rem] hover:!bg-white hover:!text-black
+     hover:!border-1 hover:!border-black cursor-pointer ;
+  }
+
 
   p {
     @apply m-0 p-0;

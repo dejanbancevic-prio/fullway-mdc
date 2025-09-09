@@ -17,19 +17,19 @@ const FeaturedTireCard = ({
   tireImage,
 }: FeaturedTireCardProps) => {
   return (
-    <div className="relative w-[344px] h-[498px] shadow-2xl ">
+    <div className="relative w-[21.5rem] h-[31.125rem] shadow-2xl ">
       <Image
         src={bgImage}
         alt="SUV Background"
         width={344}
         height={468}
-        className="object-cover skew-x-[-3deg] w-[344px] h-[498px]"
+        className="object-cover skew-x-[-3deg] w-[21.5rem] h-[31.125rem] "
       />
 
-      <div className="absolute inset-[0rem] bg-black/30 skew-x-[-3deg]" />
-      <div className="absolute inset-[0rem] bg-black/30 skew-x-[-3deg]" />
+      <div className="absolute inset-[0rem] bg-black/30 skew-x-[-3deg] " />
+      <div className="absolute inset-[0rem] bg-black/30 skew-x-[-3deg] " />
 
-      <div className="absolute top-[1.75rem] -left-17 w-[266px] h-[296]">
+      <div className="absolute top-[1.75rem] md:-left-17 w-[266px] h-[296]">
         <Image
           src={tireImage}
           alt="HS 288 Tire"
