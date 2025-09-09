@@ -11,8 +11,12 @@ const Widget = () => {
           TIRES JUST FOR YOU
         </p>
 
-        <div className="flex gap-[1rem] text-[2.25rem] md:text-[3rem] font-[700] md:font-[800] text-black italic">
-          <p>LET'S FIND YOUR MATCH </p>
+        <div className="hidden md:flex gap-[1rem] text-[2.25rem] md:text-[3rem] font-[700] md:font-[800] text-black italic">
+          <p>LET'S FIND YOUR MATCH! </p>
+        </div>
+
+        <div className="md:hidden flex gap-[1rem] text-[2.25rem] md:text-[3rem] font-[700] md:font-[800] text-black italic">
+          <p>LET'S FIND YOUR <br/> MATCH! </p>
         </div>
       </div>
 

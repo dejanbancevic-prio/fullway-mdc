@@ -12,7 +12,7 @@ const HomePage = () => {
       <MostPopularTire />
 
       <div className="relative">
-        <div className="bg-fullwayGrey w-full h-[14.3125rem]" />
+        <div className="bg-fullwayGrey w-full md:h-[14.3125rem] h-[20rem]" />
         <div className="absolute inset-0 flex justify-center items-start z-20 mt-[3rem]">
           <Widget />
         </div>

@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="bottom-0 w-full bg-black">
-      <div className="flex max-w-7xl justify-between mx-auto mt-[10rem] mb-[3rem]">
+    <div className="bottom-0 w-full bg-black ">
+      <div className="flex flex-col md:flex-row md:max-w-7xl md:mx-auto mx-[1rem] justify-between md:mt-[10rem] mt-[28rem] mb-[3rem] ">
         <div className="flex flex-col justify-between gap-[1.5rem]">
           <img
             src="/icons/logo/Fullway-Logo-White.svg"
@@ -21,7 +21,7 @@ const Footer = () => {
               SIGN UP TO OUR <br /> NEWSLETTER!
             </p>
           </div>
-          <div className="flex w-full max-w-sm items-center ">
+          <div className="flex w-full max-w-sm items-center md:mt-[0rem] mt-[1.5rem] md:mb-[0rem] mb-[2.25rem]">
             <Input
               type="email"
               placeholder="example@mail.com"
@@ -33,11 +33,11 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between">
-          <div className="flex justify-between gap-[1.5rem]">
+        <div className="flex flex-col justify-between md:gap-[0rem] gap-[2.25rem]">
+          <div className="flex flex-col md:flex-row justify-between gap-[1.5rem]">
             <div className="flex flex-col w-full">
               <p className="font-[600] text-[1.25rem]">COMPANY</p>
-              <div className="w-[12.958rem] border-b-1 font-[400] text-[1rem]" />
+              <div className="md:w-[12.958rem] w-full border-b-1 font-[400] text-[1rem]" />
               <Link href={"/"}>About Us</Link>
               <Link href={"/"}>Contact Us</Link>
               <Link href={"/"}>Blog</Link>
@@ -45,7 +45,7 @@ const Footer = () => {
 
             <div className="flex flex-col w-full">
               <p className="font-[600] text-[1.25rem]">SUPPORT</p>
-              <div className="w-[12.958rem] border-b-1 font-[400] text-[1rem]" />
+              <div className="md:w-[12.958rem] w-full border-b-1 font-[400] text-[1rem]" />
               <Link href={"/"}>About Us</Link>
               <Link href={"/"}>Contact Us</Link>
               <Link href={"/"}>Blog</Link>
@@ -53,14 +53,14 @@ const Footer = () => {
 
             <div className="flex flex-col w-full">
               <p className="font-[600] text-[1.25rem]">OUR TIRES</p>
-              <div className="w-[12.958rem] border-b-1 font-[400] text-[1rem]" />
+              <div className="md:w-[12.958rem] w-full border-b-1 font-[400] text-[1rem]" />
               <Link href={"/"}>Passenger</Link>
               <Link href={"/"}>SUV</Link>
               <Link href={"/"}>Light Truck</Link>
             </div>
           </div>
 
-          <div className="flex gap-[1.5rem] justify-end">
+          <div className="flex gap-[1.5rem] justify-center md:justify-end">
             <Link href={"/"}>
               <img
                 src="/icons/socialMedia/Facebook-Icon.svg"
