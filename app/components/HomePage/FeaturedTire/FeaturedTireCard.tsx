@@ -21,8 +21,8 @@ const FeaturedTireCard = ({
       <Image
         src={bgImage}
         alt="SUV Background"
-        width={344}
-        height={468}
+        width={1920}
+        height={1080}
         className="object-cover skew-x-[-3deg] w-[21.5rem] h-[31.125rem] "
       />
 

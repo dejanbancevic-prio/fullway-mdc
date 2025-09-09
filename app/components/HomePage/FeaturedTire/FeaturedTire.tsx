@@ -7,9 +7,11 @@ import FeaturedTireCard from "./FeaturedTireCard";
 const FeaturedTire = () => {
   return (
     <div className="w-full border-b-5 border-fullwayRed relative">
-      <img
-        src="./images/HomePage/FeaturedTires/fullway-featuredtires-bg-image.jpg"
+      <Image
+        src="/images/HomePage/FeaturedTires/fullway-featuredtires-bg-image.jpg"
         alt="Fullway Logo"
+        width={1920}
+        height={1080}
         className="object-cover h-[105.5rem] md:h-[42.688rem] w-full"
       />
 

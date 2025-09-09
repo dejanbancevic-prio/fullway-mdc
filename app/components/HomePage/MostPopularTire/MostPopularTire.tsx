@@ -2,13 +2,16 @@ import React from "react";
 import Link from "next/link";
 import SidebarTriggerButton from "../../AppSidebar/CustomTrigger";
 import WheelMotion from "./WheelMotion";
+import Image from "next/image";
 
 const MostPopularTire = () => {
   return (
     <div className="w-full border-t-5 border-fullwayRed relative">
-      <img
-        src="./images/HomePage/MostPopularTire/fullway-bg-image-red-suv.jpg"
+      <Image
+        src="/images/HomePage/MostPopularTire/fullway-bg-image-red-suv.jpg"
         alt="Fullway Logo"
+        width={1920}
+        height={1080}
         className="object-cover w-full h-[59.4375rem] md:h-[45.625rem]"
       />
 
@@ -31,7 +34,7 @@ const MostPopularTire = () => {
 
             <div className="md:hidden flex flex-col mx-[1rem] leading-none">
               <p className="font-[500] italic text-[1.125rem] mt-[2.5rem]">
-                FULLWAY SPECIAL 
+                FULLWAY SPECIAL
               </p>
 
               <div className="flex flex-col text-[2.25rem] font-[700] italic">

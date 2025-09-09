@@ -2,15 +2,18 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
     <div className="bottom-0 w-full bg-black ">
       <div className="flex flex-col md:flex-row md:max-w-7xl md:mx-auto mx-[1rem] justify-between md:mt-[10rem] mt-[28rem] mb-[3rem] ">
         <div className="flex flex-col justify-between gap-[1.5rem]">
-          <img
+          <Image
             src="/icons/logo/Fullway-Logo-White.svg"
             alt="Fullway Logo"
+            width={1920}
+            height={1080}
             className="w-[174px] h-[33px]"
           />
           <div className="flex flex-col ">
@@ -62,49 +65,61 @@ const Footer = () => {
 
           <div className="flex gap-[1.5rem] justify-center md:justify-end">
             <Link href={"/"}>
-              <img
+              <Image
                 src="/icons/socialMedia/Facebook-Icon.svg"
                 alt="Fullway Logo"
+                width={1920}
+                height={1080}
                 className="w-[25px] h-[25px]"
               />
             </Link>
 
             <Link href={"/"}>
-              <img
+              <Image
                 src="/icons/socialMedia/Instagram-Icon.svg"
                 alt="Fullway Logo"
+                width={1920}
+                height={1080}
                 className="w-[25px] h-[25px]"
               />
             </Link>
 
             <Link href={"/"}>
-              <img
+              <Image
                 src="/icons/socialMedia/LinkedIn-Icon.svg"
                 alt="Fullway Logo"
+                width={1920}
+                height={1080}
                 className="w-[25px] h-[25px]"
               />
             </Link>
 
             <Link href={"/"}>
-              <img
+              <Image
                 src="/icons/socialMedia/Pinterest-Icon.svg"
                 alt="Fullway Logo"
+                width={1920}
+                height={1080}
                 className="w-[25px] h-[25px]"
               />
             </Link>
 
             <Link href={"/"}>
-              <img
+              <Image
                 src="/icons/socialMedia/X-Icon.svg"
                 alt="Fullway Logo"
+                width={1920}
+                height={1080}
                 className="w-[25px] h-[25px]"
               />
             </Link>
 
             <Link href={"/"}>
-              <img
+              <Image
                 src="/icons/socialMedia/Youtube-Icon.svg"
                 alt="Fullway Logo"
+                width={1920}
+                height={1080}
                 className="w-[25px] h-[25px]"
               />
             </Link>

@@ -1,11 +1,14 @@
 import React from "react";
+import Image from "next/image";
 
 const HeroBanner = () => {
   return (
     <div className="w-full">
-      <img
-        src="./images/HomePage/fullway-hero-image-placeholder.jpg"
+       <Image
+        src="/images/HomePage/fullway-hero-image-placeholder.jpg"
         alt="Fullway Logo"
+        width={1920}
+        height={1080}
         className=" object-cover h-[39.9375rem] md:h-screen w-full"
       />
 

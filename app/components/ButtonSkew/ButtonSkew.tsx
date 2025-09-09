@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 
 type ButtonSkewProps = {
-  text?: String;
+  text?: string;
   component?: React.ReactNode;
-  style?: String;
+  style?: string;
   onClick?: () => void;
 };
 
