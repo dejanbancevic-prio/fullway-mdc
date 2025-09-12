@@ -10,6 +10,7 @@ const FAQAccordion = () => {
     <Accordion
       type="single"
       collapsible
+      defaultValue="item-1"
       className="w-full border-b-1 border-black"
     >
       <AccordionItem value="item-1" className="border-b-1 border-black">

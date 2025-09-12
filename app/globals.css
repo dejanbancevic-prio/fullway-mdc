@@ -8,6 +8,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -61,7 +62,8 @@ body {
 
 @theme {
   --color-fullwayRed: #dc0014;
-  --color-fullwayGrey: #F7F7F7;
+  --color-fullwayGrey: #f7f7f7;
+  --color-sidebarRed: #dc0014;
 }
 
 :root {
@@ -134,25 +136,33 @@ body {
 }
 
 @layer base {
-
-  .buttonSkew{
+  .buttonSkew {
     @apply !rounded-none border !bg-transparent border-white text-white skew-x-[-15deg] hover:!bg-white hover:!text-black transition cursor-pointer;
   }
-  .buttonSkew-white{
-    @apply !rounded-none border !bg-transparent border-black !text-black skew-x-[-15deg] hover:!bg-black hover:!text-white transition cursor-pointer;
+  .buttonSkew-white {
+    @apply !rounded-none border !bg-white border-black !text-black skew-x-[-15deg] hover:!bg-black hover:!text-white transition cursor-pointer;
   }
-   .buttonWidget{
+  .buttonSkewSidebar {
+    @apply !rounded-none border !bg-sidebarRed border-black !text-white skew-x-[-15deg] hover:!bg-black hover:!border-white hover:!text-white transition cursor-pointer;
+  }
+  .buttonWidget {
     @apply italic !rounded-none !font-[800] w-[17.125rem] md:w-[9.875rem] hover:!bg-white hover:!text-black
-     hover:!border-1 hover:!border-black cursor-pointer ;
+     hover:!border-1 hover:!border-black cursor-pointer;
+  }
+  [data-active="true"] {
+    @apply bg-black text-black;
   }
 
+  ::-moz-selection {
+    background: #dc0014;
+    color: white;
+  }
 
   p {
     @apply m-0 p-0;
   }
   * {
-    @apply border-border outline-ring/50 ; 
-    
+    @apply border-border outline-ring/50;
   }
   body {
     font-family: "Prompt", sans-serif;

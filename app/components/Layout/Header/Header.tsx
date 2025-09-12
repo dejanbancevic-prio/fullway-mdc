@@ -1,12 +1,16 @@
-import React from "react";
+"use client";
+
+import { useSidebar } from "@/components/ui/sidebar";
 import "./Header.css";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 const Header = () => {
+  const { toggleSidebar } = useSidebar();
+
   return (
-    <header className="top-0 flex justify-center items-center ">
+    <header className="top-0 flex justify-center items-center">
       <div className="fixed w-full top-0 h-[5rem] bg-gradient-to-b from-black/80 to-transparent z-30" />
 
       <div className="fixed top-[1rem] z-40 w-full max-w-7xl">
@@ -21,7 +25,7 @@ const Header = () => {
             />
           </Link>
 
-          <div className="flex justify-center items-center gap-9">
+          <div className="flex justify-center items-center gap-[2.25rem]">
             <Link className="navMenuLink" href="/our-tires">
               OUR TIRES
             </Link>
@@ -38,9 +42,32 @@ const Header = () => {
               <Link href="/contact">CONTACT</Link>
             </Button>
 
-            <Button className="buttonSkew text-base font-[700] px-[1.5rem]">
-              <Link href="/category">FIND TIRES</Link>
-            </Button>
+            <div className="flex gap-[1rem]">
+              <Button className="buttonSkew text-base font-[700] px-[1.5rem]">
+                <Link href="/category">FIND TIRES</Link>
+              </Button>
+
+              <Button
+                onClick={toggleSidebar}
+                className="group buttonSkew text-base font-[700] pr-[1.1rem] relative"
+              >
+                <Image
+                  src="/icons/other/Icon=Cart-Color=White.svg"
+                  alt="Cart Icon"
+                  width={1920}
+                  height={1080}
+                  className="w-[1.2rem] h-[1.2rem] group-hover:opacity-0"
+                />
+
+                <Image
+                  src="/icons/other/Icon=Cart-Color=Dark.svg"
+                  alt="Cart Icon Hover"
+                  width={1920}
+                  height={1080}
+                  className="w-[1.2rem] h-[1.2rem] absolute opacity-0 group-hover:opacity-100"
+                />
+              </Button>
+            </div>
           </div>
         </div>
 

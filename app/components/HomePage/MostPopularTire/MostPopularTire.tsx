@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import SidebarTriggerButton from "../../AppSidebar/CustomTrigger";
+import SidebarTriggerButton from "../../AppSidebar/AppSidebarButtonTrigger";
 import WheelMotion from "./WheelMotion";
 import Image from "next/image";
 

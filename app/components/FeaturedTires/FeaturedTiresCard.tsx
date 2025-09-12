@@ -10,7 +10,7 @@ type FeaturedTireCardProps = {
   tireImage: string;
 };
 
-const FeaturedTireCard = ({
+const FeaturedTiresCard = ({
   name,
   model,
   bgImage,
@@ -29,7 +29,7 @@ const FeaturedTireCard = ({
       <div className="absolute inset-[0rem] bg-black/30 skew-x-[-3deg] " />
       <div className="absolute inset-[0rem] bg-black/30 skew-x-[-3deg] " />
 
-      <div className="absolute top-[1.75rem] md:-left-17 w-[266px] h-[296]">
+      <div className="absolute top-[1.75rem] md:-left-17 w-[16.625rem] h-[18.5rem]">
         <Image
           src={tireImage}
           alt="HS 288 Tire"
@@ -41,18 +41,23 @@ const FeaturedTireCard = ({
       <div className="absolute bottom-[2.25rem] left-[2.5rem] w-full">
         <p className="font-[300] text-[1.25rem] italic">{name}</p>
         <p className="font-[700] text-[2rem] italic">{model}</p>
-        <Button className="buttonSkew text-base font-[700] gap-[0.5rem] mt-[0.438rem]">
+        <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[0.438rem]">
           <Link href="/our-tires" className="flex justify-between">
             VIEW TIRES
-            {
-              <Image
-                src="/icons/arrows/Arrow 3.svg"
-                alt="Arrow 3"
-                width={0}
-                height={0}
-                className="w-auto h-auto pl-[0.5rem]"
-              />
-            }
+            <Image
+              src="/icons/arrows/Icon=Arrow-Color=White.svg"
+              alt="Arrow 3"
+              width={1920}
+              height={1080}
+              className="w-auto h-auto pl-[0.5rem] group-hover:opacity-0"
+            />
+            <Image
+              src="/icons/arrows/Icon=Arrow-Color=Dark.svg"
+              alt="Arrow 3"
+              width={1920}
+              height={1080}
+              className="w-auto h-auto pl-[0.5rem] absolute right-[1rem] top-[0.6rem] opacity-0 group-hover:opacity-100"
+            />
           </Link>
         </Button>
       </div>
@@ -60,4 +65,4 @@ const FeaturedTireCard = ({
   );
 };
 
-export default FeaturedTireCard;
+export default FeaturedTiresCard;

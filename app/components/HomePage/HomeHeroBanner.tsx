@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 
-const HeroBanner = () => {
+const HomeHeroBanner = () => {
   return (
     <div className="w-full">
-       <Image
+      <Image
         src="/images/HomePage/fullway-hero-image-placeholder.jpg"
         alt="Fullway Logo"
         width={1920}
@@ -42,4 +42,4 @@ const HeroBanner = () => {
   );
 };
 
-export default HeroBanner;
+export default HomeHeroBanner;

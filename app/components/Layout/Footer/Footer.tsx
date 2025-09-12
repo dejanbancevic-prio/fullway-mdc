@@ -7,7 +7,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <div className="bottom-0 w-full bg-black ">
-      <div className="flex flex-col md:flex-row md:max-w-7xl md:mx-auto mx-[1rem] justify-between md:mt-[10rem] mt-[28rem] mb-[3rem] ">
+      <div className="flex flex-col md:flex-row md:max-w-7xl md:mx-auto mx-[1rem] justify-between md:mt-[3rem] mt-[1rem] mb-[3rem] ">
         <div className="flex flex-col justify-between gap-[1.5rem]">
           <Image
             src="/icons/logo/Fullway-Logo-White.svg"
@@ -70,7 +70,7 @@ const Footer = () => {
                 alt="Fullway Logo"
                 width={1920}
                 height={1080}
-                className="w-[25px] h-[25px]"
+                className="w-[1.563rem] h-[1.563rem]"
               />
             </Link>
 
@@ -80,7 +80,7 @@ const Footer = () => {
                 alt="Fullway Logo"
                 width={1920}
                 height={1080}
-                className="w-[25px] h-[25px]"
+                className="w-[1.563rem] h-[1.563rem]"
               />
             </Link>
 
@@ -90,7 +90,7 @@ const Footer = () => {
                 alt="Fullway Logo"
                 width={1920}
                 height={1080}
-                className="w-[25px] h-[25px]"
+                className="w-[1.563rem] h-[1.563rem]"
               />
             </Link>
 
@@ -100,7 +100,7 @@ const Footer = () => {
                 alt="Fullway Logo"
                 width={1920}
                 height={1080}
-                className="w-[25px] h-[25px]"
+                className="w-[1.563rem] h-[1.563rem]"
               />
             </Link>
 
@@ -110,7 +110,7 @@ const Footer = () => {
                 alt="Fullway Logo"
                 width={1920}
                 height={1080}
-                className="w-[25px] h-[25px]"
+                className="w-[1.563rem] h-[1.563rem]"
               />
             </Link>
 
@@ -120,13 +120,13 @@ const Footer = () => {
                 alt="Fullway Logo"
                 width={1920}
                 height={1080}
-                className="w-[25px] h-[25px]"
+                className="w-[1.563rem] h-[1.563rem]"
               />
             </Link>
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center font-[300] mb-4 mt-12">
+      <div className="flex flex-col justify-center items-center font-[300] mb-[1rem] mt-[3rem]">
         <p>2025 Fullway. All Rights Reserved</p>
       </div>
     </div>

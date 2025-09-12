@@ -17,7 +17,7 @@ const FAQ = () => {
           <FAQAccordion />
 
           <div className="flex justify-center">
-            <Button className="buttonSkew-white text-base font-[700] w-[14.688rem] mt-[1.5rem]">
+            <Button className="buttonSkew-white text-base font-[700] w-[14.688rem] mt-[1.5rem] mb-[1rem] md:mb-[0rem] ">
               <Link href="/">VIEW ALL QUESTIONS</Link>
             </Button>
           </div>
