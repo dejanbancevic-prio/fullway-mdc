@@ -1,6 +1,6 @@
-import GlobalPageHero from "../components/OurTiresPage/GlobalPageHero";
+import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
 import Widget from "../components/Widget/Widget";
-import OurFeaturedTires from "../components/OurTiresPage/OurFeaturedTires/OurFeaturedTires";
+import OurFeaturedTires from "../components/pages/OurTiresPage/OurFeaturedTires/OurFeaturedTires";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
 import FAQ from "../components/FAQ/FAQ";
 

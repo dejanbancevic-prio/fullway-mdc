@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LayoutWrapper from "./components/Layout/LayoutWrapper/LayoutWrapper";
+import ApolloProviderClient from "./providers/ApolloProviderClient";
 
 export const metadata: Metadata = {
   title: "Fullway",
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <ApolloProviderClient>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </ApolloProviderClient>
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
-import GlobalPageHero from "../components/OurTiresPage/GlobalPageHero";
+import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
 import Widget from "../components/Widget/Widget";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
-import BlogFeaturedTires from "../components/BlogPage/BlogFeaturedTires";
+import BlogFeaturedTires from "../components/pages/BlogPage/BlogFeaturedTires";
+import BlogHeader from "../components/pages/BlogPage/BlogHeader";
 
 const BlogPage = () => {
   return (
@@ -20,6 +21,8 @@ const BlogPage = () => {
         path={"/blog"}
       />
 
+      <BlogHeader />
+
       <BlogFeaturedTires />
 
       <div id="widget" className="relative ">
@@ -30,7 +33,6 @@ const BlogPage = () => {
       </div>
 
       <div className=" flex bg-black w-full md:h-[6.3125rem] h-[26.3125rem] " />
-     
     </main>
   );
 };

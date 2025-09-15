@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -11,11 +10,14 @@ import AppSidebarContent from "./AppSidebarContent";
 const AppSidebar = () => {
   return (
     <Sidebar
-      className="z-50 "
-      style={{
-        "--sidebar-width": "35.25rem",
-        "--sidebar-width-mobile": "20rem",
-      } as React.CSSProperties }
+      side="right"
+      className="z-50"
+      style={
+        {
+          "--sidebar-width": "35.25rem",
+          "--sidebar-width-mobile": "20rem",
+        } as React.CSSProperties
+      }
     >
       <SidebarContent className="bg-white">
         <SidebarGroup>

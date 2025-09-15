@@ -1,6 +1,6 @@
-import AboutFactory from "../components/AboutUsPage/AboutFactory";
-import AboutHeroBanner from "../components/AboutUsPage/AboutHeroBanner";
-import Certification from "../components/AboutUsPage/Certification";
+import AboutFactory from "../components/pages/AboutUsPage/AboutFactory";
+import AboutHeroBanner from "../components/pages/AboutUsPage/AboutHeroBanner";
+import Certification from "../components/pages/AboutUsPage/Certification";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
 import FAQ from "../components/FAQ/FAQ";
 import FeaturedTires from "../components/FeaturedTires/FeaturedTires";

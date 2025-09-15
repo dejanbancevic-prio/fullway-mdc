@@ -1,7 +1,7 @@
 import React from "react";
-import GlobalPageHero from "../components/OurTiresPage/GlobalPageHero";
+import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
-import ContactContant from "../components/ContactPage/ContactContant";
+import ContactContant from "../components/pages/ContactPage/ContactContant";
 
 const ContactPage = () => {
   return (

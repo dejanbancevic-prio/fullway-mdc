@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const HomeHeroBanner = () => {
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <Image
         src="/images/HomePage/fullway-hero-image-placeholder.jpg"
         alt="Fullway Logo"

@@ -1,7 +1,7 @@
 import FAQ from "./components/FAQ/FAQ";
 import FeaturedTires from "./components/FeaturedTires/FeaturedTires";
-import HomeHeroBanner from "./components/HomePage/HomeHeroBanner";
-import MostPopularTire from "./components/HomePage/MostPopularTire/MostPopularTire";
+import HomeHeroBanner from "./components/pages/HomePage/HomeHeroBanner";
+import MostPopularTire from "./components/pages/HomePage/MostPopularTire/MostPopularTire";
 import Widget from "./components/Widget/Widget";
 
 const HomePage = () => {

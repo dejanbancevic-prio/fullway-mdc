@@ -32,7 +32,7 @@ const GlobalPageHero = ({ quote, name, desc }: GlobalPageHeroProps) => {
               {name}
             </p>
 
-            <p className=" hidden md:flex font-[300] text-[1.125rem] ">
+            <p className=" hidden md:flex font-[300] text-[1.25rem] ">
               {desc}
             </p>
 
