@@ -13,12 +13,18 @@ function withCORS(response: Response) {
   return response;
 }
 
+function getAbsoluteUrl(req: NextRequest) {
+  const host = req.headers.get("host");
+  const protocol = req.headers.get("x-forwarded-proto") || "https";
+  return `${protocol}://${host}${req.url}`;
+}
+
 export async function POST(req: NextRequest) {
-  const meshRequest = new Request(req.url, {
+  const meshRequest = new Request(getAbsoluteUrl(req), {
     method: req.method,
     headers: req.headers,
     body: req.body,
-    duplex: "half", 
+    duplex: "half",
   } as RequestInit & { duplex: "half" });
 
   const res = await handler(meshRequest);
@@ -26,7 +32,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const meshRequest = new Request(req.url, {
+  const meshRequest = new Request(getAbsoluteUrl(req), {
     method: req.method,
     headers: req.headers,
   });
