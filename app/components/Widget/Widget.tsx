@@ -10,7 +10,7 @@ type WidgetProps = {
 const Widget = ({titleStyle} : WidgetProps) => {
   return (
     <div className="flex flex-col md:max-w-7xl md:mx-auto w-full">
-      <div className={`${titleStyle} "flex flex-col leading-none mb-[0.5rem] mx-[1rem] md:mx-[0rem]"`}>
+      <div className={`${titleStyle} "flex flex-col leading-none mb-[0.5rem] mx-[1rem] md:mx-[0rem]`}>
         <p className="font-[500] italic text-[1.125rem] "> 
           TIRES JUST FOR YOU
         </p>

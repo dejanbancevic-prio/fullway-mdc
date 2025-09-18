@@ -6,7 +6,7 @@ const OurFeaturedTires = () => {
   return (
     <div className="w-full relative">
       <Image
-        src="/images/black.jpg"
+        src="/images/ProductPage/prodBg.jpg"
         alt=""
         width={1920}
         height={1080}
@@ -26,6 +26,7 @@ const OurFeaturedTires = () => {
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
               }
+              url_key={"hp108"}
             />
             <OurFeaturedTiresCard
               name={"HS 266"}
@@ -35,6 +36,7 @@ const OurFeaturedTires = () => {
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
               }
+              url_key={"hs266"}
             />
             <OurFeaturedTiresCard
               name={"PC 369"}
@@ -44,6 +46,7 @@ const OurFeaturedTires = () => {
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
               }
+              url_key={"pc369"}
             />
           </div>
           <div className="flex flex-col md:flex-row justify-between w-full gap-[9.5rem] md:gap-0 mt-[7.5rem] md:mt-[0rem]">
@@ -55,6 +58,7 @@ const OurFeaturedTires = () => {
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
               }
+              url_key={"pc368"}
             />
             <OurFeaturedTiresCard
               name={"HS 998"}
@@ -64,6 +68,7 @@ const OurFeaturedTires = () => {
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
               }
+              url_key={"hs998"}
             />
             <OurFeaturedTiresCard
               name={"HP 208"}
@@ -73,6 +78,7 @@ const OurFeaturedTires = () => {
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
               }
+              url_key={"hp208"}
             />
           </div>
           <div className="flex flex-col md:flex-row justify-center w-full mt-[7.5rem] md:mt-[0rem] ">
@@ -84,6 +90,7 @@ const OurFeaturedTires = () => {
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
               }
+              url_key={"hs288"}
             />
           </div>
         </div>

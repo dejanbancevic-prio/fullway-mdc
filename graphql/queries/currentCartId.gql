@@ -1,7 +1,0 @@
-query CurrentCartId {
-  currentCartId @client {
-    __typename
-    id
-    locked
-  }
-}

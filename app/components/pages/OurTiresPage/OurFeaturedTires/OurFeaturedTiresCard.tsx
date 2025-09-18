@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -7,15 +9,18 @@ type FeaturedTireCardProps = {
   name: string;
   text: string;
   tireImage: string;
+  url_key: string;
 };
 
 const OurFeaturedTiresCard = ({
   name,
   text,
   tireImage,
+  url_key,
 }: FeaturedTireCardProps) => {
+
   return (
-    <div className="relative  ">
+    <div className="relative">
       <div className="relative w-[21.4375rem] h-[21.5rem] z-20">
         <div className="absolute md:inset-0 top-[9rem] md:top-0 bg-[#141414] border-2 border-white skew-x-[-4deg] mx-[0.5rem] md:mx-[0rem] pb-[2rem] md:pb-[0rem]">
           <div className="flex flex-col justify-start items-center w-full ">
@@ -26,8 +31,11 @@ const OurFeaturedTiresCard = ({
               ALL SEASON
             </p>
             <p className="font-[400] text-center px-[5rem] ">{text}</p>
-            <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[3rem]">
-              <Link href="/our-tires" className="flex justify-between">
+            <Button
+              className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[3rem]"
+          
+            >
+              <Link href={`/product/${url_key}`} className="flex justify-between">
                 CHECK OUT
                 <Image
                   src="/icons/arrows/Icon=Arrow-Color=White.svg"

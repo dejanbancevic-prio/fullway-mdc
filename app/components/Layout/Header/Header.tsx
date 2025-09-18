@@ -17,7 +17,7 @@ const Header = () => {
         <div className="hidden md:flex justify-between items-center">
           <Link href="/">
             <Image
-              src="icons/logo/Fullway-Logo-White.svg"
+              src="/icons/logo/Fullway-Logo.png"
               alt="Fullway Logo"
               width={1920}
               height={1080}
@@ -74,7 +74,7 @@ const Header = () => {
         <div className="md:hidden flex justify-between items-center mx-[1.5rem]">
           <Link href="/">
             <Image
-              src="icons/logo/Fullway-Logo-White.svg"
+              src="/icons/logo/Fullway-Logo-White.svg"
               alt="Fullway Logo"
               width={1920}
               height={1080}
@@ -83,7 +83,7 @@ const Header = () => {
           </Link>
 
           <Image
-            src="icons/other/Hamburger-Icon.svg"
+            src="/icons/other/Hamburger-Icon.svg"
             alt="Fullway Logo"
             width={1920}
             height={1080}

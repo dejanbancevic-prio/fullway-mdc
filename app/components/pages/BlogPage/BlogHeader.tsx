@@ -7,8 +7,8 @@ import { Filter } from "lucide-react"; // using lucide-react icons
 
 const BlogHeader = () => {
   return (
-    <div className="flex w-full h-[4.375rem] mt-[3rem] md:mb-[0rem] mb-[10rem]">
-      <div className="md:max-w-7xl md:mx-auto mx-[1rem] w-full flex flex-col md:flex-row justify-between items-center gap-[2.12rem] md:gap-[2.25rem]">
+    <div className="flex w-full h-[4.375rem] md:mb-[0rem] mb-[10rem] bg-[#141414]">
+      <div className="md:max-w-7xl md:mx-auto mx-[1rem] w-full flex flex-col md:flex-row justify-between items-center gap-[2.12rem] md:gap-[2.25rem] ">
         <div className="flex flex-col justify-between h-full w-full ">
           <p>Page 2</p>
           <div className="gap-[0.5rem] hidden md:flex">

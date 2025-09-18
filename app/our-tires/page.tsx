@@ -16,7 +16,7 @@ const OurTiresPage = () => {
       />
 
       <BreadcrumbComp
-        bgColor={"bg-black"}
+        bgColor={"bg-[#141414]"}
         color={"text-white"}
         name={"Our Tires"}
         path={"/our-tires"}

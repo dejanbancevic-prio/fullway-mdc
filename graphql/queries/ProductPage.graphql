@@ -1,0 +1,45 @@
+query ProductPage($urlKey: String!) {
+  products(filter: { url_key: { eq: $urlKey } }) {
+    items {
+      url_key
+      name
+      description {
+        html
+      }
+      ... on ConfigurableProduct {
+        variants {
+          attributes {
+            label
+          }
+          product {
+            yotpo_rating_value
+            yotpo_review_count
+            #  max_air_pressure
+            size_text
+            url_key
+            uid
+            stock_status
+            name
+            season_text
+            price_range {
+              minimum_price {
+                final_price {
+                  value
+                  currency
+                }
+              }
+            }
+            size_text
+            load_index_text
+            speed_rating
+            utqg
+            rim_diameter_text
+            overall_diameter
+            tread_depth_text
+            sidewall_specifics_text
+          }
+        }
+      }
+    }
+  }
+}

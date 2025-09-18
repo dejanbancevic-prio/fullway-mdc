@@ -15,7 +15,7 @@ const BlogPage = () => {
       />
 
       <BreadcrumbComp
-        bgColor={"bg-black"}
+        bgColor={"bg-[#141414]"}
         color={"text-white"}
         name={"Blog"}
         path={"/blog"}

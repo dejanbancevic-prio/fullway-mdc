@@ -14,7 +14,7 @@ const Footer = () => {
             alt="Fullway Logo"
             width={1920}
             height={1080}
-            className="w-[174px] h-[33px]"
+            className="w-[10.875rem] h-[2.0625rem]"
           />
           <div className="flex flex-col ">
             <p className="font-[500] italic text-[1.125rem] ">

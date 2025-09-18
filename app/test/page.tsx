@@ -1,83 +1,64 @@
 "use client";
 
-import { GET_SPEC } from "@/graphql/queries/getSpecials";
+import {
+  ProductPageDocument,
+  ProductPageQuery,
+  ProductPageQueryVariables,
+} from "@/lib/__generated__/graphql";
 import { useQuery } from "@apollo/client/react";
-import { useEffect } from "react";
-
-type Continent = {
-  code: string;
-  name: string;
-};
-
-type GetContinentsData = {
-  continents: Continent[];
-};
-
-type Promotion = {
-  promo_url: string;
-  name: string;
-  label: string;
-  discount: string;
-  description: string;
-  date: string;
-  banner: string;
-  availability: string;
-};
-
-type Rebate = {
-  date: string;
-  description: string;
-  entity_id: string;
-  image: string;
-  name: string;
-  status: string;
-  url_key: string;
-};
-
-type SpecialsData = {
-  specials: {
-    promotions: Promotion[];
-    rebates: Rebate[];
-  };
-};
 
 const TestSpecials = () => {
-  const { data, loading, error } = useQuery<SpecialsData>(GET_SPEC);
+  const { data } = useQuery<ProductPageQuery, ProductPageQueryVariables>(
+    ProductPageDocument,
+    { variables: { urlKey: "hp108" } }
+  );
 
-  useEffect(() => {
-    if (data) {
-      console.log("Promotions:", data.specials.promotions);
-      console.log("Rebates:", data.specials.rebates);
-    }
-  }, [data]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  const decodeHtml = (html: string) => {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+  };
 
   return (
-    <main className="flex flex-col p-10">
-      <div className="font-bold text-4xl mb-4">Specials</div>
+    <div className="p-6">
+      {data?.products?.items?.map((item) => {
+        if (item?.__typename !== "ConfigurableProduct") return null;
 
-      <div className="mb-6">
-        <h2 className="font-semibold text-2xl">Promotions</h2>
-        {data?.specials.promotions.map((promo) => (
-          <div key={promo.promo_url}>
-            <p>{promo.name} - {promo.label}</p>
-            <p>{promo.discount}</p>
-          </div>
-        ))}
-      </div>
+        return (
+          <div key={item.url_key} className="mb-6  p-10 rounded">
+            <h2 className="font-bold text-xl">{item.name}</h2>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: decodeHtml(item.description?.html ?? ""),
+              }}
+              className="product-description"
+            />
 
-      <div>
-        <h2 className="font-semibold text-2xl">Rebates</h2>
-        {data?.specials.rebates.map((rebate) => (
-          <div key={rebate.entity_id}>
-            <p>{rebate.name}</p>
-            <p>{rebate.description}</p>
+            {item.variants?.map((variant) => {
+              if (!variant?.product) return null;
+
+              const p = variant.product;
+
+              //console.log(p.name)
+
+              return (
+                <div key={p.uid} className="ml-4 mt-2 border-l pl-4">
+                  <p>Variant: {p.name}</p>
+                  <p>
+                    Price: {p.price_range?.minimum_price?.final_price?.value}
+                    {p.price_range?.minimum_price?.final_price?.currency}
+                  </p>
+
+                  <p>Rim Diameter: {p.rim_diameter_text}</p>
+                  <p>Season: {p.season_text}</p>
+                  <p>Stock Status: {p.stock_status}</p>
+                </div>
+              );
+            })}
           </div>
-        ))}
-      </div>
-    </main>
+        );
+      })}
+    </div>
   );
 };
 

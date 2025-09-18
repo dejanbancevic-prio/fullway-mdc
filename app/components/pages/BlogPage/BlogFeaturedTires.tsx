@@ -5,7 +5,8 @@ import BlogCard from "./BlogCard";
 const BlogFeaturedTires = () => {
   const posts = Array(6).fill({
     name: "HS 266",
-    bgImage: "/images/HomePage/FeaturedTires/fulllway-suv-bg-image-placeholder.jpg",
+    bgImage:
+      "/images/HomePage/FeaturedTires/fulllway-suv-bg-image-placeholder.jpg",
     userFullName: "John Deer",
     date: "July 4th, 2025",
   });
@@ -13,7 +14,7 @@ const BlogFeaturedTires = () => {
   return (
     <div className="relative w-full">
       <Image
-        src="/images/black.jpg"
+        src="/images/ProductPage/prodBg.jpg"
         alt=""
         width={1920}
         height={1080}

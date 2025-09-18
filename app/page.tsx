@@ -5,6 +5,7 @@ import MostPopularTire from "./components/pages/HomePage/MostPopularTire/MostPop
 import Widget from "./components/Widget/Widget";
 
 const HomePage = () => {
+
   return (
     <main className="flex flex-col">
       <HomeHeroBanner />
@@ -22,7 +23,7 @@ const HomePage = () => {
 
       <FAQ />
 
-      <div id="widget" className="relative ">
+      <div id="widget" className="relative scroll-mt-[8rem]">
         <div className="bg-fullwayGrey w-full h-[14.3125rem]" />
         <div className="absolute inset-0 flex justify-center items-start z-20 mt-[6rem]">
           <Widget titleStyle="text-black" />
