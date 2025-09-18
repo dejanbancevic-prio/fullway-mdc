@@ -4,7 +4,7 @@ import fetch from "cross-fetch";
 export function createApolloClient() {
   return new ApolloClient({
     link: new HttpLink({
-      uri: "/api/graphql",
+      uri: process.env.NEXT_API_URL,
       fetch,
     }),
     cache: new InMemoryCache(),
