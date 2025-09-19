@@ -6,10 +6,13 @@ export function createApolloClient() {
     console.log("SSR Apollo URI ddadadadadadadada:", process.env.NEXT_API_URL);
   }
 
-  const uri =
-    typeof window === "undefined"
-      ? process.env.NEXT_API_URL ?? "https://staging.prioritytire.dev/graphql"
-      : "/api/graphql";
+  const originalFetch = global.fetch;
+  global.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
+    console.log("FETCH CALLED WITH:", input);
+    return originalFetch(input, init);
+  };
+
+  const uri = "https://staging.prioritytire.dev/graphql";
 
   return new ApolloClient({
     link: new HttpLink({

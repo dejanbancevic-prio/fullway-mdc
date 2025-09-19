@@ -1,6 +1,7 @@
 import { createServer } from 'node:http'
 import { createYoga } from 'graphql-yoga'
 import { makeExecutableSchema } from '@graphql-tools/schema'
+import { NextRequest } from 'next/server'
 
 const typeDefs = /* GraphQL */ `
   type Query {
@@ -19,10 +20,10 @@ const schema = makeExecutableSchema({
   resolvers,
 })
 
-const yoga = createYoga({ schema })
-
-const server = createServer(yoga)
-
-server.listen(4000, () => {
-  console.log('Yoga ready at http://localhost:4000/graphql //// http://localhost:3000/api/graphql')
+const yoga = createYoga<{ req: NextRequest }>({
+  schema,
+  graphqlEndpoint: '/api/graphql',
 })
+
+
+export { yoga as GET, yoga as POST }
