@@ -1,10 +1,19 @@
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import fetch from "cross-fetch";
+import { createApolloClient } from "./apollo-client";
 
-export const apolloClient = new ApolloClient({
-  link: new HttpLink({
-    uri: process.env.NEXT_API_URL,
-    fetch,
-  }),
-  cache: new InMemoryCache(),
-});
+let client: ReturnType<typeof createApolloClient> | null = null;
+
+export function getApolloClient(): ReturnType<typeof createApolloClient> {
+  // on server create a new client per request (safe for SSR)
+  if (typeof window === "undefined") {
+    return createApolloClient();
+  }
+
+  // on client reuse a singleton
+  if (!client) {
+    client = createApolloClient();
+  }
+  return client;
+}
+
+// backward-compatible export if other files import `apolloClient`
+export const apolloClient = getApolloClient();
