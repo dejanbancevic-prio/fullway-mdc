@@ -1,16 +1,26 @@
-// app/api/graphql/route.ts (or wherever your route.ts is)
+// app/api/graphql/route.ts
 import { NextRequest } from "next/server";
 import { createBuiltMeshHTTPHandler } from "../../../.mesh";
 
 /* --- Instrument global fetch early (server-side only) --- */
-const _origFetch = (globalThis as any).fetch;
+const _origFetch: typeof fetch | undefined = globalThis.fetch;
+
 if (typeof _origFetch === "function") {
-  (globalThis as any).fetch = async (input: any, init?: any) => {
-    try {
-      console.log("[GLOBAL FETCH] input:", String(input));
-    } catch (err) {
-      console.log("[GLOBAL FETCH] input stringify error", err);
-    }
+  globalThis.fetch = async (
+    input: RequestInfo | URL,
+    init?: RequestInit
+  ): Promise<Response> => {
+    const inputStr =
+      typeof input === "string"
+        ? input
+        : input instanceof URL
+        ? input.toString()
+        : input instanceof Request
+        ? input.url
+        : Object.prototype.toString.call(input);
+
+    console.log("[GLOBAL FETCH] input:", inputStr);
+
     return _origFetch(input, init);
   };
 } else {
@@ -34,7 +44,7 @@ function getAbsoluteUrl(req: NextRequest) {
   const host = req.headers.get("host") ?? "localhost:3000";
   const protocol = req.headers.get("x-forwarded-proto") || "https";
   const abs = `${protocol}://${host}${req.url}`;
-  console.log("[getAbsoluteUrl] host:", host, "proto:", protocol, "req.url:", req.url, "=>", abs);
+  console.log("[getAbsoluteUrl]", { host, protocol, reqUrl: req.url, abs });
   return abs;
 }
 
@@ -50,8 +60,8 @@ export async function POST(req: NextRequest) {
     console.log("[route.POST] meshRequest.url:", meshRequest.url);
     const res = await handler(meshRequest);
     return withCORS(res);
-  } catch (err: any) {
-    console.error("[route.POST] handler error:", err?.stack ?? err);
+  } catch (err) {
+    console.error("[route.POST] handler error:", err);
     throw err;
   }
 }
@@ -65,8 +75,8 @@ export async function GET(req: NextRequest) {
     console.log("[route.GET] meshRequest.url:", meshRequest.url);
     const res = await handler(meshRequest);
     return withCORS(res);
-  } catch (err: any) {
-    console.error("[route.GET] handler error:", err?.stack ?? err);
+  } catch (err) {
+    console.error("[route.GET] handler error:", err);
     throw err;
   }
 }
