@@ -1,24 +1,23 @@
-import { ApolloClient, InMemoryCache, HttpLink, makeVar } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import fetch from "cross-fetch";
 
 export function createApolloClient() {
-  if (typeof window !== "undefined") {
-    console.log("SSR Apollo URI ddadadadadadadada:", process.env.NEXT_API_URL);
+  const isServer = typeof window === "undefined";
+
+  if (isServer) {
+    console.log("SSR Apollo - server ENV NEXT_API_URL:", process.env.NEXT_API_URL);
+  } else {
+    console.log("Apollo running client-side");
   }
 
-  const originalFetch = global.fetch;
-  global.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
-    console.log("FETCH CALLED WITH:", input);
-    return originalFetch(input, init);
-  };
+  const uri = isServer
+    ? (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/graphql` : "http://localhost:3000/api/graphql")
+    : "/api/graphql";
 
-  const uri = "https://staging.prioritytire.dev/graphql";
+  console.log("Apollo client using URI:", uri);
 
   return new ApolloClient({
-    link: new HttpLink({
-      uri,
-      fetch,
-    }),
+    link: new HttpLink({ uri, fetch }),
     cache: new InMemoryCache(),
   });
 }

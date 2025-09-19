@@ -25,5 +25,9 @@ const yoga = createYoga<{ req: NextRequest }>({
   graphqlEndpoint: '/api/graphql',
 })
 
+const server = createServer(yoga)
 
-export { yoga as GET, yoga as POST }
+server.listen(4000, () => {
+  console.log('Yoga ready at http://localhost:4000/graphql //// http://localhost:3000/api/graphql')
+})
+
