@@ -6,15 +6,17 @@ export function createApolloClient() {
   const isServer = typeof window === "undefined";
 
   const getServerGraphqlUrl = () => {
-    // prefer calling our own app API route (absolute) so SSR hits internal mesh handler
+    // prefer our app API route (absolute) so SSR hits internal handler
     if (process.env.VERCEL_URL) {
       return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}/api/graphql`;
     }
     if (process.env.NEXT_PUBLIC_SITE_URL) {
       return `${process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")}/api/graphql`;
     }
-    // fall back to an explicit upstream backend if provided
+    // ONLY use an upstream BACKEND if you intentionally want to call it from SSR.
+    // Remove or comment this line to avoid hitting protected external endpoints.
     if (process.env.NEXT_API_URL) return process.env.NEXT_API_URL.trim();
+
     // local dev fallback
     return "http://localhost:3000/api/graphql";
   };
@@ -24,7 +26,7 @@ export function createApolloClient() {
     : (process.env.NEXT_PUBLIC_GRAPHQL_PATH || "/api/graphql");
 
   if (isServer) {
-    // temporary debug to confirm what SSR uses in Vercel logs (remove after verifying)
+    // debug — check Vercel logs to see the absolute URL used
     console.log("SSR GraphQL URI ->", uri);
   }
 
@@ -38,7 +40,6 @@ export function createApolloClient() {
   });
 }
 
-// ...existing code...
 let _apolloClient: ReturnType<typeof createApolloClient> | null = null;
 
 export function getApolloClient(): ReturnType<typeof createApolloClient> {
