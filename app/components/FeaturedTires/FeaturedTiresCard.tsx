@@ -8,6 +8,7 @@ type FeaturedTireCardProps = {
   model: string;
   bgImage: string;
   tireImage: string;
+  url: string;
 };
 
 const FeaturedTiresCard = ({
@@ -15,6 +16,7 @@ const FeaturedTiresCard = ({
   model,
   bgImage,
   tireImage,
+  url,
 }: FeaturedTireCardProps) => {
   return (
     <div className="relative w-[21.5rem] h-[31.125rem] shadow-2xl ">
@@ -42,7 +44,7 @@ const FeaturedTiresCard = ({
         <p className="font-[300] text-[1.25rem] italic">{name}</p>
         <p className="font-[700] text-[2rem] italic">{model}</p>
         <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[0.438rem]">
-          <Link href="/our-tires" className="flex justify-between">
+          <Link href={url} className="flex justify-between">
             VIEW TIRES
             <Image
               src="/icons/arrows/Icon=Arrow-Color=White.svg"

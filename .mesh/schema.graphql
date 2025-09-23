@@ -2318,6 +2318,7 @@ interface ProductInterface {
   magento_configurable_variation: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """A number representing the product's manufacturer."""
   manufacturer: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  max_air_pressure: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   max_credit: Float @deprecated(reason: "Use the `custom_attributes` field instead.")
   """An array of media gallery objects."""
   media_gallery: [MediaGalleryInterface]
@@ -3177,6 +3178,7 @@ type VirtualProduct implements ProductInterface & RoutableInterface & Customizab
   magento_configurable_variation: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """A number representing the product's manufacturer."""
   manufacturer: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  max_air_pressure: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   max_credit: Float @deprecated(reason: "Use the `custom_attributes` field instead.")
   """An array of media gallery objects."""
   media_gallery: [MediaGalleryInterface]
@@ -3459,6 +3461,7 @@ type SimpleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   magento_configurable_variation: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """A number representing the product's manufacturer."""
   manufacturer: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  max_air_pressure: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   max_credit: Float @deprecated(reason: "Use the `custom_attributes` field instead.")
   """An array of media gallery objects."""
   media_gallery: [MediaGalleryInterface]
@@ -5517,6 +5520,7 @@ type DownloadableProduct implements ProductInterface & RoutableInterface & Custo
   magento_configurable_variation: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """A number representing the product's manufacturer."""
   manufacturer: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  max_air_pressure: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   max_credit: Float @deprecated(reason: "Use the `custom_attributes` field instead.")
   """An array of media gallery objects."""
   media_gallery: [MediaGalleryInterface]
@@ -6325,6 +6329,7 @@ type BundleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   magento_configurable_variation: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """A number representing the product's manufacturer."""
   manufacturer: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  max_air_pressure: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   max_credit: Float @deprecated(reason: "Use the `custom_attributes` field instead.")
   """An array of media gallery objects."""
   media_gallery: [MediaGalleryInterface]
@@ -6787,6 +6792,7 @@ type GroupedProduct implements ProductInterface & RoutableInterface & PhysicalPr
   magento_configurable_variation: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """A number representing the product's manufacturer."""
   manufacturer: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  max_air_pressure: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   max_credit: Float @deprecated(reason: "Use the `custom_attributes` field instead.")
   """An array of media gallery objects."""
   media_gallery: [MediaGalleryInterface]
@@ -7101,6 +7107,7 @@ type ConfigurableProduct implements ProductInterface & RoutableInterface & Physi
   magento_configurable_variation: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """A number representing the product's manufacturer."""
   manufacturer: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  max_air_pressure: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   max_credit: Float @deprecated(reason: "Use the `custom_attributes` field instead.")
   """An array of media gallery objects."""
   media_gallery: [MediaGalleryInterface]

@@ -2344,6 +2344,8 @@ export type ProductInterface = {
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -3332,6 +3334,8 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -3758,6 +3762,8 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
    * @deprecated Use the `custom_attributes` field instead.
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
@@ -5838,6 +5844,8 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -6784,6 +6792,8 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -7383,6 +7393,8 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -7839,6 +7851,8 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
    * @deprecated Use the `custom_attributes` field instead.
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import Image from "next/image";
+import NewsLetterForm from "./NewsLetterForm";
 
 const Footer = () => {
   return (
@@ -24,16 +25,8 @@ const Footer = () => {
               SIGN UP TO OUR <br /> NEWSLETTER!
             </p>
           </div>
-          <div className="flex w-full max-w-sm items-center md:mt-[0rem] mt-[1.5rem] md:mb-[0rem] mb-[2.25rem]">
-            <Input
-              type="email"
-              placeholder="example@mail.com"
-              className="rounded-none w-[17.688rem]"
-            />
-            <Button className="bg-white text-black rounded-none italic text-base font-[600] hover:text-white cursor-pointer">
-              SIGN UP
-            </Button>
-          </div>
+
+          <NewsLetterForm />
         </div>
 
         <div className="flex flex-col justify-between md:gap-[0rem] gap-[2.25rem]">
@@ -41,25 +34,25 @@ const Footer = () => {
             <div className="flex flex-col w-full">
               <p className="font-[600] text-[1.25rem]">COMPANY</p>
               <div className="md:w-[12.958rem] w-full border-b-1 font-[400] text-[1rem]" />
-              <Link href={"/"}>About Us</Link>
-              <Link href={"/"}>Contact Us</Link>
-              <Link href={"/"}>Blog</Link>
+              <Link href={"/about-us"}>About Us</Link>
+              <Link href={"/contact"}>Contact Us</Link>
+              <Link href={"/blog"}>Blog</Link>
             </div>
 
             <div className="flex flex-col w-full">
               <p className="font-[600] text-[1.25rem]">SUPPORT</p>
               <div className="md:w-[12.958rem] w-full border-b-1 font-[400] text-[1rem]" />
-              <Link href={"/"}>About Us</Link>
-              <Link href={"/"}>Contact Us</Link>
-              <Link href={"/"}>Blog</Link>
+              <Link href={"/about-us"}>About Us</Link>
+              <Link href={"/contact"}>Contact Us</Link>
+              <Link href={"/blog"}>Blog</Link>
             </div>
 
             <div className="flex flex-col w-full">
               <p className="font-[600] text-[1.25rem]">OUR TIRES</p>
               <div className="md:w-[12.958rem] w-full border-b-1 font-[400] text-[1rem]" />
-              <Link href={"/"}>Passenger</Link>
-              <Link href={"/"}>SUV</Link>
-              <Link href={"/"}>Light Truck</Link>
+              <Link href={"/product/hs266"}>Passenger</Link>
+              <Link href={"/product/hs998"}>SUV</Link>
+              <Link href={"/product/hs288"}>Light Truck</Link>
             </div>
           </div>
 
@@ -127,7 +120,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center font-[300] mb-[1rem] mt-[3rem]">
-        <p>2025 Fullway. All Rights Reserved</p>
+        <p>{new Date().getFullYear()} Fullway. All Rights Reserved</p>
       </div>
     </div>
   );

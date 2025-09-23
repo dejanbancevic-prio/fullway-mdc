@@ -2,27 +2,48 @@ import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { BlogPageQuery } from "@/lib/__generated__/graphql";
+
+type BlogItem = NonNullable<
+  NonNullable<BlogPageQuery["awBlogPosts"]>["items"]
+>[number];
 
 type BlogCardProps = {
-  name: string;
-  userFullName: string;
-  date: string;
-  bgImage: string;
+  blog: BlogItem;
 };
 
-const BlogCard = ({ name, userFullName, date, bgImage }: BlogCardProps) => {
+const BlogCard = ({ blog }: BlogCardProps) => {
+  const bgImage =
+    "/images/HomePage/FeaturedTires/fulllway-suv-bg-image-placeholder.jpg";
+
+  const formattedDate = blog?.publish_date
+    ? new Date(blog.publish_date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
+
+  const author =
+    blog?.authors && blog.authors.length > 0
+      ? `${blog?.authors[0]?.firstname ?? ""} ${blog?.authors[0]?.lastname ??
+          ""}`.trim()
+      : "Unknown Author";
+
   return (
     <div className="relative w-[21.5rem] h-[31.125rem] shadow-2xl ">
-      <Image
-        src={bgImage}
-        alt="SUV Background"
-        width={1920}
-        height={1080}
-        className="object-cover skew-x-[-3deg] w-[21.5rem]  h-[31.125rem] px-[1.5rem] md:px-0"
-      />
+      <div className=" pl-[0.3rem] pr-[2.2rem] md:px-0">
+        <Image
+          src={bgImage}
+          alt="SUV Background"
+          width={1920}
+          height={1080}
+          className="object-cover skew-x-[-3deg] w-[21.5rem] h-[31.125rem] "
+        />
+      </div>
 
-      <div className="absolute inset-[0rem] bg-black/30 skew-x-[-3deg] " />
-      <div className="absolute inset-[0rem] bg-black/30 skew-x-[-3deg] " />
+      <div className="absolute inset-[0rem] mx-[0.3rem] mr-[2.2rem] md:mx-0 bg-black/30 skew-x-[-3deg]" />
+      <div className="absolute inset-[0rem] mx-[0.3rem] mr-[2.2rem] md:mx-0 bg-black/30 skew-x-[-3deg]" />
 
       <Image
         src="/icons/logo/Fullway-Logo-White.svg"
@@ -34,11 +55,11 @@ const BlogCard = ({ name, userFullName, date, bgImage }: BlogCardProps) => {
 
       <div className="absolute bottom-[2.25rem] left-[2.5rem] w-full">
         <p className="font-[300] text-[0.75rem] italic">Reviews</p>
-        <p className="font-[600] text-[1.75rem] leading-none mt-[0.62rem]">
-          {name} TIRE <br /> REVIEW
+        <p className="font-[600] text-[1.75rem] leading-none mt-[0.62rem] pr-[5rem]">
+          {blog?.title}
         </p>
-        <p className="font-[400] ">
-          {userFullName} • {date}
+        <p className="font-[400]">
+          {author} • {formattedDate}
         </p>
         <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[1.37rem]">
           <Link href="/" className="flex justify-between">

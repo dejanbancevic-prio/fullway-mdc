@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import FeaturedTiresCard from "./FeaturedTiresCard";
 
-type FeaturedTiresProps = {
-  scrollId?: string;
-};
+type FeaturedTiresProps = {};
 
-const FeaturedTires = ({ scrollId }: FeaturedTiresProps) => {
+const FeaturedTires = ({}: FeaturedTiresProps) => {
   return (
     <div className="w-full border-b-5 border-fullwayRed relative">
       <Image
@@ -46,7 +44,7 @@ const FeaturedTires = ({ scrollId }: FeaturedTiresProps) => {
                 <Link href="/our-tires">SHOP ALL TIRES</Link>
               </Button>
 
-              <Link href={`#${scrollId}`} className="font-[400] underline ">
+              <Link href={`#widget`} className="font-[400] underline ">
                 Find tires
               </Link>
             </div>
@@ -61,6 +59,7 @@ const FeaturedTires = ({ scrollId }: FeaturedTiresProps) => {
             tireImage={
               "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
             }
+            url={"/product/hs266"}
           />
           <FeaturedTiresCard
             name={"SUV"}
@@ -71,6 +70,7 @@ const FeaturedTires = ({ scrollId }: FeaturedTiresProps) => {
             tireImage={
               "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
             }
+            url={"/product/hs288"}
           />
         </div>
       </div>

@@ -126,16 +126,12 @@ const ProductFeatures = ({ product }: ProductFeaturesProps) => {
 
             <div className="font-[300] text-[1.25rem] md:pr-[0rem] pr-[10rem]">
               <p>
-                The tire offers excellent all weather traction. It combines its
-                all season compound and directional tread design to boost the
-                dry, wet and winter weather grip on the road surface.
+                {productVariant?.description_overview?.paragraphs?.[0]?.title}{" "}
+                {productVariant?.description_overview?.paragraphs?.[0]?.content
+                  ?.split(".")
+                  ?.filter(Boolean)[0]
+                  ?.trim() + "."}
               </p>
-
-              {/* <div
-                  dangerouslySetInnerHTML={{
-                    __html: product?.description?.html!,
-                  }}
-                /> */}
             </div>
 
             <ProductPicker product={product} />

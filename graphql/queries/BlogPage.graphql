@@ -1,0 +1,26 @@
+query BlogPage($keyWord: String!, $currentPage: Int!, $pageSize: Int!, ) {
+  awBlogPosts(
+    filter: { title: { like: $keyWord } }
+    currentPage: $currentPage
+    pageSize: $pageSize
+  ) {
+    total_count
+    items {
+      url_key
+      title
+      #short_content
+      publish_date
+      authors {
+        firstname
+        lastname
+      }
+      tags {
+        items {
+          id
+          name
+          url_key
+        }
+      }
+    }
+  }
+}

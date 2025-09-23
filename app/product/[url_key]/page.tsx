@@ -22,7 +22,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     variables: { urlKey: url_key },
   });
 
-  if (!data?.products?.items?.length) return <p>Product not found</p>;
+  if (!data?.products?.items?.length) return <p>Products not found</p>;
   const product = data.products.items[0];
 
   return (
@@ -31,8 +31,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <BreadcrumbComp
         bgColor={"bg-[#141414]"}
         color={"text-white"}
-        name={"Our Tires"}
-        path={"/our-tires"}
+        name={"About Us"}
+        path={"/about-us"}
       />
       <ProductMain product={product} />
       <FAQ />

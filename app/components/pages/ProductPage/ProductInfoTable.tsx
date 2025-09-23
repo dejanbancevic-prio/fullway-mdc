@@ -82,7 +82,6 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
             >
               <TableCell>{variant?.attributes?.[0]?.label ?? "N/A"}</TableCell>
               <TableCell className="md:hidden">
-           
                 <Drawer>
                   <DrawerTrigger asChild>
                     <Button className="bg-transparent underline font-[400] text-[0.75rem]">
@@ -95,7 +94,7 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                       <DrawerTitle></DrawerTitle>
                     </DrawerHeader>
 
-                    <div className="flex flex-col text-black text-[0.95rem]">
+                    <div className="flex flex-col text-black text-[0.95rem] mb-[3rem]">
                       <div className="flex justify-between py-2 px-4 bg-white">
                         <p>Size</p>
                         <p className="italic font-bold">
@@ -106,7 +105,6 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                       <div className="flex justify-between py-2 px-4 bg-gray-100">
                         <p>Load Index</p>
                         <p className="italic font-bold">
-                          {" "}
                           {variant?.product?.load_index_text ?? "N/A"}
                         </p>
                       </div>
@@ -114,7 +112,6 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                       <div className="flex justify-between py-2 px-4 bg-white">
                         <p>Speed Rating</p>
                         <p className="italic font-bold">
-                          {" "}
                           {variant?.product?.speed_rating ?? "N/A"}
                         </p>
                       </div>
@@ -122,7 +119,6 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                       <div className="flex justify-between py-2 px-4 bg-gray-100">
                         <p>UTQG</p>
                         <p className="italic font-bold">
-                          {" "}
                           {variant?.product?.utqg ?? "N/A"}
                         </p>
                       </div>
@@ -130,20 +126,18 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                       <div className="flex justify-between py-2 px-4 bg-white">
                         <p>Rim Width (in)</p>
                         <p className="italic font-bold">
-                          {" "}
                           {variant?.product?.rim_diameter_text ?? "N/A"}
                         </p>
                       </div>
 
                       <div className="flex justify-between py-2 px-4 bg-gray-100">
                         <p>Max Pressure (PSI)</p>
-                        <p className="italic font-bold">N/A</p>
+                        {variant?.product?.max_air_pressure ?? "N/A"}
                       </div>
 
                       <div className="flex justify-between py-2 px-4 bg-white">
                         <p>Overall Diameter (in)</p>
                         <p className="italic font-bold">
-                          {" "}
                           {variant?.product?.overall_diameter ?? "N/A"}
                         </p>
                       </div>
@@ -151,7 +145,6 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                       <div className="flex justify-between py-2 px-4 bg-gray-100">
                         <p>Tread Depth</p>
                         <p className="italic font-bold">
-                          {" "}
                           {variant?.product?.tread_depth_text ?? "N/A"}
                         </p>
                       </div>
@@ -159,7 +152,6 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                       <div className="flex justify-between py-2 px-4 bg-white">
                         <p>Sidewall</p>
                         <p className="italic font-bold">
-                          {" "}
                           {variant?.product?.sidewall_specifics_text ?? "N/A"}
                         </p>
                       </div>
@@ -180,7 +172,9 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
               <TableCell className="hidden md:table-cell">
                 {variant?.product?.rim_diameter_text ?? "N/A"}
               </TableCell>
-              <TableCell className="hidden md:table-cell">N/A</TableCell>
+              <TableCell className="hidden md:table-cell">
+                {variant?.product?.max_air_pressure ?? "N/A"}
+              </TableCell>
               <TableCell className="hidden md:table-cell">
                 {variant?.product?.overall_diameter ?? "N/A"}
               </TableCell>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import SizeDropMenu from "./SizeDropMenu";
 import Link from "next/link";
+import { addToCart } from "@/lib/cart";
 
 type ProductItem = NonNullable<
   NonNullable<ProductPageQuery["products"]>["items"]
@@ -235,7 +236,28 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
                 />
               </Button>
 
-              <Button className="buttonSkewSidebar w-[24rem] font-bold  rounded-md">
+              <Button
+                className="buttonSkewSidebar w-[24rem] font-bold rounded-md"
+                onClick={() => {
+                  if (!selectedVariant) return;
+
+                  addToCart({
+                    url_key: selectedVariant.product?.url_key!,
+                    name: selectedVariant.product?.name!,
+                    size: selectedVariant.attributes?.[0]?.label!,
+                    season_text: selectedVariant.product?.season_text!,
+                    final_price:
+                      selectedVariant.product?.price_range?.minimum_price
+                        ?.final_price?.value ?? 0,
+                    image_url:
+                      selectedVariant.product?.image?.url?.replace(
+                        /\/cache\/[^/]+/,
+                        ""
+                      ) || "",
+                    quantity: countFront,
+                  });
+                }}
+              >
                 ADD TO CART
               </Button>
             </div>

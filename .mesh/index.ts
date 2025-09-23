@@ -2358,6 +2358,8 @@ export type ProductInterface = {
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -3346,6 +3348,8 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -3772,6 +3776,8 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
    * @deprecated Use the `custom_attributes` field instead.
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
@@ -5852,6 +5858,8 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -6798,6 +6806,8 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -7397,6 +7407,8 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -7853,6 +7865,8 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
    * @deprecated Use the `custom_attributes` field instead.
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
@@ -14316,6 +14330,7 @@ export type ProductInterfaceResolvers<ContextType = MeshContext, ParentType exte
   lug_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   magento_configurable_variation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   manufacturer?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  max_air_pressure?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   max_credit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   media_gallery?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryInterface']>>>, ParentType, ContextType>;
   media_gallery_entries?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryEntry']>>>, ParentType, ContextType>;
@@ -14834,6 +14849,7 @@ export type VirtualProductResolvers<ContextType = MeshContext, ParentType extend
   lug_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   magento_configurable_variation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   manufacturer?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  max_air_pressure?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   max_credit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   media_gallery?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryInterface']>>>, ParentType, ContextType>;
   media_gallery_entries?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryEntry']>>>, ParentType, ContextType>;
@@ -15025,6 +15041,7 @@ export type SimpleProductResolvers<ContextType = MeshContext, ParentType extends
   lug_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   magento_configurable_variation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   manufacturer?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  max_air_pressure?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   max_credit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   media_gallery?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryInterface']>>>, ParentType, ContextType>;
   media_gallery_entries?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryEntry']>>>, ParentType, ContextType>;
@@ -15806,6 +15823,7 @@ export type DownloadableProductResolvers<ContextType = MeshContext, ParentType e
   lug_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   magento_configurable_variation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   manufacturer?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  max_air_pressure?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   max_credit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   media_gallery?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryInterface']>>>, ParentType, ContextType>;
   media_gallery_entries?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryEntry']>>>, ParentType, ContextType>;
@@ -16270,6 +16288,7 @@ export type BundleProductResolvers<ContextType = MeshContext, ParentType extends
   lug_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   magento_configurable_variation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   manufacturer?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  max_air_pressure?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   max_credit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   media_gallery?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryInterface']>>>, ParentType, ContextType>;
   media_gallery_entries?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryEntry']>>>, ParentType, ContextType>;
@@ -16553,6 +16572,7 @@ export type GroupedProductResolvers<ContextType = MeshContext, ParentType extend
   lug_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   magento_configurable_variation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   manufacturer?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  max_air_pressure?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   max_credit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   media_gallery?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryInterface']>>>, ParentType, ContextType>;
   media_gallery_entries?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryEntry']>>>, ParentType, ContextType>;
@@ -16763,6 +16783,7 @@ export type ConfigurableProductResolvers<ContextType = MeshContext, ParentType e
   lug_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   magento_configurable_variation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   manufacturer?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  max_air_pressure?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   max_credit?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   media_gallery?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryInterface']>>>, ParentType, ContextType>;
   media_gallery_entries?: Resolver<Maybe<Array<Maybe<ResolversTypes['MediaGalleryEntry']>>>, ParentType, ContextType>;

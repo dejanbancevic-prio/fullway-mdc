@@ -3,18 +3,25 @@ query ProductPage($urlKey: String!) {
     items {
       url_key
       name
-      description {
-        html
-      }
       ... on ConfigurableProduct {
         variants {
           attributes {
             label
           }
           product {
+            image {
+              disabled
+              url
+            }
+            description_overview {
+              paragraphs {
+                title
+                content
+              }
+            }
             yotpo_rating_value
             yotpo_review_count
-            #  max_air_pressure
+            max_air_pressure
             size_text
             url_key
             uid

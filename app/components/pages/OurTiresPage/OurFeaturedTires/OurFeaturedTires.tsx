@@ -31,7 +31,7 @@ const OurFeaturedTires = () => {
             <OurFeaturedTiresCard
               name={"HS 266"}
               text={
-                "Designed for any element, to keep you safe through the whole year."
+                "All season tire manufactured for passenger vehicles and SUVs."
               }
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
@@ -41,7 +41,7 @@ const OurFeaturedTires = () => {
             <OurFeaturedTiresCard
               name={"PC 369"}
               text={
-                "Designed for any element, to keep you safe through the whole year."
+                "The tread design allows the driver's full control over the vehicle during the drive.."
               }
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
@@ -53,7 +53,7 @@ const OurFeaturedTires = () => {
             <OurFeaturedTiresCard
               name={"PC 368"}
               text={
-                "Designed for any element, to keep you safe through the whole year."
+                "The design improves the steering responsiveness and the driving stability."
               }
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
@@ -63,7 +63,7 @@ const OurFeaturedTires = () => {
             <OurFeaturedTiresCard
               name={"HS 998"}
               text={
-                "Designed for any element, to keep you safe through the whole year."
+                "All season tire manufactured for SUVs, the tire offers excellent all weather traction."
               }
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
@@ -73,7 +73,7 @@ const OurFeaturedTires = () => {
             <OurFeaturedTiresCard
               name={"HP 208"}
               text={
-                "Designed for any element, to keep you safe through the whole year."
+                "It combines the all season compound and the asymmetric tread design for perfect grip."
               }
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
@@ -85,7 +85,7 @@ const OurFeaturedTires = () => {
             <OurFeaturedTiresCard
               name={"HS 288"}
               text={
-                "Designed for any element, to keep you safe through the whole year."
+                "High performance, all season tire manufactured for SUV, crossover and light truck vehicles."
               }
               tireImage={
                 "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"

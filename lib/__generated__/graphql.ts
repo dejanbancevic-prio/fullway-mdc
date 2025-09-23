@@ -1781,6 +1781,8 @@ export type BundleProduct = CustomizableProductInterface & PhysicalProductInterf
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -3242,6 +3244,8 @@ export type ConfigurableProduct = CustomizableProductInterface & PhysicalProduct
    * @deprecated Use the `custom_attributes` field instead.
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
@@ -5834,6 +5838,8 @@ export type DownloadableProduct = CustomizableProductInterface & ProductInterfac
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -6644,6 +6650,8 @@ export type GroupedProduct = PhysicalProductInterface & ProductInterface & Routa
    * @deprecated Use the `custom_attributes` field instead.
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
@@ -9081,6 +9089,8 @@ export type ProductInterface = {
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -10953,6 +10963,8 @@ export type SimpleProduct = CustomizableProductInterface & PhysicalProductInterf
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -12308,6 +12320,8 @@ export type VirtualProduct = CustomizableProductInterface & ProductInterface & R
    */
   manufacturer?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
+  max_air_pressure?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use the `custom_attributes` field instead. */
   max_credit?: Maybe<Scalars['Float']['output']>;
   /** An array of media gallery objects. */
   media_gallery?: Maybe<Array<Maybe<MediaGalleryInterface>>>;
@@ -12838,19 +12852,48 @@ export type CreateKlarnaPaymentsSessionInput = {
   cart_id: Scalars['String']['input'];
 };
 
+export type SubscribeEmailToNewsletterMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+}>;
+
+
+export type SubscribeEmailToNewsletterMutation = { __typename?: 'Mutation', subscribeEmailToNewsletter?: { __typename?: 'SubscribeEmailToNewsletterOutput', status?: SubscriptionStatusesEnum | null } | null };
+
+export type BlogPageQueryVariables = Exact<{
+  keyWord: Scalars['String']['input'];
+  currentPage: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+}>;
+
+
+export type BlogPageQuery = { __typename?: 'Query', awBlogPosts?: { __typename?: 'AwBlogPosts', total_count?: number | null, items?: Array<{ __typename?: 'AwBlogPost', url_key?: string | null, title?: string | null, publish_date?: string | null, authors?: Array<{ __typename?: 'AwBlogAuthor', firstname?: string | null, lastname?: string | null } | null> | null, tags?: { __typename?: 'AwBlogTags', items?: Array<{ __typename?: 'AwBlogTag', id?: number | null, name?: string | null, url_key?: string | null } | null> | null } | null } | null> | null } | null };
+
+export type BlogPageByTagQueryVariables = Exact<{
+  keyWord: Scalars['String']['input'];
+  currentPage: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+  tag_name: Scalars['String']['input'];
+}>;
+
+
+export type BlogPageByTagQuery = { __typename?: 'Query', awBlogPosts?: { __typename?: 'AwBlogPosts', total_count?: number | null, items?: Array<{ __typename?: 'AwBlogPost', url_key?: string | null, title?: string | null, publish_date?: string | null, authors?: Array<{ __typename?: 'AwBlogAuthor', firstname?: string | null, lastname?: string | null } | null> | null, tags?: { __typename?: 'AwBlogTags', items?: Array<{ __typename?: 'AwBlogTag', id?: number | null, name?: string | null, url_key?: string | null } | null> | null } | null } | null> | null } | null };
+
 export type ProductPageQueryVariables = Exact<{
   urlKey: Scalars['String']['input'];
 }>;
 
 
 export type ProductPageQuery = { __typename?: 'Query', products?: { __typename?: 'Products', items?: Array<
-      | { __typename?: 'BundleProduct', url_key?: string | null, name?: string | null, description?: { __typename?: 'ComplexTextValue', html: string } | null }
-      | { __typename?: 'ConfigurableProduct', url_key?: string | null, name?: string | null, variants?: Array<{ __typename?: 'ConfigurableVariant', attributes?: Array<{ __typename?: 'ConfigurableAttributeOption', label?: string | null } | null> | null, product?: { __typename?: 'SimpleProduct', yotpo_rating_value?: number | null, yotpo_review_count?: number | null, size_text?: string | null, url_key?: string | null, uid: string, stock_status?: ProductStockStatus | null, name?: string | null, season_text?: string | null, load_index_text?: string | null, speed_rating?: number | null, utqg?: string | null, rim_diameter_text?: string | null, overall_diameter?: string | null, tread_depth_text?: string | null, sidewall_specifics_text?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', value?: number | null, currency?: CurrencyEnum | null } } } } | null } | null> | null, description?: { __typename?: 'ComplexTextValue', html: string } | null }
-      | { __typename?: 'DownloadableProduct', url_key?: string | null, name?: string | null, description?: { __typename?: 'ComplexTextValue', html: string } | null }
-      | { __typename?: 'GroupedProduct', url_key?: string | null, name?: string | null, description?: { __typename?: 'ComplexTextValue', html: string } | null }
-      | { __typename?: 'SimpleProduct', url_key?: string | null, name?: string | null, description?: { __typename?: 'ComplexTextValue', html: string } | null }
-      | { __typename?: 'VirtualProduct', url_key?: string | null, name?: string | null, description?: { __typename?: 'ComplexTextValue', html: string } | null }
+      | { __typename?: 'BundleProduct', url_key?: string | null, name?: string | null }
+      | { __typename?: 'ConfigurableProduct', url_key?: string | null, name?: string | null, variants?: Array<{ __typename?: 'ConfigurableVariant', attributes?: Array<{ __typename?: 'ConfigurableAttributeOption', label?: string | null } | null> | null, product?: { __typename?: 'SimpleProduct', yotpo_rating_value?: number | null, yotpo_review_count?: number | null, max_air_pressure?: string | null, size_text?: string | null, url_key?: string | null, uid: string, stock_status?: ProductStockStatus | null, name?: string | null, season_text?: string | null, load_index_text?: string | null, speed_rating?: number | null, utqg?: string | null, rim_diameter_text?: string | null, overall_diameter?: string | null, tread_depth_text?: string | null, sidewall_specifics_text?: string | null, image?: { __typename?: 'ProductImage', disabled?: boolean | null, url?: string | null } | null, description_overview?: { __typename?: 'DescriptionOverview', paragraphs?: Array<{ __typename?: 'Paragraph', title?: string | null, content?: string | null } | null> | null } | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', value?: number | null, currency?: CurrencyEnum | null } } } } | null } | null> | null }
+      | { __typename?: 'DownloadableProduct', url_key?: string | null, name?: string | null }
+      | { __typename?: 'GroupedProduct', url_key?: string | null, name?: string | null }
+      | { __typename?: 'SimpleProduct', url_key?: string | null, name?: string | null }
+      | { __typename?: 'VirtualProduct', url_key?: string | null, name?: string | null }
      | null> | null } | null };
 
 
-export const ProductPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProductPage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"urlKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url_key"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"urlKey"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"html"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ConfigurableProduct"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"yotpo_rating_value"}},{"kind":"Field","name":{"kind":"Name","value":"yotpo_review_count"}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"stock_status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"season_text"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"load_index_text"}},{"kind":"Field","name":{"kind":"Name","value":"speed_rating"}},{"kind":"Field","name":{"kind":"Name","value":"utqg"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameter_text"}},{"kind":"Field","name":{"kind":"Name","value":"overall_diameter"}},{"kind":"Field","name":{"kind":"Name","value":"tread_depth_text"}},{"kind":"Field","name":{"kind":"Name","value":"sidewall_specifics_text"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProductPageQuery, ProductPageQueryVariables>;
+export const SubscribeEmailToNewsletterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SubscribeEmailToNewsletter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscribeEmailToNewsletter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables>;
+export const BlogPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BlogPage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"keyWord"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"awBlogPosts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"like"},"value":{"kind":"Variable","name":{"kind":"Name","value":"keyWord"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"currentPage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total_count"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"publish_date"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstname"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<BlogPageQuery, BlogPageQueryVariables>;
+export const BlogPageByTagDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BlogPageByTag"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"keyWord"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tag_name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"awBlogPosts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"like"},"value":{"kind":"Variable","name":{"kind":"Name","value":"keyWord"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"tag_name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tag_name"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"currentPage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total_count"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"publish_date"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstname"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<BlogPageByTagQuery, BlogPageByTagQueryVariables>;
+export const ProductPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProductPage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"urlKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url_key"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"urlKey"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ConfigurableProduct"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disabled"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description_overview"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paragraphs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"yotpo_rating_value"}},{"kind":"Field","name":{"kind":"Name","value":"yotpo_review_count"}},{"kind":"Field","name":{"kind":"Name","value":"max_air_pressure"}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"stock_status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"season_text"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"load_index_text"}},{"kind":"Field","name":{"kind":"Name","value":"speed_rating"}},{"kind":"Field","name":{"kind":"Name","value":"utqg"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameter_text"}},{"kind":"Field","name":{"kind":"Name","value":"overall_diameter"}},{"kind":"Field","name":{"kind":"Name","value":"tread_depth_text"}},{"kind":"Field","name":{"kind":"Name","value":"sidewall_specifics_text"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProductPageQuery, ProductPageQueryVariables>;

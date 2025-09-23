@@ -45,6 +45,7 @@ const ProdFeaturedTires = () => {
             tireImage={
               "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
             }
+            url={"/product/hs266"}
           />
           <FeaturedTiresCard
             name={"SUV"}
@@ -55,6 +56,7 @@ const ProdFeaturedTires = () => {
             tireImage={
               "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
             }
+            url={"/product/hs288"}
           />
         </div>
       </div>

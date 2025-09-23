@@ -30,9 +30,9 @@ const OurFeaturedTiresCard = ({
             <p className="font-[300] text-[1.25rem] italic mb-[1rem]">
               ALL SEASON
             </p>
-            <p className="font-[400] text-center px-[5rem] ">{text}</p>
+            <p className="font-[400] text-center px-[3rem] ">{text}</p>
             <Button
-              className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[3rem]"
+              className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[3rem] "
           
             >
               <Link href={`/product/${url_key}`} className="flex justify-between">

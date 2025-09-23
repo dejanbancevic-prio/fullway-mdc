@@ -19,7 +19,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <FeaturedTires scrollId="widget" />
+      <FeaturedTires/>
 
       <FAQ />
 
