@@ -19,7 +19,7 @@ type BlogHeaderProps = {
 };
 
 const BlogHeader = ({ tags }: BlogHeaderProps) => {
-  const selectedTag = useReactiveVar(selectedTagsVar);
+  const selectedTag = useReactiveVar(selectedTagsVar) ;
   const currentPage = useReactiveVar(currentPageVar);
   const searchValue = useReactiveVar(searchVar);
 
