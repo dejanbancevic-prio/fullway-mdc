@@ -4,18 +4,16 @@ import fetch from "cross-fetch";
 const isServer = typeof window === "undefined";
 
 function getServerGraphqlUrl(): string {
-  // explicit server-side upstream if provided
-  if (process.env.NEXT_API_URL) return process.env.NEXT_API_URL.trim();
-
-  // prefer Vercel provided hostname (VERCEL_URL is set in Vercel env)
+  // Prefer the app's internal API route so SSR hits the internal handler
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}/api/graphql`;
   }
-
-  // allow a public site origin if set
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return `${process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")}/api/graphql`;
   }
+
+  // Only use an explicit upstream if you really intend SSR to call it
+  if (process.env.NEXT_API_URL) return process.env.NEXT_API_URL.trim();
 
   // local dev fallback
   return "http://localhost:3000/api/graphql";
@@ -26,8 +24,7 @@ const uri = isServer
   : (process.env.NEXT_PUBLIC_GRAPHQL_PATH || "/api/graphql");
 
 if (isServer) {
-  // debug during build/runtime on Vercel — remove after verifying
-  // Vercel logs will show which URL SSR is using
+  // debug — check Vercel logs to confirm the absolute URL used for SSR
   // eslint-disable-next-line no-console
   console.log("SSR GraphQL URI ->", uri);
 }
