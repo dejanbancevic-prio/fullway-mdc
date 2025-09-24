@@ -242,10 +242,10 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
                   if (!selectedVariant) return;
 
                   addToCart({
-                    url_key: selectedVariant.product?.url_key!,
-                    name: selectedVariant.product?.name!,
-                    size: selectedVariant.attributes?.[0]?.label!,
-                    season_text: selectedVariant.product?.season_text!,
+                    url_key: selectedVariant.product?.url_key ?? "",
+                    name: selectedVariant.product?.name ?? "",
+                    size: selectedVariant.attributes?.[0]?.label ?? "",
+                    season_text: selectedVariant.product?.season_text ?? "",
                     final_price:
                       selectedVariant.product?.price_range?.minimum_price
                         ?.final_price?.value ?? 0,

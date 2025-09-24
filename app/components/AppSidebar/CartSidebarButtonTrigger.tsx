@@ -2,15 +2,21 @@
 
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
+import { sidebarTypeVar } from "@/lib/cache";
 import Image from "next/image";
 
-const SidebarTriggerButton = () => {
+const CartSidebarButtonTrigger = () => {
   const { toggleSidebar } = useSidebar();
+
+  const handleClick = (sidebarType: "cart" | "nav") => {
+    sidebarTypeVar(sidebarType);
+    toggleSidebar();
+  };
 
   return (
     <Button
       className="buttonSkew group text-base font-[700] px-[1rem]"
-      onClick={toggleSidebar}
+      onClick={() => handleClick("cart")}
     >
       CHECK OUT
       <Image
@@ -31,4 +37,4 @@ const SidebarTriggerButton = () => {
   );
 };
 
-export default SidebarTriggerButton;
+export default CartSidebarButtonTrigger;

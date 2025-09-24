@@ -4,9 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import FeaturedTiresCard from "./FeaturedTiresCard";
 
-type FeaturedTiresProps = {};
-
-const FeaturedTires = ({}: FeaturedTiresProps) => {
+const FeaturedTires = () => {
   return (
     <div className="w-full border-b-5 border-fullwayRed relative">
       <Image

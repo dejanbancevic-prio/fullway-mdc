@@ -27,12 +27,7 @@ const TestSpecials = () => {
         return (
           <div key={item.url_key} className="mb-6  p-10 rounded">
             <h2 className="font-bold text-xl">{item.name}</h2>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: decodeHtml(item.description?.html ?? ""),
-              }}
-              className="product-description"
-            />
+           
 
             {item.variants?.map((variant) => {
               if (!variant?.product) return null;

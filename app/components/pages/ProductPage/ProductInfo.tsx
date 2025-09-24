@@ -112,13 +112,40 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       </div>
 
       {product?.__typename === "ConfigurableProduct" && (
-        <ProductInfoTable
-          variants={
-            (filteredVariants ?? []).filter(
-              (v): v is NonNullable<typeof v> => v != null
-            ) as Variant[]
-          }
-        />
+        <div className="relative h-[31rem] w-full overflow-y-auto">
+          <div className="absolute top-0 left-0 w-full md:h-auto h-[3.5rem] z-20 flex text-[0.9rem] items-center bg-fullwayRed text-white font-[800] italic text-center">
+            <div className="pl-[6.3rem] md:pl-[8rem]">SIZE</div>
+            <div className="pl-[8.1rem] md:hidden">DETAILS</div>
+            <div className="hidden md:block pl-[11rem] ">LOAD INDEX</div>
+            <div className="hidden md:block pl-[3rem]">
+              SPEED <br /> RATING
+            </div>
+            <div className="hidden md:block pl-[2.8em]">UTQG</div>
+            <div className="hidden md:block pl-[3rem]">
+              RIM <br /> WIDTH (IN)
+            </div>
+            <div className="hidden md:block pl-[3rem]">
+              MAX <br /> PRESSURE <br /> (PSI)
+            </div>
+            <div className="hidden md:block pl-[2.7rem]">
+              OVERALL <br /> DIAMETER <br /> (IN)
+            </div>
+            <div className="hidden md:block pl-[2.5rem]">
+              TREAD <br /> DEPTH
+            </div>
+            <div className="hidden md:block pl-[6rem]">SIDEWALL</div>
+          </div>
+
+          <div className="">
+            <ProductInfoTable
+              variants={
+                (filteredVariants ?? []).filter(
+                  (v): v is NonNullable<typeof v> => v != null
+                ) as Variant[]
+              }
+            />
+          </div>
+        </div>
       )}
     </div>
   );

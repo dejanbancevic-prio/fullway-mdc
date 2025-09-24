@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -5,9 +7,14 @@ import {
   SidebarGroupContent,
   SidebarMenu,
 } from "@/components/ui/sidebar";
-import AppSidebarContent from "./AppSidebarContent";
+import CartSidebarContent from "./CartSidebarContent";
+import { useReactiveVar } from "@apollo/client/react";
+import NavSidebarContent from "./NavSidebarContent";
+import { sidebarTypeVar } from "@/lib/cache";
 
 const AppSidebar = () => {
+  const sidebarType = useReactiveVar(sidebarTypeVar);
+
   return (
     <Sidebar
       side="right"
@@ -15,15 +22,18 @@ const AppSidebar = () => {
       style={
         {
           "--sidebar-width": "35.25rem",
-          "--sidebar-width-mobile": "20rem",
         } as React.CSSProperties
       }
     >
-      <SidebarContent className="bg-white">
+      <SidebarContent className="bg-white ">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              <AppSidebarContent />
+              {sidebarType === "cart" ? (
+                <CartSidebarContent />
+              ) : (
+                <NavSidebarContent />
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

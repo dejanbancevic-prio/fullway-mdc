@@ -5,14 +5,19 @@ import "./Header.css";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { sidebarTypeVar } from "@/lib/cache";
 
 const Header = () => {
   const { toggleSidebar } = useSidebar();
 
+  const handleSidebarType = (sidebarType: "cart" | "nav") => {
+    sidebarTypeVar(sidebarType);
+    toggleSidebar();
+  };
+
   return (
     <header className="top-0 flex justify-center items-center">
       <div className="fixed w-full top-0 h-[5rem] bg-gradient-to-b from-black/80 to-transparent z-30" />
-
       <div className="fixed top-[1rem] z-40 w-full max-w-7xl">
         <div className="hidden md:flex justify-between items-center">
           <Link href="/">
@@ -21,7 +26,7 @@ const Header = () => {
               alt="Fullway Logo"
               width={1920}
               height={1080}
-              className="w-[174px] h-[33px]"
+              className="w-[10.875rem] h-[2.063rem]"
             />
           </Link>
 
@@ -48,7 +53,7 @@ const Header = () => {
               </Button>
 
               <Button
-                onClick={toggleSidebar}
+                onClick={() => handleSidebarType("cart")}
                 className="group buttonSkew text-base font-[700] pr-[1.1rem] relative"
               >
                 <Image
@@ -82,13 +87,18 @@ const Header = () => {
             />
           </Link>
 
-          <Image
-            src="/icons/other/Hamburger-Icon.svg"
-            alt="Fullway Logo"
-            width={1920}
-            height={1080}
-            className="w-[2rem] h-[1.2rem]"
-          />
+          <Button
+            className="bg-transparent"
+            onClick={() => handleSidebarType("nav")}
+          >
+            <Image
+              src="/icons/other/Hamburger-Icon.svg"
+              alt="Fullway Logo"
+              width={1920}
+              height={1080}
+              className="w-[2rem] h-[1.2rem]"
+            />
+          </Button>
         </div>
       </div>
     </header>

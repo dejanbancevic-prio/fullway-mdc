@@ -1,18 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useQuery, useReactiveVar } from "@apollo/client/react";
 import {
   BlogPageByTagDocument,
   BlogPageDocument,
+  BlogPageQuery,
 } from "@/lib/__generated__/graphql";
 import BlogCard from "./BlogCard";
 import { PaginationComp } from "../../PaginationComp/PaginationComp";
 import Image from "next/image";
-import { currentPageVar, searchVar, selectedTagVar } from "@/lib/cache";
+import { currentPageVar, searchVar, selectedTagsVar } from "@/lib/cache";
+
+type BlogItem = NonNullable<
+  NonNullable<BlogPageQuery["awBlogPosts"]>["items"]
+>[number];
 
 type BlogFeaturedTiresProps = {
-  initialBlogs: any[];
+  initialBlogs: BlogItem[];
   totalCount: number;
   pageSize: number;
   initialPage: number;
@@ -27,32 +32,30 @@ const BlogFeaturedTires = ({
   keyword,
 }: BlogFeaturedTiresProps) => {
   const currentPage = useReactiveVar(currentPageVar);
-  const selectedTag = useReactiveVar(selectedTagVar);
-  const searchValue = useReactiveVar(searchVar);
+  const selectedTags = useReactiveVar(selectedTagsVar);
+  const searchValue = useReactiveVar(searchVar) ?? "";
 
   useEffect(() => {
     currentPageVar(1);
-  }, [selectedTag]);
+  }, [selectedTags]);
 
-  const hasTag = selectedTag && selectedTag.trim() !== "";
+  const hasTags = selectedTags.length > 0;
 
-  const { data, loading, networkStatus } = hasTag
-    ? useQuery(BlogPageByTagDocument, {
-        variables: {
-          keyWord: keyword,
-          currentPage,
-          pageSize,
-          tag_name: selectedTag,
-        },
-        notifyOnNetworkStatusChange: true,
-      })
-    : useQuery(BlogPageDocument, {
-        variables: { keyWord: keyword, currentPage, pageSize },
-        notifyOnNetworkStatusChange: true,
-      });
+  const { data, loading, networkStatus } = useQuery(
+    hasTags ? BlogPageByTagDocument : BlogPageDocument,
+    {
+      variables: {
+        keyWord: keyword,
+        currentPage,
+        pageSize,
+        tag_names: selectedTags.length > 0 ? selectedTags : [], 
+      },
+      notifyOnNetworkStatusChange: true,
+    }
+  );
 
   const rawBlogs =
-    currentPage === initialPage && !selectedTag
+    currentPage === initialPage && !selectedTags
       ? initialBlogs
       : data?.awBlogPosts?.items ?? [];
 
@@ -60,7 +63,7 @@ const BlogFeaturedTires = ({
     searchValue?.trim() === ""
       ? rawBlogs
       : rawBlogs.filter((blog) =>
-          blog.title?.toLowerCase().includes(searchValue?.toLowerCase())
+          blog?.title?.toLowerCase().includes(searchValue?.toLowerCase())
         );
 
   const totalCountWithTag = data?.awBlogPosts?.total_count ?? totalCount;

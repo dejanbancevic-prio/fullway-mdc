@@ -13,14 +13,18 @@ import {
 const BlogPage = async () => {
   const pageSize = 6;
   const currentPage = 1;
-  const keyWord= "%michelin%"   //michelin  //fullway
+  const keyWord = "%michelin%"; //michelin  //fullway
 
   const { data } = await apolloClient.query<
     BlogPageQuery,
     BlogPageQueryVariables
   >({
     query: BlogPageDocument,
-    variables: { keyWord: keyWord, currentPage: currentPage, pageSize: pageSize },
+    variables: {
+      keyWord: keyWord,
+      currentPage: currentPage,
+      pageSize: pageSize,
+    },
   });
 
   const blogs = data?.awBlogPosts?.items ?? [];
@@ -28,8 +32,11 @@ const BlogPage = async () => {
 
   const tagSet = new Set<string>();
   blogs.forEach((blog) =>
-    blog?.tags?.items?.forEach((tag) => tagSet.add(tag?.name!))
+    blog?.tags?.items?.forEach((tag) => {
+      if (tag?.name) tagSet.add(tag.name);
+    })
   );
+
   const uniqueTags = Array.from(tagSet);
 
   return (

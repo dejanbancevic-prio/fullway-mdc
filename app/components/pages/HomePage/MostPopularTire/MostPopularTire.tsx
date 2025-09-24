@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import SidebarTriggerButton from "../../../AppSidebar/AppSidebarButtonTrigger";
+import CartSidebarButtonTrigger from "../../../AppSidebar/CartSidebarButtonTrigger";
 import WheelMotion from "./WheelMotion";
 import Image from "next/image";
 
@@ -77,7 +77,7 @@ const MostPopularTire = () => {
                   </div>
 
                   <div className="flex items-center gap-[1.5rem]">
-                    <SidebarTriggerButton />
+                    <CartSidebarButtonTrigger />
                     <Link href="/" className="font-[400] underline ">
                       Learn More
                     </Link>
@@ -112,7 +112,7 @@ const MostPopularTire = () => {
                   </div>
 
                   <div className="flex items-center gap-[1.5rem]">
-                    <SidebarTriggerButton />
+                    <CartSidebarButtonTrigger />
                     <Link href="/" className="font-[400] underline ">
                       Learn More
                     </Link>

@@ -62,7 +62,12 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           {author} • {formattedDate}
         </p>
         <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[1.37rem]">
-          <Link href="/" className="flex justify-between">
+          <Link
+            href={`https://www.prioritytire.com/blog/${blog?.url_key}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex justify-between"
+          >
             READ MORE
             <Image
               src="/icons/arrows/Icon=Arrow-Color=White.svg"

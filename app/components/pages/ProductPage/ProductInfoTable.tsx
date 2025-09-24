@@ -11,14 +11,12 @@ import { ProductPageQuery } from "@/lib/__generated__/graphql";
 
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useRef } from "react";
 
 type ProductItem = NonNullable<
   NonNullable<ProductPageQuery["products"]>["items"]
@@ -35,8 +33,9 @@ type ProductInfoTableProps = {
 };
 
 const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
+  const lastScrollRef = useRef(0);
   return (
-    <div className="h-[31rem] w-full overflow-y-auto">
+    <div className="h-[31rem] w-full overflow-y-auto ">
       <Table>
         <TableHeader>
           <TableRow className="bg-fullwayRed hover:bg-fullwayRed border-none">
@@ -82,7 +81,22 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
             >
               <TableCell>{variant?.attributes?.[0]?.label ?? "N/A"}</TableCell>
               <TableCell className="md:hidden">
-                <Drawer>
+                <Drawer
+                  onOpenChange={(open) => {
+                    if (open) {
+                      lastScrollRef.current = window.scrollY;
+                      document.documentElement.style.scrollBehavior = "auto";
+                    } else {
+                      setTimeout(() => {
+                        document.documentElement.style.scrollBehavior = "";
+                        window.scrollTo({
+                          top: lastScrollRef.current,
+                          behavior: "auto",
+                        });
+                      }, 50);
+                    }
+                  }}
+                >
                   <DrawerTrigger asChild>
                     <Button className="bg-transparent underline font-[400] text-[0.75rem]">
                       Check it out
@@ -132,7 +146,9 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
 
                       <div className="flex justify-between py-2 px-4 bg-gray-100">
                         <p>Max Pressure (PSI)</p>
-                        {variant?.product?.max_air_pressure ?? "N/A"}
+                        <p className="italic font-bold">
+                          {variant?.product?.max_air_pressure ?? "N/A"}
+                        </p>
                       </div>
 
                       <div className="flex justify-between py-2 px-4 bg-white">

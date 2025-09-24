@@ -2,10 +2,10 @@ query BlogPageByTag(
   $keyWord: String!
   $currentPage: Int!
   $pageSize: Int!
-  $tag_name: String!
+  $tag_names: [String]!
 ) {
   awBlogPosts(
-    filter: { title: { like: $keyWord }, tag_name: { eq: $tag_name } }
+    filter: { title: { like: $keyWord }, tag_name: { in: $tag_names } }
     currentPage: $currentPage
     pageSize: $pageSize
   ) {
