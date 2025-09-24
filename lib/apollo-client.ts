@@ -12,10 +12,16 @@ export function createApolloClient() {
     if (process.env.NEXT_PUBLIC_SITE_URL) {
       return `${process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "")}/api/graphql`;
     }
-    // Optional explicit upstream backend (use with caution)
-    if (process.env.NEXT_API_URL) return process.env.NEXT_API_URL.trim();
-    // Local dev fallback
-    return "http://localhost:3000/api/graphql";
+
+    // Only use explicit upstream if explicitly allowed (opt-in)
+    if (process.env.NEXT_API_URL && process.env.ALLOW_SSR_UPSTREAM === "true") {
+      return process.env.NEXT_API_URL.trim();
+    }
+
+    // Fail loud during build/prerender rather than silently calling a protected URL
+    throw new Error(
+      'Server GraphQL endpoint not configured for SSR. Set NEXT_PUBLIC_SITE_URL (preferred) or set NEXT_API_URL with ALLOW_SSR_UPSTREAM="true" (only if upstream is accessible).'
+    );
   };
 
   const uri = isServer
@@ -23,7 +29,7 @@ export function createApolloClient() {
     : (process.env.NEXT_PUBLIC_GRAPHQL_PATH || "/api/graphql");
 
   if (isServer) {
-    // temporary debug — check Vercel logs
+    // debug — check Vercel logs
     // eslint-disable-next-line no-console
     console.log("createApolloClient SSR GraphQL URI ->", uri);
   }
@@ -37,4 +43,3 @@ export function createApolloClient() {
     cache: new InMemoryCache(),
   });
 }
-// ...
