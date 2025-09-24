@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
   });
 
   const res = await handler(meshRequest);
-  return withCORS(res); 
+  return withCORS(res);
 }
 
 export async function OPTIONS() {
