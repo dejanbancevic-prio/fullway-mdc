@@ -18,7 +18,6 @@ const OurFeaturedTiresCard = ({
   tireImage,
   url_key,
 }: FeaturedTireCardProps) => {
-
   return (
     <div className="relative">
       <div className="relative w-[21.4375rem] h-[21.5rem] z-20">
@@ -31,11 +30,9 @@ const OurFeaturedTiresCard = ({
               ALL SEASON
             </p>
             <p className="font-[400] text-center px-[3rem] ">{text}</p>
-            <Button
-              className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[3rem] "
-          
-            >
-              <Link href={`/product/${url_key}`} className="flex justify-between">
+
+            <Link href={`/product/${url_key}`} className="flex justify-between">
+              <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[3rem] ">
                 CHECK OUT
                 <Image
                   src="/icons/arrows/Icon=Arrow-Color=White.svg"
@@ -51,8 +48,8 @@ const OurFeaturedTiresCard = ({
                   height={1080}
                   className="w-auto h-auto pl-[0.5rem] absolute right-[1rem] top-[0.6rem] opacity-0 group-hover:opacity-100"
                 />
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

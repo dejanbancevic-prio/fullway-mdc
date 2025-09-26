@@ -1,9 +1,11 @@
 import Widget from "../../Widget/Widget";
 import ProdFeaturedTires from "./ProductFeaturedTires";
 import Image from "next/image";
-import ProductFeatures from "./ProductFeatures";
+
 import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import ProductInfo from "./ProductInfo";
+import { YotpoReviews } from "../../yotpo/YotpoReviews";
+import ProductHeader from "./ProductHeader/ProductHeader";
 
 type ProductItem = NonNullable<
   NonNullable<ProductPageQuery["products"]>["items"]
@@ -27,7 +29,7 @@ const ProductMain = ({ product }: ProductMainProps) => {
         <div className="md:max-w-7xl md:mx-auto w-full flex flex-col gap-[4rem]">
           <div className="flex flex-col md:flex-row justify-between w-full gap-[9.5rem] md:gap-0">
             <div>
-              <ProductFeatures product={product} />
+              <ProductHeader product={product} />
             </div>
           </div>
 

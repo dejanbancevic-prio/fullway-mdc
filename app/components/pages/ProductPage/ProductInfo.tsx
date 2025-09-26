@@ -106,7 +106,8 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
             }`}
             onClick={() => setSelectedWidth(size)}
           >
-            {size}
+            {size}&rdquo;
+
           </Button>
         ))}
       </div>

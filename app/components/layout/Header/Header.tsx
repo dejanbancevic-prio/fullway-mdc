@@ -10,14 +10,14 @@ import { sidebarTypeVar } from "@/lib/cache";
 const Header = () => {
   const { toggleSidebar } = useSidebar();
 
-  const handleSidebarType = (sidebarType: "cart" | "nav") => {
+  const handleSidebarType = (sidebarType: string) => {
     sidebarTypeVar(sidebarType);
     toggleSidebar();
   };
 
   return (
     <header className="top-0 flex justify-center items-center">
-      <div className="fixed w-full top-0 h-[5rem] bg-gradient-to-b from-black/80 to-transparent z-30" />
+      <div className="fixed w-full top-0 h-[5rem] bg-gradient-to-b from-black/80 via-black/50 to-transparent z-30" />
       <div className="fixed top-[1rem] z-40 w-full max-w-7xl">
         <div className="hidden md:flex justify-between items-center">
           <Link href="/">

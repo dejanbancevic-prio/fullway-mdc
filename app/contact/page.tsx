@@ -2,6 +2,7 @@ import React from "react";
 import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
 import ContactContant from "../components/pages/ContactPage/ContactContant";
+import FAQ from "../components/FAQ/FAQ";
 
 const ContactPage = () => {
   return (
@@ -21,6 +22,10 @@ const ContactPage = () => {
       />
 
       <ContactContant />
+
+      <div id="faq" className="relative scroll-mt-[8rem]">
+        <FAQ />
+      </div>
     </main>
   );
 };

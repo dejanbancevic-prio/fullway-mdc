@@ -11,9 +11,17 @@ import CartSidebarContent from "./CartSidebarContent";
 import { useReactiveVar } from "@apollo/client/react";
 import NavSidebarContent from "./NavSidebarContent";
 import { sidebarTypeVar } from "@/lib/cache";
+import { JSX } from "react";
+import ProductsSidebarContent from "./ProductsSidebarContent";
 
 const AppSidebar = () => {
   const sidebarType = useReactiveVar(sidebarTypeVar);
+  const sidebarMap: Record<string, JSX.Element> = {
+    cart: <CartSidebarContent />,
+    nav: <NavSidebarContent />,
+    products: <ProductsSidebarContent/>
+  };
+  const sidebarContent = sidebarMap[sidebarType] ?? sidebarMap["cart"];
 
   return (
     <Sidebar
@@ -28,13 +36,7 @@ const AppSidebar = () => {
       <SidebarContent className="bg-white ">
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu>
-              {sidebarType === "cart" ? (
-                <CartSidebarContent />
-              ) : (
-                <NavSidebarContent />
-              )}
-            </SidebarMenu>
+            <SidebarMenu>{sidebarContent}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

@@ -5,7 +5,8 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { sidebarTypeVar } from "@/lib/cache";
 import Image from "next/image";
 
-const CartSidebarButtonTrigger = () => {
+const CartSidebarButtonTrigger = () => { // NOT IN USE
+
   const { toggleSidebar } = useSidebar();
 
   const handleClick = (sidebarType: "cart" | "nav") => {

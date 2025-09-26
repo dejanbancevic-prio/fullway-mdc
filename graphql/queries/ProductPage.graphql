@@ -1,6 +1,8 @@
 query ProductPage($urlKey: String!) {
   products(filter: { url_key: { eq: $urlKey } }) {
     items {
+      id
+      uid
       url_key
       name
       ... on ConfigurableProduct {
@@ -19,6 +21,7 @@ query ProductPage($urlKey: String!) {
                 content
               }
             }
+            sku
             yotpo_rating_value
             yotpo_review_count
             max_air_pressure

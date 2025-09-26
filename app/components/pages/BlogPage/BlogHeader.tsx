@@ -19,7 +19,7 @@ type BlogHeaderProps = {
 };
 
 const BlogHeader = ({ tags }: BlogHeaderProps) => {
-  const selectedTag = useReactiveVar(selectedTagsVar) ;
+  const selectedTag = useReactiveVar(selectedTagsVar);
   const currentPage = useReactiveVar(currentPageVar);
   const searchValue = useReactiveVar(searchVar);
 
@@ -85,19 +85,18 @@ const BlogHeader = ({ tags }: BlogHeaderProps) => {
               </Button>
             </div>
             <div className="flex justify-center items-center gap-[0.5rem]">
-              <Image
-                src="/icons/other/Icon=Filter-Color=White.svg"
-                alt="Filter Icon"
-                width={1920}
-                height={1080}
-                className="w-[1rem] h-[1rem]"
-              />
-
               <Drawer>
                 <DrawerTrigger asChild>
-                  <Button className="bg-transparent underline m-0 p-0 text-[1rem] cursor-pointer">
+                  <Image
+                    src="/icons/other/Icon=Filter-Color=White.svg"
+                    alt="Filter Icon"
+                    width={1920}
+                    height={1080}
+                    className="w-[1rem] h-[1rem]"
+                  />
+                  {/* <Button className="bg-transparent underline m-0 p-0 text-[1rem] cursor-pointer">
                     Filter
-                  </Button>
+                  </Button> */}
                 </DrawerTrigger>
 
                 <DrawerContent className="p-6">

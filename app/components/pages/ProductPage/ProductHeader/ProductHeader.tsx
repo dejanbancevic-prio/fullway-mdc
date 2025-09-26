@@ -3,7 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import ProductPicker from "./ProductPicker";
 import { ProductPageQuery } from "@/lib/__generated__/graphql";
-import amazonLinksRaw from "../../../../lib/amazonReviewLinks.json";
+import amazonLinksRaw from "../../../../../lib/amazonReviewLinks.json";
+import { Button } from "@/components/ui/button";
+import { YotpoReviews } from "../../../yotpo/YotpoReviews";
 
 type ProductItem = NonNullable<
   NonNullable<ProductPageQuery["products"]>["items"]
@@ -13,7 +15,7 @@ type ProductFeaturesProps = {
   product: ProductItem;
 };
 
-const ProductFeatures = ({ product }: ProductFeaturesProps) => {
+const ProductHeader = ({ product }: ProductFeaturesProps) => {
   const productVariant =
     product?.__typename === "ConfigurableProduct"
       ? product.variants?.[0]?.product
@@ -89,9 +91,10 @@ const ProductFeatures = ({ product }: ProductFeaturesProps) => {
 
               <p className="font-[300] text-[0.8rem] md:text-[1rem]">
                 {productVariant?.yotpo_rating_value ?? "N/A"}
-                <span className="underline cursor-pointer ml-[0.5rem]">
-                  ({productVariant?.yotpo_review_count ?? "N/A"})
-                </span>
+                <YotpoReviews
+                  yotpo_review_count={productVariant?.yotpo_review_count ?? 0}
+                  id={product?.id ?? 0}
+                />
               </p>
 
               <div className="flex gap-[0.5rem] font-[300] text-[0.8rem] md:text-[1rem]">
@@ -142,4 +145,4 @@ const ProductFeatures = ({ product }: ProductFeaturesProps) => {
   );
 };
 
-export default ProductFeatures;
+export default ProductHeader;

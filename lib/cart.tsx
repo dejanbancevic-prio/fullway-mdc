@@ -2,6 +2,7 @@ import { makeVar } from "@apollo/client";
 
 export type CartItem = {
   url_key: string;
+  sku: string;
   name: string;
   size: string;
   season_text: string;

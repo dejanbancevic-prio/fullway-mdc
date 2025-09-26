@@ -23,9 +23,9 @@ const AboutUsPage = () => {
 
       <FeaturedTires />
 
-      <div className="md:hidden ">
+      {/* <div className="md:hidden ">
         <FAQ />
-      </div>
+      </div> */}
     </main>
   );
 };

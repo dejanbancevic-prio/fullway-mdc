@@ -9,6 +9,7 @@ import {
   type SubscribeEmailToNewsletterMutation,
   type SubscribeEmailToNewsletterMutationVariables,
 } from "@/lib/__generated__/graphql";
+import { toast } from "sonner";
 
 const NewsLetterForm = () => {
   const [email, setEmail] = useState("");
@@ -24,12 +25,16 @@ const NewsLetterForm = () => {
   const handleSubscribe = async () => {
 
       if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address");
+   
+     toast("Please enter a valid email address.", {
+      icon: "❌",
+        });
       return;
     }
     try {
       await subscribe({ variables: { email } });
       setEmail(""); 
+      toast("You have successfully subscribed to the newsletter.", {});
     } catch (err) {
       console.error(err);
     }
@@ -45,7 +50,7 @@ const NewsLetterForm = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <Button
-          onClick={handleSubscribe}
+          onClick={()=>{handleSubscribe();  } }
            data-disabled={!isEmailValid || loading}
           className="bg-white text-black rounded-none italic text-base font-[600]
            hover:text-white cursor-pointer disabled:!bg-white disabled:!text-black disabled:!cursor-not-allowed"

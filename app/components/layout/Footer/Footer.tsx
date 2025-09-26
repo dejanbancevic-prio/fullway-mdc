@@ -45,6 +45,7 @@ const Footer = () => {
               <Link href={"/about-us"}>About Us</Link>
               <Link href={"/contact"}>Contact Us</Link>
               <Link href={"/blog"}>Blog</Link>
+              <Link href={"/contact#faq"}>FAQ</Link>
             </div>
 
             <div className="flex flex-col w-full">

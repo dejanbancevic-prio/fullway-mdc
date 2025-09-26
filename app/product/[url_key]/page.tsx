@@ -35,7 +35,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         path={"/about-us"}
       />
       <ProductMain product={product} />
-      <FAQ />
+      {/* <FAQ /> */}
     </main>
   );
 }
