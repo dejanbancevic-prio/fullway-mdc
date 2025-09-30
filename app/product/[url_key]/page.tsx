@@ -1,4 +1,3 @@
-import FAQ from "@/app/components/FAQ/FAQ";
 import {
   ProductPageDocument,
   ProductPageQuery,
@@ -31,11 +30,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <BreadcrumbComp
         bgColor={"bg-[#141414]"}
         color={"text-white"}
-        nestedFirst={"About Us"}
-        pathFirst={"/about-us"}
+        nestedFirst={"Our Tires"}
+        pathFirst={"/our-tires"}
+        nestedSecond={product?.name}
+        pathSecond={`/product/${product?.url_key}`}
       />
       <ProductMain product={product} />
-      {/* <FAQ /> */}
     </main>
   );
 }

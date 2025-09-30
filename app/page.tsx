@@ -1,4 +1,3 @@
-import FAQ from "./components/FAQ/FAQ";
 import FeaturedTires from "./components/FeaturedTires/FeaturedTires";
 import HomeHeroBanner from "./components/pages/HomePage/HomeHeroBanner";
 import MostPopularTire from "./components/pages/HomePage/MostPopularTire/MostPopularTire";
@@ -17,16 +16,7 @@ const HomePage = () => {
 
       <MostPopularTire />
 
-      {/* <div className="relative mb-[12rem] md:mb-[0rem]">
-        <div className="bg-fullwayGrey w-full md:h-[14.3125rem] h-[20rem]" />
-        <div className="absolute inset-0 flex justify-center items-start z-20 mt-[3rem]">
-          <Widget titleStyle="text-black" />
-        </div>
-      </div> */}
-
       <FeaturedTires />
-
-      {/* <FAQ /> */}
 
       {/* <div id="widget" className="relative scroll-mt-[8rem]">
         <div className="bg-fullwayGrey w-full h-[14.3125rem]" />

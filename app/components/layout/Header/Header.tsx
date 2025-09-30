@@ -1,7 +1,6 @@
 "use client";
 
 import { useSidebar } from "@/components/ui/sidebar";
-import "./Header.css";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -31,19 +30,28 @@ const Header = () => {
           </Link>
 
           <div className="flex justify-center items-center gap-[2.25rem]">
-            <Link className="navMenuLink" href="/our-tires">
+            <Link
+              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md;"
+              href="/our-tires"
+            >
               OUR TIRES
             </Link>
 
-            <Link className="navMenuLink" href="/about-us">
+            <Link
+              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md;"
+              href="/about-us"
+            >
               ABOUT US
             </Link>
 
-            <Link className="navMenuLink" href="/blog">
+            <Link
+              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md;"
+              href="/blog"
+            >
               BLOG
             </Link>
 
-            <Button className="navMenuLink">
+            <Button className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md;">
               <Link href="/contact">CONTACT</Link>
             </Button>
 

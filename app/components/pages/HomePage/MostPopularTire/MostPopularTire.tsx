@@ -1,6 +1,4 @@
-import React from "react";
 import Link from "next/link";
-import CartSidebarButtonTrigger from "../../../AppSidebar/CartSidebarButtonTrigger";
 import WheelMotion from "./WheelMotion";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -128,9 +126,24 @@ const MostPopularTire = () => {
                   </div>
 
                   <div className="flex items-center gap-[1.5rem]">
-                    <CartSidebarButtonTrigger />
-                    <Link href="/" className="font-[400] underline ">
-                      Learn More
+                    <Link href="/product/hs998">
+                      <Button className="buttonSkew group text-base font-[700] px-[1rem]">
+                        CHECK OUT
+                        <Image
+                          src="/icons/arrows/Icon=Arrow-Color=White.svg"
+                          alt="Arrow 3"
+                          width={1920}
+                          height={1080}
+                          className="w-auto h-auto pl-[0.5rem] group-hover:opacity-0"
+                        />
+                        <Image
+                          src="/icons/arrows/Icon=Arrow-Color=Dark.svg"
+                          alt="Arrow 3"
+                          width={1920}
+                          height={1080}
+                          className="w-auto h-auto pl-[0.5rem] absolute right-[1rem] opacity-0 group-hover:opacity-100"
+                        />
+                      </Button>
                     </Link>
                   </div>
                 </div>

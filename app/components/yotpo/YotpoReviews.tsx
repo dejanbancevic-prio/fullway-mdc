@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dialog";
 import YotpoScript from "./YotpoScript";
 import { useYotpoInit } from "@/hooks/useYotpoInit";
-import Image from "next/image";
 
 
 type ProductReviewsProps = {

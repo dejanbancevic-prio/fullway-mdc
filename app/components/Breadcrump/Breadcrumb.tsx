@@ -10,7 +10,7 @@ type BreadcrumbCompProps = {
   bgColor: string;
   color: string;
   nestedFirst: string;
-  nestedSecond?: string;
+  nestedSecond?: string | null;
   pathFirst: string;
   pathSecond?: string;
 };

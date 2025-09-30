@@ -7,7 +7,7 @@ import {
   SidebarGroupContent,
   SidebarMenu,
 } from "@/components/ui/sidebar";
-import CartSidebarContent from "./CartSidebarContent";
+import CartSidebarContent from "./CartSidebar/CartSidebarContent";
 import { useReactiveVar } from "@apollo/client/react";
 import NavSidebarContent from "./NavSidebarContent";
 import { sidebarTypeVar } from "@/lib/cache";

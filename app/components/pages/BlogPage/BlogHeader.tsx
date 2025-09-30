@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -94,9 +95,7 @@ const BlogHeader = ({ tags }: BlogHeaderProps) => {
                     height={1080}
                     className="w-[1rem] h-[1rem]"
                   />
-                  {/* <Button className="bg-transparent underline m-0 p-0 text-[1rem] cursor-pointer">
-                    Filter
-                  </Button> */}
+                 
                 </DrawerTrigger>
 
                 <DrawerContent className="p-6">

@@ -1,10 +1,8 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ProductPicker from "./ProductPicker";
+import ProductPicker from "./ProductPicker/ProductPicker";
 import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import amazonLinksRaw from "../../../../../lib/amazonReviewLinks.json";
-import { Button } from "@/components/ui/button";
 import { YotpoReviews } from "../../../yotpo/YotpoReviews";
 
 type ProductItem = NonNullable<

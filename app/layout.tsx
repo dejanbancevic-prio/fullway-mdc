@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import LayoutWrapper from "./components/layout/LayoutWrapper/LayoutWrapper";
 import ApolloProviderClient from "./providers/ApolloProviderClient";
-import Script from "next/script";
-import YotpoScript from "./components/yotpo/YotpoScript";
 
 export const metadata: Metadata = {
   title: "Fullway",

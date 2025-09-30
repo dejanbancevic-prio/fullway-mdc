@@ -1,10 +1,7 @@
-import Widget from "../../Widget/Widget";
 import ProdFeaturedTires from "./ProductFeaturedTires";
 import Image from "next/image";
-
 import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import ProductInfo from "./ProductInfo";
-import { YotpoReviews } from "../../yotpo/YotpoReviews";
 import ProductHeader from "./ProductHeader/ProductHeader";
 
 type ProductItem = NonNullable<

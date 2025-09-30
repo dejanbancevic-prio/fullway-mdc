@@ -7,7 +7,7 @@ import { sidebarTypeVar } from "@/lib/cache";
 const NavSidebarContent = () => {
   const { toggleSidebar } = useSidebar();
 
-  const handleSidebarType = (sidebarType: "cart" | "nav") => {
+  const handleSidebarType = (sidebarType: string) => {
     sidebarTypeVar(sidebarType);
   };
 
