@@ -63,9 +63,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         </p>
         <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[1.37rem]">
           <Link
-            href={`https://www.prioritytire.com/blog/${blog?.url_key}`}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`/blog/${blog?.url_key}`}
             className="flex justify-between"
           >
             READ MORE

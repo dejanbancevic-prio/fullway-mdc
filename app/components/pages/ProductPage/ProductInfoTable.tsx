@@ -36,13 +36,13 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
   const lastScrollRef = useRef(0);
   return (
     <div className="h-[31rem] w-full overflow-y-auto ">
-      <Table>
+      <Table className="table-fixed w-full">
         <TableHeader>
           <TableRow className="bg-fullwayRed hover:bg-fullwayRed border-none">
-            <TableHead className="font-[800] text-white italic p-[1rem] text-center">
+            <TableHead className="md:w-[20%] w-[60%] font-[800] text-white italic p-[1rem] text-center">
               SIZE
             </TableHead>
-            <TableHead className="font-[800] md:hidden text-white italic p-[1rem] text-center">
+            <TableHead className="font-[800] w-[30%] md:hidden text-white italic p-[1rem] text-center">
               DETAILS
             </TableHead>
 
@@ -52,13 +52,13 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
             <TableHead className="hidden md:table-cell font-[800] text-white italic text-center">
               SPEED <br /> RATING
             </TableHead>
-            <TableHead className="hidden md:table-cell font-[800] text-white italic text-center">
+            <TableHead className=" hidden md:table-cell font-[800] text-white italic text-center">
               UTQG
             </TableHead>
             <TableHead className="hidden md:table-cell font-[800] text-white italic text-center">
               RIM <br /> WIDTH (IN)
             </TableHead>
-            <TableHead className="hidden md:table-cell font-[800] text-white italic text-center">
+            <TableHead className=" hidden md:table-cell font-[800] text-white italic text-center">
               MAX <br /> PRESSURE <br /> (PSI)
             </TableHead>
             <TableHead className="hidden md:table-cell font-[800] text-white italic text-center">
@@ -67,7 +67,7 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
             <TableHead className="hidden md:table-cell font-[800] text-white italic text-center">
               TREAD <br /> DEPTH
             </TableHead>
-            <TableHead className="hidden md:table-cell font-[800] text-white italic text-center">
+            <TableHead className="w-[15%] hidden md:table-cell font-[800] text-white italic text-center">
               SIDEWALL
             </TableHead>
           </TableRow>
@@ -79,7 +79,7 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
               key={idx}
               className="border-none even:bg-[#1D1D1D] font-[800] text-white italic text-center"
             >
-              <TableCell>{variant?.attributes?.[0]?.label ?? "N/A"}</TableCell>
+              <TableCell className="text-center ">{variant?.attributes?.[0]?.label ?? "N/A"}</TableCell>
               <TableCell className="md:hidden">
                 <Drawer
                   onOpenChange={(open) => {
@@ -98,7 +98,7 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                   }}
                 >
                   <DrawerTrigger asChild>
-                    <Button className="bg-transparent underline font-[400] text-[0.75rem]">
+                    <Button className="bg-transparent underline text-center font-[400] text-[0.75rem]">
                       Check it out
                     </Button>
                   </DrawerTrigger>
@@ -111,7 +111,7 @@ const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {
                     <div className="flex flex-col text-black text-[0.95rem] mb-[3rem]">
                       <div className="flex justify-between py-2 px-4 bg-white">
                         <p>Size</p>
-                        <p className="italic font-bold">
+                        <p className="italic font-bold w-20">
                           {variant?.attributes?.[0]?.label ?? "N/A"}
                         </p>
                       </div>

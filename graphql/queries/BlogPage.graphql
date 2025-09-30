@@ -1,4 +1,4 @@
-query BlogPage($keyWord: String!, $currentPage: Int!, $pageSize: Int!, ) {
+query BlogPage($keyWord: String!, $currentPage: Int!, $pageSize: Int!) {
   awBlogPosts(
     filter: { title: { like: $keyWord } }
     currentPage: $currentPage
@@ -8,12 +8,12 @@ query BlogPage($keyWord: String!, $currentPage: Int!, $pageSize: Int!, ) {
     items {
       url_key
       title
-      #short_content
       publish_date
       authors {
         firstname
         lastname
       }
+      content
       tags {
         items {
           id

@@ -9,15 +9,19 @@ import {
 type BreadcrumbCompProps = {
   bgColor: string;
   color: string;
-  name: string;
-  path: string;
+  nestedFirst: string;
+  nestedSecond?: string;
+  pathFirst: string;
+  pathSecond?: string;
 };
 
 export function BreadcrumbComp({
   bgColor,
   color,
-  name,
-  path,
+  nestedFirst,
+  nestedSecond,
+  pathFirst,
+  pathSecond,
 }: BreadcrumbCompProps) {
   return (
     <div className={`${bgColor} w-full`}>
@@ -36,11 +40,24 @@ export function BreadcrumbComp({
             <BreadcrumbItem>
               <BreadcrumbLink
                 className={`${color} hover:!text-fullwayRed`}
-                href={path}
+                href={pathFirst}
               >
-                {name}
+                {nestedFirst}
               </BreadcrumbLink>
             </BreadcrumbItem>
+            {nestedSecond && (
+              <>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink
+                    className={`${color} hover:!text-fullwayRed`}
+                    href={pathSecond}
+                  >
+                    {nestedSecond}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </>
+            )}
           </BreadcrumbList>
         </Breadcrumb>
       </div>

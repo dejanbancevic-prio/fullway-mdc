@@ -115,23 +115,23 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       {product?.__typename === "ConfigurableProduct" && (
         <div className="relative h-[31rem] w-full overflow-y-auto">
           <div className="absolute top-0 left-0 w-full md:h-auto h-[3.5rem] z-20 flex text-[0.9rem] items-center bg-fullwayRed text-white font-[800] italic text-center">
-            <div className="pl-[6.3rem] md:pl-[8rem]">SIZE</div>
-            <div className="pl-[8.1rem] md:hidden">DETAILS</div>
-            <div className="hidden md:block pl-[11rem] ">LOAD INDEX</div>
-            <div className="hidden md:block pl-[3rem]">
+            <div className="pl-[6rem] md:pl-[7rem]">SIZE</div>
+            <div className="pl-[8rem] md:hidden">DETAILS</div>
+            <div className="hidden md:block pl-[8rem] ">LOAD INDEX</div>
+            <div className="hidden md:block pl-[3.5rem]">
               SPEED <br /> RATING
             </div>
-            <div className="hidden md:block pl-[2.8em]">UTQG</div>
-            <div className="hidden md:block pl-[3rem]">
+            <div className="hidden md:block pl-[5em]">UTQG</div>
+            <div className="hidden md:block pl-[4rem]">
               RIM <br /> WIDTH (IN)
             </div>
-            <div className="hidden md:block pl-[3rem]">
+            <div className="hidden md:block pl-[2.6rem]">
               MAX <br /> PRESSURE <br /> (PSI)
             </div>
-            <div className="hidden md:block pl-[2.7rem]">
+            <div className="hidden md:block pl-[3rem]">
               OVERALL <br /> DIAMETER <br /> (IN)
             </div>
-            <div className="hidden md:block pl-[2.5rem]">
+            <div className="hidden md:block pl-[3.7rem]">
               TREAD <br /> DEPTH
             </div>
             <div className="hidden md:block pl-[6rem]">SIDEWALL</div>

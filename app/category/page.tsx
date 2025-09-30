@@ -7,13 +7,12 @@ import FAQ from "../components/FAQ/FAQ";
 const CategoryPage = () => {
   return (
     <main className="flex flex-col">
-
-      <div className="h-[5rem] bg-[#141414]"/>
+      <div className="h-[5rem] bg-[#141414]" />
       <BreadcrumbComp
         bgColor={"bg-[#141414]"}
         color={"text-white"}
-        name={"Category"}
-        path={"/category"}
+        nestedFirst={"Category"}
+        pathFirst={"/category"}
       />
 
       <OurFeaturedTires />

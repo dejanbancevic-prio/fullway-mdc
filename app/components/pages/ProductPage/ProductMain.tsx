@@ -33,9 +33,9 @@ const ProductMain = ({ product }: ProductMainProps) => {
             </div>
           </div>
 
-          <div id="widget" className="scroll-mt-[8rem]">
+          {/* <div id="widget" className="scroll-mt-[8rem]">
             <Widget titleStyle="text-white" />
-          </div>
+          </div> */}
 
           <div className="md:mb-[15rem] mb-[40rem]">
             <ProductInfo product={product} />

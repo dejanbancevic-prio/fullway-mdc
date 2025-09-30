@@ -2,7 +2,6 @@ import AboutFactory from "../components/pages/AboutUsPage/AboutFactory";
 import AboutHeroBanner from "../components/pages/AboutUsPage/AboutHeroBanner";
 import Certification from "../components/pages/AboutUsPage/Certification";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
-import FAQ from "../components/FAQ/FAQ";
 import FeaturedTires from "../components/FeaturedTires/FeaturedTires";
 
 const AboutUsPage = () => {
@@ -13,8 +12,8 @@ const AboutUsPage = () => {
       <BreadcrumbComp
         bgColor={"bg-fullwayGrey"}
         color={"text-black"}
-        name={"About Us"}
-        path={"/about-us"}
+        nestedFirst={"About Us"}
+        pathFirst={"/about-us"}
       />
 
       <AboutFactory />

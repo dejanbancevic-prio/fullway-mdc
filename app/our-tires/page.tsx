@@ -18,18 +18,18 @@ const OurTiresPage = () => {
       <BreadcrumbComp
         bgColor={"bg-[#141414]"}
         color={"text-white"}
-        name={"Our Tires"}
-        path={"/our-tires"}
+        nestedFirst={"Our Tires"}
+        pathFirst={"/our-tires"}
       />
 
       <OurFeaturedTires />
 
-      <div className="relative">
+      {/* <div className="relative">
         <div className="bg-fullwayGrey w-full h-[10.375rem] md:h-[5.375rem] " />
         <div className="absolute inset-0 -top-[4rem] md:-top-[16.5rem] flex justify-center items-start z-20 mt-[6rem]">
           <Widget titleStyle="md:text-white text-black" />
         </div>
-      </div>
+      </div> */}
 
       <div className="md:hidden mt-[24rem]">
         <FAQ />

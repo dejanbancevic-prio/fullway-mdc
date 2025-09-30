@@ -17,8 +17,8 @@ const ContactPage = () => {
       <BreadcrumbComp
         bgColor={"bg-[#141414]"}
         color={"text-white"}
-        name={"Contact"}
-        path={"/contact"}
+        nestedFirst={"Contact"}
+        pathFirst={"/contact"}
       />
 
       <ContactContant />

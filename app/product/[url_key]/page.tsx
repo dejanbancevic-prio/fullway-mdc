@@ -31,8 +31,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <BreadcrumbComp
         bgColor={"bg-[#141414]"}
         color={"text-white"}
-        name={"About Us"}
-        path={"/about-us"}
+        nestedFirst={"About Us"}
+        pathFirst={"/about-us"}
       />
       <ProductMain product={product} />
       {/* <FAQ /> */}

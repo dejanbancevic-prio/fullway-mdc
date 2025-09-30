@@ -2,14 +2,29 @@ import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
 import BlogFeaturedTires from "../components/pages/BlogPage/BlogFeaturedTires";
 import BlogHeader from "../components/pages/BlogPage/BlogHeader";
-import tempFullwayBlogs from "../../lib/tempFullwayBlogs.json";
+import { apolloClient } from "@/lib/apollo";
+import {
+  BlogPageQuery,
+  BlogPageQueryVariables,
+  BlogPageDocument,
+} from "@/lib/__generated__/graphql";
 
 const BlogPage = async () => {
   const pageSize = 6;
   const currentPage = 1;
-  const keyWord = "%fullway%"; //michelin  //fullway
+  const keyWord = "%michelin%"; //michelin  //fullway
 
-  const data = tempFullwayBlogs;
+  const { data } = await apolloClient.query<
+    BlogPageQuery,
+    BlogPageQueryVariables
+  >({
+    query: BlogPageDocument,
+    variables: {
+      keyWord: keyWord,
+      currentPage: currentPage,
+      pageSize: pageSize,
+    },
+  });
 
   const blogs = data?.awBlogPosts?.items ?? [];
   const totalCount = data?.awBlogPosts?.total_count ?? 0;

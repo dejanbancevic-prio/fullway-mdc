@@ -23,12 +23,12 @@ const HomePage = () => {
 
       {/* <FAQ /> */}
 
-      <div id="widget" className="relative scroll-mt-[8rem]">
+      {/* <div id="widget" className="relative scroll-mt-[8rem]">
         <div className="bg-fullwayGrey w-full h-[14.3125rem]" />
         <div className="absolute inset-0 flex justify-center items-start z-20 mt-[6rem]">
           <Widget titleStyle="text-black" />
         </div>
-      </div>
+      </div> */}
 
       <div className=" flex bg-black w-full md:h-[6.3125rem] h-[26.3125rem] " />
     </main>

@@ -1,0 +1,32 @@
+query GetVehicleYears {
+  vehicleYears {
+    decade
+    years
+  }
+}
+
+query GetVehicleMakes($year: String!) {
+  vehicleMakes(year: $year) {
+    letter
+    makes {
+      name
+      slug
+      logo
+    }
+  }
+}
+
+query GetVehicleModels($year: String!, $make: String!) {
+  vehicleModels(year: $year, make: $make) {
+    name
+    slug
+  }
+}
+
+query GetVehicleOptions($year: String!, $make: String!, $model: String!) {
+  vehicleOptions(year: $year, make: $make, model: $model) {
+    name
+    slug
+    chassis_id
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useReactiveVar } from "@apollo/client/react";
 import {
   BlogPageByTagDocument,
@@ -11,6 +11,7 @@ import BlogCard from "./BlogCard";
 import { PaginationComp } from "../../PaginationComp/PaginationComp";
 import Image from "next/image";
 import { currentPageVar, searchVar, selectedTagsVar } from "@/lib/cache";
+import tempFullwayBlogs from "../../../../lib/tempFullwayBlogs.json";
 
 type BlogItem = NonNullable<
   NonNullable<BlogPageQuery["awBlogPosts"]>["items"]
@@ -35,41 +36,43 @@ const BlogFeaturedTires = ({
   const selectedTags = useReactiveVar(selectedTagsVar);
   const searchValue = useReactiveVar(searchVar) ?? "";
 
+  const [blogs, setBlogs] = useState<BlogItem[]>(initialBlogs);
+  const [totalPages, setTotalPages] = useState(
+    Math.ceil(totalCount / pageSize)
+  );
+
   useEffect(() => {
     currentPageVar(1);
   }, [selectedTags]);
 
-  const hasTags = selectedTags.length > 0;
+  useEffect(() => {
+    let filteredBlogs = tempFullwayBlogs.awBlogPosts.items ?? [];
 
-  const { data, loading, networkStatus } = useQuery(
-    hasTags ? BlogPageByTagDocument : BlogPageDocument,
-    {
-      variables: {
-        keyWord: keyword,
-        currentPage,
-        pageSize,
-        tag_names: selectedTags.length > 0 ? selectedTags : [], 
-      },
-      notifyOnNetworkStatusChange: true,
+    if (keyword) {
+      const cleanKeyword = keyword.replace(/%/g, "").toLowerCase();
+      filteredBlogs = filteredBlogs.filter((b) =>
+        b.title?.toLowerCase().includes(cleanKeyword)
+      );
     }
-  );
 
-  const rawBlogs =
-    currentPage === initialPage && !selectedTags
-      ? initialBlogs
-      : data?.awBlogPosts?.items ?? [];
+    if (selectedTags.length > 0) {
+      filteredBlogs = filteredBlogs.filter((b) =>
+        b.tags.items.some((tag) => selectedTags.includes(tag.name))
+      );
+    }
 
-  const blogs =
-    searchValue?.trim() === ""
-      ? rawBlogs
-      : rawBlogs.filter((blog) =>
-          blog?.title?.toLowerCase().includes(searchValue?.toLowerCase())
-        );
+    if (searchValue?.trim() !== "") {
+      filteredBlogs = filteredBlogs.filter((b) =>
+        b.title.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
 
-  const totalCountWithTag = data?.awBlogPosts?.total_count ?? totalCount;
-  const totalPages = Math.ceil(totalCountWithTag / pageSize);
+    const startIdx = (currentPage - 1) * pageSize;
+    const paginatedBlogs = filteredBlogs.slice(startIdx, startIdx + pageSize);
 
-  const isRefetching = networkStatus === 3;
+    setBlogs(paginatedBlogs);
+    setTotalPages(Math.ceil(filteredBlogs.length / pageSize));
+  }, [currentPage, selectedTags, searchValue, keyword, pageSize]);
 
   return (
     <div className="relative w-full">
@@ -85,9 +88,9 @@ const BlogFeaturedTires = ({
 
       <div className="absolute inset-0 flex flex-col items-start justify-start">
         <div className="md:max-w-7xl md:mx-auto mx-[1rem] md:mt-[2.25rem] w-full flex flex-col items-center gap-[4rem]">
-          {loading || isRefetching ? (
-            <div className="flex items-center justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+          {blogs.length === 0 ? (
+            <div className="flex items-center justify-center py-20 text-white">
+              No blogs found
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[3rem] items-center md:justify-between">
