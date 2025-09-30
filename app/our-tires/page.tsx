@@ -4,6 +4,12 @@ import OurFeaturedTires from "../components/pages/OurTiresPage/OurFeaturedTires/
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
 import FAQ from "../components/FAQ/FAQ";
 
+export const metadata = {
+  title: "Home of the best High-Performance & All-Season Tires",
+  description:
+    "Explore the complete collection of Fullway tires. Compare our advanced high-performance, all-season models to find the perfect balance of comfort and quality.",
+};
+
 const OurTiresPage = () => {
   return (
     <main className="flex flex-col">

@@ -4,6 +4,12 @@ import BlogFeaturedTires from "../components/pages/BlogPage/BlogFeaturedTires";
 import BlogHeader from "../components/pages/BlogPage/BlogHeader";
 import tempFullwayBlogs from "../../lib/tempFullwayBlogs.json";
 
+export const metadata = {
+  title: "Find out about our products an more in our Education hub",
+  description:
+    "Visit the Fullway Education Hub for expert tips on tire maintenance, safety, and performance. Make smarter, more confident decisions about your tires.",
+};
+
 const BlogPage = async () => {
   const pageSize = 6;
   const currentPage = 1;

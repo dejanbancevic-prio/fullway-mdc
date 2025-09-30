@@ -4,8 +4,13 @@ import HomeHeroBanner from "./components/pages/HomePage/HomeHeroBanner";
 import MostPopularTire from "./components/pages/HomePage/MostPopularTire/MostPopularTire";
 import Widget from "./components/Widget/Widget";
 
-const HomePage = () => {
+export const metadata = {
+  title: "Fullway Tires | Only the best tires for your vehicle",
+  description:
+    "Discover our complete lineup of reliable high-performance and all-season tires, or use our advanced Tire Finder to get the perfect match for your vehicle today.",
+};
 
+const HomePage = () => {
   return (
     <main className="flex flex-col">
       <HomeHeroBanner />
@@ -19,7 +24,7 @@ const HomePage = () => {
         </div>
       </div> */}
 
-      <FeaturedTires/>
+      <FeaturedTires />
 
       {/* <FAQ /> */}
 

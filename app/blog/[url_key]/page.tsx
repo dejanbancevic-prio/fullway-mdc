@@ -15,7 +15,7 @@ const DynamicBlogPage = async ({ params }: DynamicBlogPageProps) => {
 
   return (
     <main className="flex flex-col">
-      <div className="flex bg-[#141414] w-full md:h-[6.3125rem] h-[26.3125rem]" />
+      <div className="flex bg-[#141414] w-full h-[6.3125rem]" />
 
       <BreadcrumbComp
         bgColor={"bg-[#141414]"}

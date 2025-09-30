@@ -4,6 +4,12 @@ import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
 import ContactContant from "../components/pages/ContactPage/ContactContant";
 import FAQ from "../components/FAQ/FAQ";
 
+export const metadata = {
+  title: "Contact Us for Support and Inquiries",
+  description:
+    "Need support? Get in touch with the Fullway Tires team. Send us a message, find our contact details, or use our dealer locator to find help nearby.",
+};
+
 const ContactPage = () => {
   return (
     <main className="flex flex-col">
