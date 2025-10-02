@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import Link from "next/link";
-import { addToCart,  } from "@/lib/cart";
+import { addToCart } from "@/lib/cart";
 import { toast } from "sonner";
 import { useSidebar } from "@/components/ui/sidebar";
 import {
@@ -42,8 +42,10 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
     rim_diameter_text: v?.product?.rim_diameter_text ?? "",
   }));
 
-  const firstVariant = variants[0];
-  const defaultValue = firstVariant?.product?.url_key ?? "";
+  const firstInStockVariant =
+    variants.find((v) => v?.product?.stock_status === "IN_STOCK") ??
+    variants[0];
+  const defaultValue = firstInStockVariant?.product?.url_key ?? "";
   const sidebarSelectedProductKey = useReactiveVar(sidebarSelectedProductVar);
   const sidebarSelectedProductKeyRear = useReactiveVar(
     sidebarSelectedProductRearVar
@@ -106,7 +108,21 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
             }}
           >
             <div className="flex justify-between w-full items-center">
-              {selectedVariant?.attributes?.[0]?.label}
+              <div className="flex overflow-hidden">
+                {selectedVariant?.attributes?.[0]?.label}
+                <div className="flex ml-[1rem] gap-[0.3rem] items-center">
+                  <Image
+                    src="/icons/other/greenCheck.svg"
+                    alt="In Stock"
+                    width={1920}
+                    height={1080}
+                    className="w-[1rem] h-[1rem]"
+                  />
+                  <p className="hidden md:block text-[#35D58A] font-[600] text-[0.75rem]">
+                    In Stock
+                  </p>
+                </div>
+              </div>
 
               <Image
                 src="/icons/other/Color=Light.svg"
@@ -210,11 +226,6 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
                         ) || "",
                       quantity: countFront,
                     });
-
-                    toast(
-                      "Products have been successfully added to your cart.",
-                      {}
-                    );
                   }}
                 >
                   ADD TO CART

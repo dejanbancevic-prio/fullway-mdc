@@ -24,17 +24,16 @@ const NewsLetterForm = () => {
 
   const handleSubscribe = async () => {
 
-      if (!emailRegex.test(email)) {
+    if (!emailRegex.test(email)) {
    
-     toast("Please enter a valid email address.", {
-      icon: "❌",
-        });
-      return;
+     toast.error("Please enter a valid email address.", {
+     className:"flex justify-center !items-center md:!w-[23rem] ",})
     }
     try {
       await subscribe({ variables: { email } });
       setEmail(""); 
-      toast("You have successfully subscribed to the newsletter.", {});
+      toast.success("You have successfully subscribed to the newsletter.", 
+        {className:"flex justify-center !items-center md:!w-[23rem] ",});
     } catch (err) {
       console.error(err);
     }

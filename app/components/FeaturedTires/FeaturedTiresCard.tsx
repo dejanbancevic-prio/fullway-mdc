@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -42,7 +41,7 @@ const FeaturedTiresCard = ({
 
       <div className="absolute bottom-[2.25rem] left-[2.5rem] w-full">
         <p className="font-[300] text-[1.25rem] italic">{name}</p>
-        <p className="font-[700] text-[2rem] italic">{model}</p>
+        <h3 className="font-[700] text-[2rem] italic">{model}</h3>
         <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[0.438rem]">
           <Link href={url} className="flex justify-between">
             VIEW TIRES

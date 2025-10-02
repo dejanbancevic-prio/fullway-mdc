@@ -2,7 +2,6 @@ import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
 import Widget from "../components/Widget/Widget";
 import OurFeaturedTires from "../components/pages/OurTiresPage/OurFeaturedTires/OurFeaturedTires";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
-import FAQ from "../components/FAQ/FAQ";
 
 export const metadata = {
   title: "Home of the best High-Performance & All-Season Tires",
@@ -28,6 +27,12 @@ const OurTiresPage = () => {
         pathFirst={"/our-tires"}
       />
 
+      <div className="bg-[#141414] w-full">
+        <h2 className="font-[500] text-[1.125rem] italic md:max-w-7xl md:mx-auto mx-[1rem] pt-[0.5rem]">
+          FULLWAY COLLECTION
+        </h2>
+      </div>
+
       <OurFeaturedTires />
 
       {/* <div className="relative">
@@ -36,10 +41,6 @@ const OurTiresPage = () => {
           <Widget titleStyle="md:text-white text-black" />
         </div>
       </div> */}
-
-      <div className="md:hidden mt-[24rem]">
-        <FAQ />
-      </div>
     </main>
   );
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -55,10 +54,10 @@ const BlogCard = ({ blog }: BlogCardProps) => {
 
       <div className="absolute bottom-[2.25rem] left-[2.5rem] w-full">
         <p className="font-[300] text-[0.75rem] italic">Reviews</p>
-        <p className="font-[600] text-[1.75rem] leading-none mt-[0.62rem] pr-[5rem]">
+        <h3 className="font-[600] text-[1.75rem] leading-none mt-[0.62rem] pr-[5rem]">
           {blog?.title}
-        </p>
-        <p className="font-[400]">
+        </h3>
+        <p className="font-[400] pr-[10rem] md:pr-0">
           {author} • {formattedDate}
         </p>
         <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[1.37rem]">

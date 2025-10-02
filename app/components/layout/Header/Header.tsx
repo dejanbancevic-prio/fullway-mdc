@@ -31,27 +31,27 @@ const Header = () => {
 
           <div className="flex justify-center items-center gap-[2.25rem]">
             <Link
-              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md;"
+              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md"
               href="/our-tires"
             >
               OUR TIRES
             </Link>
 
             <Link
-              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md;"
+              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md"
               href="/about-us"
             >
               ABOUT US
             </Link>
 
             <Link
-              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md;"
+              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md"
               href="/blog"
             >
               BLOG
             </Link>
 
-            <Button className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md;">
+            <Button className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md">
               <Link href="/contact">CONTACT</Link>
             </Button>
 

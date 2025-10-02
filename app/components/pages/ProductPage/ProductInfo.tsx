@@ -47,9 +47,9 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
     <div className="flex flex-col gap-[1.5rem] mx-[1rem] md:mx-[0rem] h-full">
       <div className="hidden md:flex justify-between w-full items-center">
         <div className="flex flex-col justify-between w-full h-[5rem]">
-          <p className="font-[700] text-[2.25rem] border-b-5 border-fullwayRed w-fit leading-none italic">
+          <h2 className="font-[700] text-[2.25rem] border-b-5 border-fullwayRed w-fit leading-none italic">
             TIRE SIZES
-          </p>
+          </h2>
           <p className="font-[300] text-[1.25rem]">
             Select wheel size for a filtered view.
           </p>

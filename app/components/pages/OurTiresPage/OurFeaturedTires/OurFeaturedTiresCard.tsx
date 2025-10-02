@@ -22,9 +22,9 @@ const OurFeaturedTiresCard = ({
       <div className="relative w-[21.4375rem] h-[21.5rem] z-20">
         <div className="absolute md:inset-0 top-[9rem] md:top-0 bg-[#141414] border-2 border-white skew-x-[-4deg] mx-[0.5rem] md:mx-[0rem] pb-[2rem] md:pb-[0rem]">
           <div className="flex flex-col justify-start items-center w-full ">
-            <p className="font-[700] text-[1.5rem] border-b-5 border-fullwayRed leading-none w-fit mb-[1.5rem] mt-[2rem]">
+            <h3 className="font-[700] text-[1.5rem] border-b-5 border-fullwayRed leading-none w-fit mb-[1.5rem] mt-[2rem]">
               {name}
-            </p>
+            </h3>
             <p className="font-[300] text-[1.25rem] italic mb-[1rem]">
               ALL SEASON
             </p>

@@ -14,9 +14,9 @@ const AboutFactory = () => {
               className="w-[4.875rem] h-auto md:mb-[1.88rem] mb-[1.5rem]"
             />
 
-            <p className="font-[700] text-[2.25rem] italic leading-none ">
+            <h2 className="font-[700] text-[2.25rem] italic leading-none ">
               DRIVEN BY TRUST
-            </p>
+            </h2>
 
             <div className="border-b-5 border-fullwayRed  mb-[1.5rem] w-[8.3rem] " />
 
@@ -59,9 +59,9 @@ const AboutFactory = () => {
           </div>
 
           <div className="flex flex-col text-black md:max-w-[30rem]  ">
-            <p className="font-[700] text-[2.25rem] italic leading-none ">
+            <h2 className="font-[700] text-[2.25rem] italic leading-none ">
               BEHIND THE BUILD
-            </p>
+            </h2>
             <div className="border-b-5 border-fullwayRed mb-[1.5rem] w-[8.2rem] " />
 
             <p className="font-[300] md:mb-[2.25rem] mb-[1.5rem] text-[1.25rem] ">

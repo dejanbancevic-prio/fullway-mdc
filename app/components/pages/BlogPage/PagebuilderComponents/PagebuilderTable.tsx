@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-import React from "react";
 
 type PagebuilderTableProps = {
   headers: string[];

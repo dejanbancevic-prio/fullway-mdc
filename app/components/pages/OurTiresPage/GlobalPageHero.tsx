@@ -26,15 +26,12 @@ const GlobalPageHero = ({ quote, name, desc }: GlobalPageHeroProps) => {
       <div className="absolute md:inset-0 -top-[11.5rem] flex items-center mt-[17rem] md:mt-[3rem]">
         <div className="md:max-w-7xl md:mx-auto mx-[1rem] w-full flex flex-col md:flex-row  items-start ">
           <div className="flex flex-col ">
-            <p className="font-[500] text-[1.125rem] italic">{quote}</p>
 
-            <p className="md:font-[800] font-[700] md:text-[3rem] text-[2.25rem] italic leading-none md:leading-16">
+            <h1 className="md:font-[800] font-[700] md:text-[3rem] text-[2.25rem] italic leading-none md:leading-16">
               {name}
-            </p>
+            </h1>
 
-            <p className=" hidden md:flex font-[300] text-[1.25rem] ">
-              {desc}
-            </p>
+            <p className=" hidden md:flex font-[300] text-[1.25rem] ">{desc}</p>
 
             <p className="md:hidden font-[300] mt-[1rem] leading-none">
               {desc}

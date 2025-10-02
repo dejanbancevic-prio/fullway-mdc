@@ -24,11 +24,11 @@ const MostPopularTire = () => {
                 FULLWAY SPECIAL
               </p>
 
-              <div className="flex gap-[1rem] text-[3rem] font-[800] italic">
-                <p>READY WHOLE</p>
-                <p className="text-fullwayRed ">YEAR</p>
-                <p>ROUND!</p>
-              </div>
+              <h2 className="flex gap-[1rem] text-[3rem] font-[800] italic">
+                <span>READY WHOLE</span>
+                <span className="text-fullwayRed ">YEAR</span>
+                <span>ROUND!</span>
+              </h2>
             </div>
 
             <div className="md:hidden flex flex-col mx-[1rem] leading-none">
@@ -36,13 +36,13 @@ const MostPopularTire = () => {
                 FULLWAY SPECIAL
               </p>
 
-              <div className="flex flex-col text-[2.25rem] font-[700] italic">
-                <p>READY WHOLE</p>
-                <div className="flex gap-[1rem]">
-                  <p className="text-fullwayRed ">YEAR</p>
-                  <p>ROUND!</p>
-                </div>
-              </div>
+              <h2 className="flex flex-col text-[2.25rem] font-[700] italic">
+                <span>READY WHOLE</span>
+                <span className="flex gap-[1rem]">
+                  <span className="text-fullwayRed ">YEAR</span>
+                  <span>ROUND!</span>
+                </span>
+              </h2>
             </div>
 
             <div className="hidden md:flex w-full items-center gap-[3rem] ">
@@ -51,15 +51,15 @@ const MostPopularTire = () => {
               <div className="flex flex-col gap-[3.906rem] w-fit">
                 <div className="absolute w-full border-b-1 border-white" />
                 <div className="flex flex-col gap-[1.5rem] pt-[3.91rem]">
-                  <p className="font-[700] text-[2.25rem] border-b-4 border-fullwayRed w-fit leading-none pb-1">
+                  <h3 className="font-[700] text-[2.25rem] border-b-4 border-fullwayRed w-fit leading-none pb-1">
                     HS 998
-                  </p>
+                  </h3>
 
-                  <div className="flex justify-start font-[600] text-[1.25rem] gap-[1.5rem]">
-                    <p>ALL SEASON</p>
-                    <p>•</p>
-                    <p>HIGH PERFORMANCE</p>
-                  </div>
+                  <h4 className="flex justify-start font-[600] text-[1.25rem] gap-[1.5rem]">
+                    <span>ALL SEASON</span>
+                    <span>•</span>
+                    <span>HIGH PERFORMANCE</span>
+                  </h4>
 
                   <div className="font-[300] text-[1.25rem]">
                     <p>
@@ -105,15 +105,15 @@ const MostPopularTire = () => {
 
               <div className="flex flex-col gap-[3.906rem] w-fit">
                 <div className="flex flex-col gap-[1.5rem] pt-[3rem] mx-[1rem]">
-                  <p className="font-[700] text-[2.25rem] border-b-4 border-fullwayRed w-fit leading-none pb-1">
+                  <h3 className="font-[700] text-[2.25rem] border-b-4 border-fullwayRed w-fit leading-none pb-1">
                     HS 998
-                  </p>
+                  </h3>
 
-                  <div className="flex justify-start font-[600] text-[1rem] gap-[1rem]">
-                    <p>ALL SEASON</p>
-                    <p>•</p>
-                    <p>HIGH PERFORMANCE</p>
-                  </div>
+                  <h4 className="flex justify-start font-[600] text-[1rem] gap-[1rem]">
+                    <span>ALL SEASON</span>
+                    <span>•</span>
+                    <span>HIGH PERFORMANCE</span>
+                  </h4>
 
                   <div className="font-[400] text-[1rem]">
                     <p>

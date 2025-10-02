@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -29,9 +28,9 @@ const FeaturedTires = () => {
               className="w-[4.875rem] h-auto md:mb-[3.5rem] mb-[1.5rem]"
             />
 
-            <p className="font-[800] text-[1.125rem] mb-[1rem] italic">
+            <h3 className="font-[800] text-[1.125rem] mb-[1rem] italic">
               SHOP BY CATEGORY
-            </p>
+            </h3>
 
             <p className="font-[300] md:mb-[2.25rem] mb-[1.5rem]">
               The tire upgrades the all <br /> season weather traction.

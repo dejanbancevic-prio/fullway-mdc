@@ -27,7 +27,6 @@ const AboutUsPage = () => {
       <Certification />
 
       <FeaturedTires />
-
     </main>
   );
 };

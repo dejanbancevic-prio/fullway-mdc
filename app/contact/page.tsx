@@ -1,4 +1,3 @@
-import React from "react";
 import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
 import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
 import ContactContant from "../components/pages/ContactPage/ContactContant";
@@ -26,6 +25,12 @@ const ContactPage = () => {
         nestedFirst={"Contact"}
         pathFirst={"/contact"}
       />
+
+      <div className="bg-[#141414] w-full">
+        <h2 className="font-[500] text-[1.125rem] italic md:max-w-7xl md:mx-auto mx-[1rem] pt-[0.5rem]">
+          GET IN TOUCH
+        </h2>
+      </div>
 
       <ContactContant />
 

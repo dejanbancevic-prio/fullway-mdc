@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import CountryDropMenu from "./CountryDropMenu";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -21,6 +22,18 @@ const ContactForm = () => {
       },
       body: JSON.stringify(data),
     });
+
+    if (res.ok) {
+      toast.success("You have successfully sent a message.", {
+        className: "flex justify-center !items-center md:!w-[23rem] ",
+      });
+    } else {
+      const errorData = await res.json();
+      toast.error(
+        `Failed to send message: ${errorData?.message || res.statusText}`,
+        { className: "flex justify-center !items-center md:!w-[23rem] " }
+      );
+    }
   };
 
   return (

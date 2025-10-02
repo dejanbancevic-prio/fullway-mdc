@@ -3,13 +3,17 @@ import { Button } from "@/components/ui/button";
 import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import Link from "next/link";
 import { addToCart, CartItem } from "@/lib/cart";
-import { toast } from "sonner";
 
-type ItemsArray = NonNullable<NonNullable<ProductPageQuery["products"]>["items"]>;
+type ItemsArray = NonNullable<
+  NonNullable<ProductPageQuery["products"]>["items"]
+>;
 
 type Item = NonNullable<ItemsArray[number]>;
 
-type ConfigurableProductType = Extract<Item, { __typename?: "ConfigurableProduct" }>;
+type ConfigurableProductType = Extract<
+  Item,
+  { __typename?: "ConfigurableProduct" }
+>;
 
 type SidebarVariant = NonNullable<
   NonNullable<ConfigurableProductType["variants"]>[number]
@@ -70,7 +74,21 @@ const ProductPickerExpand = ({
               }}
             >
               <div className="flex justify-between w-full items-center">
-                {selectedVariant?.attributes?.[0]?.label}
+                <div className="flex">
+                  {selectedVariant?.attributes?.[0]?.label}
+                  <div className="flex ml-[1rem] gap-[0.3rem] items-center">
+                    <Image
+                      src="/icons/other/greenCheck.svg"
+                      alt="In Stock"
+                      width={1920}
+                      height={1080}
+                      className="w-[1rem] h-[1rem]"
+                    />
+                    <p className="hidden md:block text-[#35D58A] font-[600] text-[0.75rem]">
+                      In Stock
+                    </p>
+                  </div>
+                </div>
 
                 <Image
                   src="/icons/other/Color=Light.svg"
@@ -139,11 +157,25 @@ const ProductPickerExpand = ({
                   rounded-none hover:bg-neutral-800 font-[600] text-[1.1rem] md:w-full w-[20rem]"
               onClick={() => {
                 handleOpenSidebar("rear");
-                setCountFront(1);
+                setCountRear(1);
               }}
             >
               <div className="flex justify-between w-full items-center">
-                {selectedVariantRear?.attributes?.[0]?.label}
+                <div className="flex">
+                  {selectedVariantRear?.attributes?.[0]?.label}
+                  <div className="flex ml-[1rem] gap-[0.3rem] items-center">
+                    <Image
+                      src="/icons/other/greenCheck.svg"
+                      alt="In Stock"
+                      width={1920}
+                      height={1080}
+                      className="w-[1rem] h-[1rem]"
+                    />
+                    <p className="hidden md:block text-[#35D58A] font-[600] text-[0.75rem]">
+                      In Stock
+                    </p>
+                  </div>
+                </div>
 
                 <Image
                   src="/icons/other/Color=Light.svg"
@@ -255,8 +287,6 @@ const ProductPickerExpand = ({
           if (itemsToAdd.length === 0) return;
 
           itemsToAdd.forEach(addToCart);
-
-          toast("Products have been successfully added to your cart.", {});
         }}
       >
         ADD TO CART

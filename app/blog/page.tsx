@@ -45,6 +45,12 @@ const BlogPage = async () => {
         pathFirst={"/blog"}
       />
 
+      <div className="bg-[#141414] w-full">
+        <h2 className="font-[500] text-[1.125rem] italic md:max-w-7xl md:mx-auto mx-[1rem] pt-[0.5rem]">
+          LET&apos;S SHARE
+        </h2>
+      </div>
+
       <BlogHeader tags={uniqueTags} />
 
       <BlogFeaturedTires

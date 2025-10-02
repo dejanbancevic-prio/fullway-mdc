@@ -1,4 +1,5 @@
 import { makeVar } from "@apollo/client";
+import { toast } from "sonner";
 
 export type CartItem = {
   url_key: string;
@@ -26,6 +27,9 @@ export const addToCart = (item: CartItem) => {
   } else {
     cartItems([...cartItems(), item]);
   }
+  toast.success("Products have been successfully added to your cart.", {
+   className:"flex justify-center !items-center md:!w-[23rem] ",
+  });
 };
 
 export const removeFromCart = (url_key: string) => {

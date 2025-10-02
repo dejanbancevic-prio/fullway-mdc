@@ -76,24 +76,26 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
               height={1080}
               className="w-[7.125rem] h-[1.375rem]"
             />
-            <p className="font-[700] text-[2.25rem] border-b-5 border-fullwayRed w-fit leading-none ">
+            <h1 className="font-[700] text-[2.25rem] border-b-5 border-fullwayRed w-fit leading-none ">
               {product?.name!.slice(8).slice(0, 2) +
                 " " +
                 product?.name!.slice(8).slice(2)}
-            </p>
+            </h1>
 
-            <div className="flex items-center gap-[0.7rem] md:gap-[1rem]">
-              <div className="flex gap-[0.3rem]">
-                {getStars(productVariant?.yotpo_rating_value ?? 0)}
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-[0.7rem] md:gap-[1rem]">
+              <div className="flex items-center gap-[0.7rem]">
+                <div className="flex gap-[0.3rem]">
+                  {getStars(productVariant?.yotpo_rating_value ?? 0)}
+                </div>
+
+                <p className="font-[300] text-[0.8rem] md:text-[1rem]">
+                  {productVariant?.yotpo_rating_value ?? "N/A"}
+                  <YotpoReviews
+                    yotpo_review_count={productVariant?.yotpo_review_count ?? 0}
+                    id={product?.id ?? 0}
+                  />
+                </p>
               </div>
-
-              <p className="font-[300] text-[0.8rem] md:text-[1rem]">
-                {productVariant?.yotpo_rating_value ?? "N/A"}
-                <YotpoReviews
-                  yotpo_review_count={productVariant?.yotpo_review_count ?? 0}
-                  id={product?.id ?? 0}
-                />
-              </p>
 
               <div className="flex gap-[0.5rem] font-[300] text-[0.8rem] md:text-[1rem]">
                 {amazonReviewLink ? (

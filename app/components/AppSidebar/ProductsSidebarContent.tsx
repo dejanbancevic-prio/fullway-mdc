@@ -20,6 +20,7 @@ import {
 } from "@/lib/cache";
 import Image from "next/image";
 import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
 
 type SidebarVariant = {
   label: string;
@@ -67,6 +68,20 @@ const ProductsSidebarContent = () => {
     }));
   };
 
+  const contentVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: (i: number) => ({
+      opacity: 1,
+      height: "auto",
+      transition: { delay: i * 0.05, duration: 0.3, ease: "easeInOut" },
+    }),
+    exit: {
+      opacity: 0,
+      height: 0,
+      transition: { duration: 0.2, ease: "easeInOut" },
+    },
+  };
+
   return (
     <div className="space-y-[0.5rem]">
       <div className="relative flex items-center justify-between mb-[1rem]">
@@ -91,10 +106,10 @@ const ProductsSidebarContent = () => {
             key={rimDiameter}
             open={isOpen}
             onOpenChange={() => toggleCollapsible(rimDiameter)}
-            className="border text-black hover:!rounded-none"
+            className="border text-black hover:!rounded-none "
           >
             <SidebarMenuItem>
-              <CollapsibleTrigger asChild className="hover:!rounded-none">
+              <CollapsibleTrigger asChild className="hover:!rounded-none ">
                 <SidebarMenuButton>
                   <div className="flex justify-between w-full py-[0.5rem] cursor-pointer">
                     <span>{rimDiameter}&rdquo;</span>
@@ -112,55 +127,85 @@ const ProductsSidebarContent = () => {
               </CollapsibleTrigger>
 
               <CollapsibleContent className="mt-[0.5rem] space-y-[0.5rem]">
-                {variants.map((variant) => (
-                  <SidebarMenuSub
-                    key={variant.url_key}
-                    className="flex w-full hover:bg-fullwayGrey cursor-pointer"
-                    onClick={() => {
-                      sidebarDataVar(
-                        data.map((v) => ({
-                          ...v,
-                          selected: v.url_key === variant.url_key,
-                        }))
-                      );
-                      sidebarSelectedProductType === "front"
-                        ? sidebarSelectedProductVar(variant.url_key)
-                        : sidebarSelectedProductRearVar(variant.url_key);
-                      toggleSidebar();
-                    }}
-                  >
-                    <div className="flex flex-col md:flex-row my-[0.5rem]">
-                      {variant.label}
-                      {variant.stock_status === "IN_STOCK" ? (
-                        <div className="flex ml-[1rem] gap-[0.3rem] items-center">
-                          <Image
-                            src="/icons/other/greenCheck.svg"
-                            alt="In Stock"
-                            width={1920}
-                            height={1080}
-                            className="w-[1rem] h-[1rem]"
-                          />
-                          <p className="text-[#35D58A] font-[600] text-[0.75rem]">
-                            In Stock
-                          </p>
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: "auto" }}
+                  exit={{ height: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="overflow-hidden mt-[0.5rem] space-y-[0.5rem]"
+                >
+                  {variants.map((variant) => {
+                    const isOutOfStock = variant.stock_status !== "IN_STOCK";
+
+                    return (
+                      <SidebarMenuSub
+                        key={variant.url_key}
+                        className={`flex w-full ${
+                          isOutOfStock
+                            ? "opacity-50 cursor-not-allowed"
+                            : "hover:bg-fullwayGrey cursor-pointer"
+                        }`}
+                        onClick={() => {
+                          if (isOutOfStock) return;
+                          sidebarDataVar(
+                            data.map((v) => ({
+                              ...v,
+                              selected: v.url_key === variant.url_key,
+                            }))
+                          );
+                          sidebarSelectedProductType === "front"
+                            ? sidebarSelectedProductVar(variant.url_key)
+                            : sidebarSelectedProductRearVar(variant.url_key);
+                          toggleSidebar();
+                        }}
+                      >
+                        <div className="flex flex-col md:flex-row my-[0.5rem]">
+                          {variant.label}
+                          {variant.stock_status === "IN_STOCK" ? (
+                            <div className="flex ml-[1rem] gap-[0.3rem] items-center">
+                              <Image
+                                src="/icons/other/greenCheck.svg"
+                                alt="In Stock"
+                                width={1920}
+                                height={1080}
+                                className="w-[1rem] h-[1rem]"
+                              />
+                              <p className="text-[#35D58A] font-[600] text-[0.75rem]">
+                                In Stock
+                              </p>
+                            </div>
+                          ) : variant.stock_status === "LOW_STOCK" ? (
+                            <div className="flex ml-[1rem] gap-[0.3rem] items-center">
+                              <Image
+                                src="/icons/other/yellowWarning.svg"
+                                alt="Low Stock"
+                                width={1920}
+                                height={1080}
+                                className="w-[1rem] h-[1rem]"
+                              />
+                              <p className="text-[#FFD633] font-[600] text-[0.75rem]">
+                                Low Stock
+                              </p>
+                            </div>
+                          ): (
+                            <div className="flex ml-[1rem] gap-[0.3rem] items-center">
+                              <Image
+                                src="/icons/other/redX.svg"
+                                alt="Out of Stock"
+                                width={1920}
+                                height={1080}
+                                className="w-[1rem] h-[1rem]"
+                              />
+                              <p className="text-[#DC0014] font-[600] text-[0.75rem]">
+                                Out of Stock
+                              </p>
+                            </div>
+                          )}
                         </div>
-                      ) : (
-                        <div className="flex gap-[0.3rem] items-center">
-                          <Image
-                            src="/icons/other/redX.svg"
-                            alt="Out of Stock"
-                            width={1920}
-                            height={1080}
-                            className="w-[1rem] h-[1rem]"
-                          />
-                          <p className="text-[#DC0014] font-[600] text-[0.75rem]">
-                            Out of Stock
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </SidebarMenuSub>
-                ))}
+                      </SidebarMenuSub>
+                    );
+                  })}
+                </motion.div>
               </CollapsibleContent>
             </SidebarMenuItem>
           </Collapsible>

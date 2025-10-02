@@ -149,6 +149,7 @@ body {
     @apply italic !rounded-none !font-[800] w-[17.125rem] md:w-[9.875rem] hover:!bg-white hover:!text-black
      hover:!border-1 hover:!border-black cursor-pointer;
   }
+  
   [data-active="true"] {
     @apply bg-black text-black;
   }
