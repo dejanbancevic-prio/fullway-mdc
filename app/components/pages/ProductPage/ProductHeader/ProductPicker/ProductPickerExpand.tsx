@@ -53,7 +53,7 @@ const ProductPickerExpand = ({
       <div className="flex flex-col gap-[0.5rem]">
         <div className="flex flex-col md:flex-row w-full gap-[1rem] md:items-end">
           <div className="flex flex-col w-full gap-[0.3rem]">
-            <div className="flex w-full gap-[3rem] md:gap-[0rem] md:justify-between items-center">
+            <div className="flex w-full gap-[3rem] md:gap-[0rem] justify-between items-center">
               <div className="flex gap-[0.3rem]">
                 <p className="font-[400]">Choose </p>
                 <p className="font-bold"> front </p>
@@ -67,7 +67,7 @@ const ProductPickerExpand = ({
 
             <Button
               className="bg-transparent text-start justify-start cursor-pointer border-1 
-                  rounded-none hover:bg-neutral-800 font-[600] text-[1.1rem] md:w-full w-[20rem]"
+                  rounded-none hover:bg-neutral-800 font-[600] text-[1.1rem] w-full "
               onClick={() => {
                 handleOpenSidebar("front");
                 setCountFront(1);
@@ -140,7 +140,7 @@ const ProductPickerExpand = ({
       <div className="flex flex-col gap-[0.5rem]">
         <div className="flex flex-col md:flex-row w-full gap-[1rem] md:items-end">
           <div className="flex flex-col w-full gap-[0.3rem]">
-            <div className="flex w-full gap-[3.3rem] md:gap-[0rem] md:justify-between items-center">
+            <div className="flex w-full gap-[3.3rem] md:gap-[0rem] justify-between items-center">
               <div className="flex gap-[0.3rem]">
                 <p className="font-[400]">Choose </p>
                 <p className="font-bold"> rear </p>
@@ -154,7 +154,7 @@ const ProductPickerExpand = ({
 
             <Button
               className="bg-transparent text-start justify-start cursor-pointer border-1 
-                  rounded-none hover:bg-neutral-800 font-[600] text-[1.1rem] md:w-full w-[20rem]"
+                  rounded-none hover:bg-neutral-800 font-[600] text-[1.1rem] w-full "
               onClick={() => {
                 handleOpenSidebar("rear");
                 setCountRear(1);
@@ -242,7 +242,7 @@ const ProductPickerExpand = ({
       </div>
 
       <Button
-        className="buttonSkewSidebar w-[21rem] md:w-full h-[3rem] font-bold rounded-md"
+        className="buttonSkewSidebar w-full h-[3rem] font-bold rounded-md"
         onClick={() => {
           const itemsToAdd: CartItem[] = [];
 

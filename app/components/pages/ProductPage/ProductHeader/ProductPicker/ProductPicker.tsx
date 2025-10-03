@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import Link from "next/link";
 import { addToCart } from "@/lib/cart";
-import { toast } from "sonner";
 import { useSidebar } from "@/components/ui/sidebar";
 import {
   sidebarDataVar,
@@ -101,7 +100,7 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
           </div>
           <Button
             className="bg-transparent text-start justify-start cursor-pointer border-1 
-            rounded-none hover:bg-neutral-800 font-[600] text-[1.1rem] md:w-full w-[20rem]"
+            rounded-none hover:bg-neutral-800 font-[600] text-[1.1rem] w-full "
             onClick={() => {
               handleOpenSidebar("front");
               setCountFront(1);

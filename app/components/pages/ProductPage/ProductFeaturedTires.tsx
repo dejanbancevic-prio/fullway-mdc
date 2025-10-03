@@ -8,7 +8,7 @@ const ProdFeaturedTires = () => {
     <div className="w-full relative">
       <div className="absolute inset-0 flex items-center ">
         <div className="md:max-w-7xl md:mx-auto mx-[1rem] w-full flex flex-col md:flex-row justify-between items-start gap-[2.12rem] md:gap-[0rem]">
-          <div className="flex flex-col justify-start ">
+          <div className="flex flex-col justify-start w-full">
             <Image
               src="/images/HomePage/FeaturedTires/Coin.svg"
               alt="Coin Icon"
@@ -35,29 +35,32 @@ const ProdFeaturedTires = () => {
               </Link>
             </div>
           </div>
+          
 
-          <FeaturedTiresCard
-            name={"PASSENGER"}
-            model={"HS 266"}
-            bgImage={
-              "/images/HomePage/FeaturedTires/fulllway-passenger-bg-image-placeholder.jpg"
-            }
-            tireImage={
-              "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
-            }
-            url={"/product/hs266"}
-          />
-          <FeaturedTiresCard
-            name={"SUV"}
-            model={"HS 288"}
-            bgImage={
-              "/images/HomePage/FeaturedTires/fulllway-suv-bg-image-placeholder.jpg"
-            }
-            tireImage={
-              "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
-            }
-            url={"/product/hs288"}
-          />
+          <div className="flex flex-col md:flex-row w-full items-center md:gap-[6rem] gap-[2rem] md:justify-between md:pr-[1rem]">
+            <FeaturedTiresCard
+              name={"PASSENGER"}
+              model={"HS 266"}
+              bgImage={
+                "/images/HomePage/FeaturedTires/fulllway-passenger-bg-image-placeholder.jpg"
+              }
+              tireImage={
+                "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
+              }
+              url={"/product/hs266"}
+            />
+            <FeaturedTiresCard
+              name={"SUV"}
+              model={"HS 288"}
+              bgImage={
+                "/images/HomePage/FeaturedTires/fulllway-suv-bg-image-placeholder.jpg"
+              }
+              tireImage={
+                "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
+              }
+              url={"/product/hs288"}
+            />
+          </div>
         </div>
       </div>
     </div>

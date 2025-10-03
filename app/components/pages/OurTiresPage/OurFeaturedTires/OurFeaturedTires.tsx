@@ -14,9 +14,9 @@ const OurFeaturedTires = () => {
 
       <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/100 via-transparent via-30% to-neutral-900/0" />
 
-      <div className="absolute md:inset-0 -top-[17rem] flex items-start mt-[19rem] md:mt-[12rem]">
-        <div className="md:max-w-7xl md:mx-auto mx-[1rem] w-full flex flex-col items-center gap-[2.12rem] md:gap-[12rem]">
-          <div className="flex flex-col md:flex-row justify-between w-full gap-[9.5rem] md:gap-0">
+      <div className="absolute md:inset-0 -top-[17rem] flex flex-col items-center md:items-start w-full  mt-[19rem] md:mt-[12rem]">
+        <div className="md:max-w-7xl md:mx-auto mx-[1rem] w-full flex flex-col items-center  gap-[2.12rem] md:gap-[12rem]">
+          <div className="flex flex-col md:flex-row justify-between items-center w-full gap-[9.5rem] md:gap-0">
             <OurFeaturedTiresCard
               name={"HP 108"}
               text={
@@ -48,7 +48,7 @@ const OurFeaturedTires = () => {
               url_key={"pc369"}
             />
           </div>
-          <div className="flex flex-col md:flex-row justify-between w-full gap-[9.5rem] md:gap-0 mt-[7.5rem] md:mt-[0rem]">
+          <div className="flex flex-col md:flex-row justify-between items-center w-full gap-[9.5rem] md:gap-0 mt-[7.5rem] md:mt-[0rem]">
             <OurFeaturedTiresCard
               name={"PC 368"}
               text={
@@ -80,7 +80,7 @@ const OurFeaturedTires = () => {
               url_key={"hp208"}
             />
           </div>
-          <div className="flex flex-col md:flex-row justify-center w-full mt-[7.5rem] md:mt-[0rem] ">
+          <div className="flex flex-col md:flex-row justify-center items-center w-full mt-[7.5rem] md:mt-[0rem] ">
             <OurFeaturedTiresCard
               name={"HS 288"}
               text={

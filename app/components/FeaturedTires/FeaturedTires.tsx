@@ -18,7 +18,7 @@ const FeaturedTires = () => {
       <div className="absolute inset-0 bg-[linear-gradient(161deg,rgba(220,0,20,0)_40.32%,rgba(220,0,20,0.15)_98.53%)]" />
 
       <div className="absolute inset-0 flex items-center ">
-        <div className="md:max-w-7xl md:mx-auto mx-[1rem] w-full flex flex-col md:flex-row justify-between items-start gap-[2.12rem] md:gap-[0rem]">
+        <div className="md:max-w-7xl md:mx-auto mx-[1rem] flex flex-col md:flex-row  w-full justify-between items-center md:items-start gap-[2.12rem] md:gap-[0rem]">
           <div className="flex flex-col justify-start ">
             <Image
               src="/images/HomePage/FeaturedTires/Coin.svg"

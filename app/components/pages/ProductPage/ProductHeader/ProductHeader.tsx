@@ -59,15 +59,17 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
   return (
     <div className="md:max-w-7xl md:mx-auto mx-[1rem] md:mt-[4.6rem] mt-[3rem]">
       <div className="flex flex-col md:flex-row w-full justify-between md:gap-[15rem] gap-[1rem]">
-        <Image
-          src="/images/HomePage/MostPopularTire/fullway-tire-frontview-w-wheel-template.png"
-          alt="Fullway Tire"
-          width={1920}
-          height={1080}
-          className="size-[20rem] md:size-[30.5625rem] md:ml-[0rem] ml-[0.29rem] "
-        />
+        <div className="flex justify-center md:justify-start w-full md:w-fit">
+          <Image
+            src="/images/HomePage/MostPopularTire/fullway-tire-frontview-w-wheel-template.png"
+            alt="Fullway Tire"
+            width={1920}
+            height={1080}
+            className="size-[20rem] md:size-[30.5625rem] md:ml-[0rem] ml-[0.29rem] "
+          />
+        </div>
 
-        <div className="flex flex-col gap-[1.25rem] w-[31.1875rem]">
+        <div className="flex flex-col gap-[1.25rem] md:w-[31.1875rem] w-full ">
           <div className="flex flex-col gap-[1rem]">
             <Image
               src="/icons/logo/Fullway-Logo-White.svg"
@@ -127,9 +129,9 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
               <p>HIGH PERFORMANCE</p>
             </div>
 
-            <div className="font-[300] text-[1.25rem] md:pr-[0rem] pr-[10rem]">
+            <div className="font-[300] text-[1.25rem] ">
               <p>
-                {productVariant?.description_overview?.paragraphs?.[0]?.title}{" "}
+                {productVariant?.description_overview?.paragraphs?.[0]?.title}
                 {productVariant?.description_overview?.paragraphs?.[0]?.content
                   ?.split(".")
                   ?.filter(Boolean)[0]

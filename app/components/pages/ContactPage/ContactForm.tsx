@@ -12,6 +12,7 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const form = e.currentTarget;
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
@@ -27,6 +28,7 @@ const ContactForm = () => {
       toast.success("You have successfully sent a message.", {
         className: "flex justify-center !items-center md:!w-[23rem] ",
       });
+      form.reset();
     } else {
       const errorData = await res.json();
       toast.error(
@@ -88,7 +90,6 @@ const ContactForm = () => {
                     name="phoneNumber"
                     type="phoneNumber"
                     placeholder="Phone Number"
-                    required
                     className="rounded-none"
                   />
                 </div>
@@ -120,7 +121,10 @@ const ContactForm = () => {
               </div>
             </div>
             <CardFooter className="flex justify-end">
-              <Button className="buttonSkew-white text-base font-[700] w-[10.4386rem] mt-[1.5rem]">
+              <Button
+                type="submit"
+                className="buttonSkew-white text-base font-[700] w-[10.4386rem] mt-[1.5rem]"
+              >
                 SEND MESSAGE
               </Button>
             </CardFooter>

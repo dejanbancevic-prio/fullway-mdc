@@ -3,12 +3,21 @@ import Image from "next/image";
 const HomeHeroBanner = () => {
   return (
     <div className="w-full relative">
-      <Image
+      {/* <Image
         src="/images/HomePage/fullway-hero-image-placeholder.jpg"
         alt="Fullway Logo"
         width={1920}
         height={1080}
         className=" object-cover h-[39.9375rem] md:h-screen w-full"
+      /> */}
+
+      <video
+        src="/videos/test.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="object-cover h-[39.9375rem] md:h-screen w-full"
       />
 
       <div className="absolute inset-0 -bottom-40 md:inset-0 bg-gradient-to-b from-transparent via-transparent to-[#090909]" />

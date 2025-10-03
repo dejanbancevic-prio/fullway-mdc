@@ -3,9 +3,9 @@ import Image from "next/image";
 const AboutFactory = () => {
   return (
     <div className="w-full bg-fullwayGrey ">
-      <div className=" md:max-w-7xl md:mx-auto mx-[1rem] w-full flex flex-col gap-[3rem] mt-[2rem] md:mt-[1.5rem]">
+      <div className=" md:max-w-7xl md:mx-auto w-full flex flex-col gap-[3rem] mt-[2rem] md:mt-[1.5rem]">
         <div className="flex flex-col md:flex-row justify-between items-center gap-[2.12rem] md:gap-[0rem]">
-          <div className="flex flex-col justify-start text-black ">
+          <div className="flex flex-col justify-start text-black mx-[1rem]">
             <Image
               src="/images/AboutUsPage/AboutFactory/Coin.svg"
               alt="Coin Icon"
@@ -28,13 +28,15 @@ const AboutFactory = () => {
           </div>
 
           <div className="relative">
-            <Image
-              src="/images/AboutUsPage/AboutFactory/car-1.png"
-              alt="SUV Background"
-              width={1920}
-              height={1080}
-              className="w-[45rem] h-[25rem] pl-[6.5rem] overflow-hidden md:pl-[0rem] md:mb-[1.88rem] "
-            />
+            <div className="relative w-full md:w-[25rem] h-[25rem] pl-[4rem]">
+              <Image
+                src="/images/AboutUsPage/AboutFactory/car-1.png"
+                alt="SUV Background"
+                width={1920}
+                height={1080}
+                className="w-full h-full object-cover "
+              />
+            </div>
 
             <div className="absolute top-[0.1rem] md:-left-25 w-[18.1875rem] h-[25rem]">
               <Image
@@ -47,18 +49,20 @@ const AboutFactory = () => {
           </div>
         </div>
 
-        <div className=" flex flex-col md:flex-row justify-between items-center gap-[2.12rem] md:gap-[0rem] mb-[1.5rem] mr-[1rem]">
+        <div className=" flex flex-col md:flex-row justify-between items-center gap-[2.12rem] md:gap-[0rem] mb-[1.5rem] ">
           <div className="relative">
-            <Image
-              src="/images/AboutUsPage/AboutFactory/factory-1.png"
-              alt="SUV Background"
-              width={1920}
-              height={1080}
-              className="w-[31rem] h-[25rem] overflow-hidden md:pr-[0rem] relative -left-[2rem] md:-left-[0rem] "
-            />
+            <div className="relative w-full md:w-[25rem] h-[25rem] -ml-[4rem] md:-ml-0">
+              <Image
+                src="/images/AboutUsPage/AboutFactory/factory-1.png"
+                alt="SUV Background"
+                width={1920}
+                height={1080}
+                className="w-full h-full "
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col text-black md:max-w-[30rem]  ">
+          <div className="flex flex-col text-black md:max-w-[30rem] mx-[1rem] ">
             <h2 className="font-[700] text-[2.25rem] italic leading-none ">
               BEHIND THE BUILD
             </h2>
