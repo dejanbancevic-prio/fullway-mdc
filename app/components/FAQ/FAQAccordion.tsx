@@ -77,7 +77,7 @@ const FAQAccordion = () => {
               className="border-b-1 border-black"
             >
               <AccordionTrigger className="font-[600] text-[1.25rem] cursor-pointer">
-                <h3>{item.question}</h3>
+                <p>{item.question}</p>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-[1rem] text-balance">
                 <p>{item.answer}</p>
@@ -99,7 +99,7 @@ const FAQAccordion = () => {
               className="border-b-1 border-black"
             >
               <AccordionTrigger className="font-[600] text-[1.25rem] cursor-pointer">
-                <h3>{item.question}</h3>
+                <p>{item.question}</p>
               </AccordionTrigger>
               <AccordionContent className="flex flex-col gap-[1rem] text-balance">
                 <p>{item.answer}</p>
