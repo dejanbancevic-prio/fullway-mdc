@@ -124,6 +124,8 @@ export type Query = {
   guestOrder: CustomerOrder;
   /** Retrieve guest order details based on token. */
   guestOrderByToken: CustomerOrder;
+  /** Search for installers by ZIP code and type */
+  installers?: Maybe<InstallersSearchResult>;
   /** Check whether the specified email has already been used to create a customer account. */
   isEmailAvailable?: Maybe<IsEmailAvailableOutput>;
   /** The pickup locations query searches for locations that match the search request requirements. */
@@ -396,6 +398,11 @@ export type QueryguestOrderByTokenArgs = {
 };
 
 
+export type QueryinstallersArgs = {
+  input: InstallersInput;
+};
+
+
 export type QueryisEmailAvailableArgs = {
   email: Scalars['String']['input'];
 };
@@ -598,8 +605,11 @@ export type Mutation = {
   setBillingAddressOnCart?: Maybe<SetBillingAddressOnCartOutput>;
   /** Set Customer Link */
   setCustomerLink?: Maybe<SetCustomerLinkOutput>;
+  setDeliveryMethodOnCart?: Maybe<SetDeliveryMethodOnCartOutput>;
   /** Assign the email address of a guest to the cart. */
   setGuestEmailOnCart?: Maybe<SetGuestEmailOnCartOutput>;
+  /** Assign an installer and appointment to a cart */
+  setInstallerOnCart?: Maybe<SetInstallerOnCartOutput>;
   /**
    * Set the cart payment method and convert the cart into an order.
    * @deprecated Should use setPaymentMethodOnCart and placeOrder mutations in single request.
@@ -927,8 +937,18 @@ export type MutationsetCustomerLinkArgs = {
 };
 
 
+export type MutationsetDeliveryMethodOnCartArgs = {
+  input: SetDeliveryMethodOnCartInput;
+};
+
+
 export type MutationsetGuestEmailOnCartArgs = {
   input?: InputMaybe<SetGuestEmailOnCartInput>;
+};
+
+
+export type MutationsetInstallerOnCartArgs = {
+  input: SetInstallerOnCartInput;
 };
 
 
@@ -2405,6 +2425,10 @@ export type ProductInterface = {
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -2621,10 +2645,6 @@ export type ProductInterface = {
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -3397,6 +3417,10 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -3619,10 +3643,6 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -3826,6 +3846,10 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -4050,10 +4074,6 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -4396,8 +4416,6 @@ export type ProductSortInput = {
 export type ProductAttributeSortInput = {
   /** Is product bestsellers. */
   bestsellers?: InputMaybe<SortEnum>;
-  /** AAaaaa. */
-  category_ranking?: InputMaybe<SortEnum>;
   /** The product most_viewed. */
   most_viewed?: InputMaybe<SortEnum>;
   /** Attribute label: Product Name */
@@ -4422,7 +4440,6 @@ export type ProductAttributeSortInput = {
   reviews_count?: InputMaybe<SortEnum>;
   /** The product saving. */
   saving?: InputMaybe<SortEnum>;
-  /** Evo ti Stefane. */
   website_product_ranking?: InputMaybe<SortEnum>;
   /** Is product wished. */
   wished?: InputMaybe<SortEnum>;
@@ -5085,12 +5102,15 @@ export type Cart = {
   available_payment_methods?: Maybe<Array<Maybe<AvailablePaymentMethod>>>;
   /** The billing address assigned to the cart. */
   billing_address?: Maybe<BillingCartAddress>;
+  delivery: CartDelivery;
   /** The email address of the guest or customer. */
   email?: Maybe<Scalars['String']['output']>;
   /** The entered gift message for the cart */
   gift_message?: Maybe<GiftMessage>;
   /** The unique ID for a `Cart` object. */
   id: Scalars['ID']['output'];
+  /** Installer and appointment information attached to the cart */
+  installer: CartInstaller;
   /** Indicates whether the cart contains only virtual products. */
   is_virtual: Scalars['Boolean']['output'];
   /**
@@ -5907,6 +5927,10 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -6129,10 +6153,6 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -6859,6 +6879,10 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
   /** One of PRICE_RANGE or AS_LOW_AS. */
   price_view?: Maybe<PriceViewEnum>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -7085,10 +7109,6 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -7454,6 +7474,10 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -7678,10 +7702,6 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -7915,6 +7935,10 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -8141,10 +8165,6 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -12171,6 +12191,26 @@ export type Specials = {
   rebates?: Maybe<Array<Maybe<Rebate>>>;
 };
 
+export type DeliveryMethod = {
+  code: Scalars['String']['output'];
+  delivery_info: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type CartDelivery = {
+  available_delivery_methods: Array<Maybe<DeliveryMethod>>;
+  selected_delivery_method?: Maybe<DeliveryMethod>;
+};
+
+export type SetDeliveryMethodOnCartInput = {
+  cart_id: Scalars['String']['input'];
+  delivery_method: Scalars['String']['input'];
+};
+
+export type SetDeliveryMethodOnCartOutput = {
+  cart: Cart;
+};
+
 export type DescriptionOverview = {
   /** Array of bullet points. */
   bullet_points?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -12218,6 +12258,159 @@ export type GroupData = {
 export type ProductInfo = {
   most_popular_priority?: Maybe<Scalars['Int']['output']>;
   product?: Maybe<ProductInterface>;
+};
+
+export type Installer = {
+  /** Street address of the installer */
+  address: Scalars['String']['output'];
+  /** List of available appointment time slots */
+  available_appointments: Array<Maybe<Appointment>>;
+  /** City of the installer */
+  city: Scalars['String']['output'];
+  /** Primary email address of the installer */
+  email?: Maybe<Scalars['String']['output']>;
+  /** Unique identifier for the installer */
+  id: Scalars['Int']['output'];
+  /** Latitude coordinate of the installer */
+  lat?: Maybe<Scalars['Float']['output']>;
+  /** Longitude coordinate of the installer */
+  lon?: Maybe<Scalars['Float']['output']>;
+  /** Display name of the installer */
+  name: Scalars['String']['output'];
+  /** Installer contact phone number */
+  phone_number?: Maybe<Scalars['String']['output']>;
+  /** Base price per tire for installation */
+  price_per_tire?: Maybe<Scalars['String']['output']>;
+  /** State of the installer */
+  state: Scalars['String']['output'];
+  /** Thumbnail image for installer store */
+  thumbnail_image?: Maybe<Scalars['String']['output']>;
+  /** Type of installer, 'regular' and 'mobile' is supported */
+  type?: Maybe<Scalars['String']['output']>;
+  /** Website URL of the installer */
+  website?: Maybe<Scalars['String']['output']>;
+  /** Postal code of the installer */
+  zip_code?: Maybe<Scalars['Int']['output']>;
+};
+
+export type Appointment = {
+  /** Closing time of the appointment window */
+  closes_at: Scalars['String']['output'];
+  /** Day of the week for the appointment slot */
+  day_of_week: Scalars['String']['output'];
+  /** Opening time of the appointment window */
+  opens_at: Scalars['String']['output'];
+};
+
+export type CartInstaller = {
+  /** Optional notes or references provided by the customer */
+  appointment_information?: Maybe<Scalars['String']['output']>;
+  /** Customer email address provided during installer selection */
+  email?: Maybe<Scalars['String']['output']>;
+  /** The exact appointment chosen for the cart */
+  scheduled_appointment?: Maybe<SelectedAppointment>;
+  /** The installer selected for the cart */
+  selected_installer?: Maybe<Installer>;
+  /** Vehicle VIN attached to the cart */
+  vin?: Maybe<Scalars['String']['output']>;
+};
+
+export type InstallersInput = {
+  /** Installer type (e.g. regular, mobile) */
+  type: Scalars['String']['input'];
+  /** ZIP/postal code to filter installers by location */
+  zip: Scalars['String']['input'];
+};
+
+export type InstallersSearchResult = {
+  /** List of installer records */
+  items: Array<Maybe<Installer>>;
+  /** Total number of installers found */
+  total_count: Scalars['Int']['output'];
+};
+
+export type SetInstallerOnCartInput = {
+  /** The appointment chosen for the cart (date and time) */
+  appointment: SelectedAppointmentInput;
+  /** Optional notes or references */
+  appointment_information?: InputMaybe<Scalars['String']['input']>;
+  cart_id: Scalars['String']['input'];
+  /** Customer email address */
+  email: Scalars['String']['input'];
+  /** The full installer object to assign to the cart */
+  installer: InstallerInput;
+  /** Optional vehicle VIN */
+  vin?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SetInstallerOnCartOutput = {
+  /** The updated cart with installer information */
+  cart: Cart;
+};
+
+export type InstallerInput = {
+  /** Street address of the installer */
+  address: Scalars['String']['input'];
+  /** City of the installer */
+  city: Scalars['String']['input'];
+  /** Primary email address of the installer */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** Unique identifier for the installer */
+  id: Scalars['Int']['input'];
+  /** Latitude coordinate of the installer */
+  lat?: InputMaybe<Scalars['Float']['input']>;
+  /** Longitude coordinate of the installer */
+  lon?: InputMaybe<Scalars['Float']['input']>;
+  /** Display name of the installer */
+  name: Scalars['String']['input'];
+  /** Installer contact phone number */
+  phone_number?: InputMaybe<Scalars['String']['input']>;
+  /** Base price per tire for installation */
+  price_per_tire?: InputMaybe<Scalars['String']['input']>;
+  /** State of the installer */
+  state: Scalars['String']['input'];
+  /** Thumbnail image for installer store */
+  thumbnail_image?: InputMaybe<Scalars['String']['input']>;
+  /** Type of installer, 'regular' and 'mobile' is supported */
+  type?: InputMaybe<Scalars['String']['input']>;
+  /** Website URL of the installer */
+  website?: InputMaybe<Scalars['String']['input']>;
+  /** Postal code of the installer */
+  zip_code?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type SelectedAppointment = {
+  /** The appointment date in ISO format (YYYY-MM-DD) */
+  date: Scalars['String']['output'];
+  /** Exact time selected for the appointment, e.g. 14:30 */
+  time: Scalars['String']['output'];
+};
+
+export type SelectedAppointmentInput = {
+  /** The appointment date in ISO format (YYYY-MM-DD) */
+  date: Scalars['String']['input'];
+  /** Exact time selected for the appointment, e.g. 14:30 */
+  time: Scalars['String']['input'];
+};
+
+export type ProductUrl = {
+  /** The brand-specific category URL key, if available. */
+  brandCategory?: Maybe<Scalars['String']['output']>;
+  /** The main category URL key associated with the product. */
+  mainCategory?: Maybe<Scalars['String']['output']>;
+  /** The primary product URL key. For configurable products, this is the main product URL. */
+  primary?: Maybe<Scalars['String']['output']>;
+  /** The secondary product URL key. For simple products, this may be the child product’s URL. */
+  secondary?: Maybe<Scalars['String']['output']>;
+  /** Indicates the product type (e.g. configurable, simple, accessory, assembly, wheels). */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type ProductRating = {
+  /** Total number of reviews that contribute to the product's rating. */
+  ratingCount?: Maybe<Scalars['Int']['output']>;
+  /** Average rating value for the product, between 0 and 5. */
+  ratingValue?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Contains all data needed to display vehicle information. */
@@ -12565,6 +12758,8 @@ export type CRimDiameters = {
   guestOrder: InContextSdkMethod<Query['guestOrder'], QueryguestOrderArgs, MeshContext>,
   /** Retrieve guest order details based on token. **/
   guestOrderByToken: InContextSdkMethod<Query['guestOrderByToken'], QueryguestOrderByTokenArgs, MeshContext>,
+  /** Search for installers by ZIP code and type **/
+  installers: InContextSdkMethod<Query['installers'], QueryinstallersArgs, MeshContext>,
   /** Check whether the specified email has already been used to create a customer account. **/
   isEmailAvailable: InContextSdkMethod<Query['isEmailAvailable'], QueryisEmailAvailableArgs, MeshContext>,
   /** The pickup locations query searches for locations that match the search request requirements. **/
@@ -12724,8 +12919,12 @@ export type CRimDiameters = {
   setBillingAddressOnCart: InContextSdkMethod<Mutation['setBillingAddressOnCart'], MutationsetBillingAddressOnCartArgs, MeshContext>,
   /** Set Customer Link **/
   setCustomerLink: InContextSdkMethod<Mutation['setCustomerLink'], MutationsetCustomerLinkArgs, MeshContext>,
+  /** null **/
+  setDeliveryMethodOnCart: InContextSdkMethod<Mutation['setDeliveryMethodOnCart'], MutationsetDeliveryMethodOnCartArgs, MeshContext>,
   /** Assign the email address of a guest to the cart. **/
   setGuestEmailOnCart: InContextSdkMethod<Mutation['setGuestEmailOnCart'], MutationsetGuestEmailOnCartArgs, MeshContext>,
+  /** Assign an installer and appointment to a cart **/
+  setInstallerOnCart: InContextSdkMethod<Mutation['setInstallerOnCart'], MutationsetInstallerOnCartArgs, MeshContext>,
   /** Set the cart payment method and convert the cart into an order. **/
   setPaymentMethodAndPlaceOrder: InContextSdkMethod<Mutation['setPaymentMethodAndPlaceOrder'], MutationsetPaymentMethodAndPlaceOrderArgs, MeshContext>,
   /** Apply a payment method to the cart. **/

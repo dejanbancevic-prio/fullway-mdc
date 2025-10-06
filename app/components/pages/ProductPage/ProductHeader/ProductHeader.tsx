@@ -87,13 +87,13 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
             <div className="flex flex-col md:flex-row items-start md:items-center gap-[0.7rem] md:gap-[1rem]">
               <div className="flex items-center gap-[0.7rem]">
                 <div className="flex gap-[0.3rem]">
-                  {getStars(productVariant?.yotpo_rating_value ?? 0)}
+                  {getStars(productVariant?.productRating?.ratingValue ?? 0)}
                 </div>
 
                 <p className="font-[300] text-[0.8rem] md:text-[1rem]">
-                  {productVariant?.yotpo_rating_value ?? "N/A"}
+                  {productVariant?.productRating?.ratingValue ?? "N/A"}
                   <YotpoReviews
-                    yotpo_review_count={productVariant?.yotpo_review_count ?? 0}
+                    yotpo_review_count={productVariant?.productRating?.ratingCount ?? 0}
                     id={product?.id ?? 0}
                   />
                 </p>

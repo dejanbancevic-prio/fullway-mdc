@@ -1,3 +1,4 @@
+import Script from "next/script";
 import FeaturedTires from "./components/FeaturedTires/FeaturedTires";
 import HomeHeroBanner from "./components/pages/HomePage/HomeHeroBanner";
 import MostPopularTire from "./components/pages/HomePage/MostPopularTire/MostPopularTire";
@@ -9,9 +10,33 @@ export const metadata = {
     "Discover our complete lineup of reliable high-performance and all-season tires, or use our advanced Tire Finder to get the perfect match for your vehicle today.",
 };
 
+const homeSchema = {
+  "@context": "[https://schema.org](https://schema.org)",
+  "@type": "WebSite",
+  url: "[https://www.fullwaytires.com/](https://www.fullwaytires.com/)",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate:
+        "[https://www.fullwaytires.com/search?q=](https://www.fullwaytires.com/search?q=){search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
 const HomePage = () => {
   return (
     <main className="flex flex-col">
+      <Script
+        id="home-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homeSchema),
+        }}
+      />
+
       <HomeHeroBanner />
 
       <MostPopularTire />

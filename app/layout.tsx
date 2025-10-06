@@ -3,6 +3,7 @@ import "./globals.css";
 import LayoutWrapper from "./components/layout/LayoutWrapper/LayoutWrapper";
 import ApolloProviderClient from "./providers/ApolloProviderClient";
 import { Prompt } from "next/font/google";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Fullway",
@@ -15,6 +16,25 @@ const prompt = Prompt({
   display: "swap",
 });
 
+const organizationSchema = {
+  "@context": "[https://schema.org](https://schema.org)",
+  "@type": "Organization",
+  "name": "Fullway Tires",
+  "url": "[https://www.fullwaytires.com/](https://www.fullwaytires.com/)",
+  "logo": "[https://www.fullwaytires.com/path/to/your/logo.png](https://www.fullwaytires.com/path/to/your/logo.png)",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+1-XXX-XXX-XXXX",
+    "contactType": "Customer Service"
+  },
+  "sameAs": [
+    "[https://www.facebook.com/YourFullwayProfile](https://www.facebook.com/YourFullwayProfile)",
+    "[https://www.instagram.com/YourFullwayProfile](https://www.instagram.com/YourFullwayProfile)",
+    "[https://www.linkedin.com/company/YourFullwayProfile](https://www.linkedin.com/company/YourFullwayProfile)"
+  ]
+}
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,6 +42,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+    
+     <head>
+        <Script
+          id="organization-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+      </head>
+
       <body className={prompt.className}>
         <ApolloProviderClient>
           <LayoutWrapper>{children}</LayoutWrapper>

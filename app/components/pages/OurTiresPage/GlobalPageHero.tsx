@@ -1,12 +1,11 @@
 import Image from "next/image";
 
 type GlobalPageHeroProps = {
-  quote: string;
   name: string;
   desc: string;
 };
 
-const GlobalPageHero = ({ quote, name, desc }: GlobalPageHeroProps) => {
+const GlobalPageHero = ({  name, desc }: GlobalPageHeroProps) => {
   return (
     <div className="w-full border-b-5 border-fullwayRed relative">
       <Image

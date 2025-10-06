@@ -32,7 +32,6 @@ const BlogPage = async () => {
   return (
     <main className="flex flex-col">
       <GlobalPageHero
-        quote={"LET'S SHARE"}
         name={"BLOG"}
         desc={`We have a selected assortment of best performance tires for your vehicle, 
           making sure you don't have to worry whole year round and making sure the ride is as smooth as possible.`}

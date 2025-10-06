@@ -13,7 +13,6 @@ const OurTiresPage = () => {
   return (
     <main className="flex flex-col">
       <GlobalPageHero
-        quote={"FULLWAY COLLECTION"}
         name={"OUR TIRES"}
         desc={` We have a selected assortment of best performance tires for your
               vehicle, making sure you don't have to worry  whole

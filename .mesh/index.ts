@@ -138,6 +138,8 @@ export type Query = {
   guestOrder: CustomerOrder;
   /** Retrieve guest order details based on token. */
   guestOrderByToken: CustomerOrder;
+  /** Search for installers by ZIP code and type */
+  installers?: Maybe<InstallersSearchResult>;
   /** Check whether the specified email has already been used to create a customer account. */
   isEmailAvailable?: Maybe<IsEmailAvailableOutput>;
   /** The pickup locations query searches for locations that match the search request requirements. */
@@ -410,6 +412,11 @@ export type QueryguestOrderByTokenArgs = {
 };
 
 
+export type QueryinstallersArgs = {
+  input: InstallersInput;
+};
+
+
 export type QueryisEmailAvailableArgs = {
   email: Scalars['String']['input'];
 };
@@ -612,8 +619,11 @@ export type Mutation = {
   setBillingAddressOnCart?: Maybe<SetBillingAddressOnCartOutput>;
   /** Set Customer Link */
   setCustomerLink?: Maybe<SetCustomerLinkOutput>;
+  setDeliveryMethodOnCart?: Maybe<SetDeliveryMethodOnCartOutput>;
   /** Assign the email address of a guest to the cart. */
   setGuestEmailOnCart?: Maybe<SetGuestEmailOnCartOutput>;
+  /** Assign an installer and appointment to a cart */
+  setInstallerOnCart?: Maybe<SetInstallerOnCartOutput>;
   /**
    * Set the cart payment method and convert the cart into an order.
    * @deprecated Should use setPaymentMethodOnCart and placeOrder mutations in single request.
@@ -941,8 +951,18 @@ export type MutationsetCustomerLinkArgs = {
 };
 
 
+export type MutationsetDeliveryMethodOnCartArgs = {
+  input: SetDeliveryMethodOnCartInput;
+};
+
+
 export type MutationsetGuestEmailOnCartArgs = {
   input?: InputMaybe<SetGuestEmailOnCartInput>;
+};
+
+
+export type MutationsetInstallerOnCartArgs = {
+  input: SetInstallerOnCartInput;
 };
 
 
@@ -2419,6 +2439,10 @@ export type ProductInterface = {
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -2635,10 +2659,6 @@ export type ProductInterface = {
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -3411,6 +3431,10 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -3633,10 +3657,6 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -3840,6 +3860,10 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -4064,10 +4088,6 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -4410,8 +4430,6 @@ export type ProductSortInput = {
 export type ProductAttributeSortInput = {
   /** Is product bestsellers. */
   bestsellers?: InputMaybe<SortEnum>;
-  /** AAaaaa. */
-  category_ranking?: InputMaybe<SortEnum>;
   /** The product most_viewed. */
   most_viewed?: InputMaybe<SortEnum>;
   /** Attribute label: Product Name */
@@ -4436,7 +4454,6 @@ export type ProductAttributeSortInput = {
   reviews_count?: InputMaybe<SortEnum>;
   /** The product saving. */
   saving?: InputMaybe<SortEnum>;
-  /** Evo ti Stefane. */
   website_product_ranking?: InputMaybe<SortEnum>;
   /** Is product wished. */
   wished?: InputMaybe<SortEnum>;
@@ -5099,12 +5116,15 @@ export type Cart = {
   available_payment_methods?: Maybe<Array<Maybe<AvailablePaymentMethod>>>;
   /** The billing address assigned to the cart. */
   billing_address?: Maybe<BillingCartAddress>;
+  delivery: CartDelivery;
   /** The email address of the guest or customer. */
   email?: Maybe<Scalars['String']['output']>;
   /** The entered gift message for the cart */
   gift_message?: Maybe<GiftMessage>;
   /** The unique ID for a `Cart` object. */
   id: Scalars['ID']['output'];
+  /** Installer and appointment information attached to the cart */
+  installer: CartInstaller;
   /** Indicates whether the cart contains only virtual products. */
   is_virtual: Scalars['Boolean']['output'];
   /**
@@ -5921,6 +5941,10 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -6143,10 +6167,6 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -6873,6 +6893,10 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
   /** One of PRICE_RANGE or AS_LOW_AS. */
   price_view?: Maybe<PriceViewEnum>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -7099,10 +7123,6 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -7468,6 +7488,10 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -7692,10 +7716,6 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -7929,6 +7949,10 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
+  /** Aggregated rating information for the product, including average rating and review count. */
+  productRating?: Maybe<ProductRating>;
+  /** Returns all related productUrl entities for the product. */
+  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -8155,10 +8179,6 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
-  /** Returns product's rating value from Yotpo. */
-  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
-  /** Returns product's number of reviews from Yotpo. */
-  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -12185,6 +12205,26 @@ export type Specials = {
   rebates?: Maybe<Array<Maybe<Rebate>>>;
 };
 
+export type DeliveryMethod = {
+  code: Scalars['String']['output'];
+  delivery_info: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type CartDelivery = {
+  available_delivery_methods: Array<Maybe<DeliveryMethod>>;
+  selected_delivery_method?: Maybe<DeliveryMethod>;
+};
+
+export type SetDeliveryMethodOnCartInput = {
+  cart_id: Scalars['String']['input'];
+  delivery_method: Scalars['String']['input'];
+};
+
+export type SetDeliveryMethodOnCartOutput = {
+  cart: Cart;
+};
+
 export type DescriptionOverview = {
   /** Array of bullet points. */
   bullet_points?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -12232,6 +12272,159 @@ export type GroupData = {
 export type ProductInfo = {
   most_popular_priority?: Maybe<Scalars['Int']['output']>;
   product?: Maybe<ProductInterface>;
+};
+
+export type Installer = {
+  /** Street address of the installer */
+  address: Scalars['String']['output'];
+  /** List of available appointment time slots */
+  available_appointments: Array<Maybe<Appointment>>;
+  /** City of the installer */
+  city: Scalars['String']['output'];
+  /** Primary email address of the installer */
+  email?: Maybe<Scalars['String']['output']>;
+  /** Unique identifier for the installer */
+  id: Scalars['Int']['output'];
+  /** Latitude coordinate of the installer */
+  lat?: Maybe<Scalars['Float']['output']>;
+  /** Longitude coordinate of the installer */
+  lon?: Maybe<Scalars['Float']['output']>;
+  /** Display name of the installer */
+  name: Scalars['String']['output'];
+  /** Installer contact phone number */
+  phone_number?: Maybe<Scalars['String']['output']>;
+  /** Base price per tire for installation */
+  price_per_tire?: Maybe<Scalars['String']['output']>;
+  /** State of the installer */
+  state: Scalars['String']['output'];
+  /** Thumbnail image for installer store */
+  thumbnail_image?: Maybe<Scalars['String']['output']>;
+  /** Type of installer, 'regular' and 'mobile' is supported */
+  type?: Maybe<Scalars['String']['output']>;
+  /** Website URL of the installer */
+  website?: Maybe<Scalars['String']['output']>;
+  /** Postal code of the installer */
+  zip_code?: Maybe<Scalars['Int']['output']>;
+};
+
+export type Appointment = {
+  /** Closing time of the appointment window */
+  closes_at: Scalars['String']['output'];
+  /** Day of the week for the appointment slot */
+  day_of_week: Scalars['String']['output'];
+  /** Opening time of the appointment window */
+  opens_at: Scalars['String']['output'];
+};
+
+export type CartInstaller = {
+  /** Optional notes or references provided by the customer */
+  appointment_information?: Maybe<Scalars['String']['output']>;
+  /** Customer email address provided during installer selection */
+  email?: Maybe<Scalars['String']['output']>;
+  /** The exact appointment chosen for the cart */
+  scheduled_appointment?: Maybe<SelectedAppointment>;
+  /** The installer selected for the cart */
+  selected_installer?: Maybe<Installer>;
+  /** Vehicle VIN attached to the cart */
+  vin?: Maybe<Scalars['String']['output']>;
+};
+
+export type InstallersInput = {
+  /** Installer type (e.g. regular, mobile) */
+  type: Scalars['String']['input'];
+  /** ZIP/postal code to filter installers by location */
+  zip: Scalars['String']['input'];
+};
+
+export type InstallersSearchResult = {
+  /** List of installer records */
+  items: Array<Maybe<Installer>>;
+  /** Total number of installers found */
+  total_count: Scalars['Int']['output'];
+};
+
+export type SetInstallerOnCartInput = {
+  /** The appointment chosen for the cart (date and time) */
+  appointment: SelectedAppointmentInput;
+  /** Optional notes or references */
+  appointment_information?: InputMaybe<Scalars['String']['input']>;
+  cart_id: Scalars['String']['input'];
+  /** Customer email address */
+  email: Scalars['String']['input'];
+  /** The full installer object to assign to the cart */
+  installer: InstallerInput;
+  /** Optional vehicle VIN */
+  vin?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SetInstallerOnCartOutput = {
+  /** The updated cart with installer information */
+  cart: Cart;
+};
+
+export type InstallerInput = {
+  /** Street address of the installer */
+  address: Scalars['String']['input'];
+  /** City of the installer */
+  city: Scalars['String']['input'];
+  /** Primary email address of the installer */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** Unique identifier for the installer */
+  id: Scalars['Int']['input'];
+  /** Latitude coordinate of the installer */
+  lat?: InputMaybe<Scalars['Float']['input']>;
+  /** Longitude coordinate of the installer */
+  lon?: InputMaybe<Scalars['Float']['input']>;
+  /** Display name of the installer */
+  name: Scalars['String']['input'];
+  /** Installer contact phone number */
+  phone_number?: InputMaybe<Scalars['String']['input']>;
+  /** Base price per tire for installation */
+  price_per_tire?: InputMaybe<Scalars['String']['input']>;
+  /** State of the installer */
+  state: Scalars['String']['input'];
+  /** Thumbnail image for installer store */
+  thumbnail_image?: InputMaybe<Scalars['String']['input']>;
+  /** Type of installer, 'regular' and 'mobile' is supported */
+  type?: InputMaybe<Scalars['String']['input']>;
+  /** Website URL of the installer */
+  website?: InputMaybe<Scalars['String']['input']>;
+  /** Postal code of the installer */
+  zip_code?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type SelectedAppointment = {
+  /** The appointment date in ISO format (YYYY-MM-DD) */
+  date: Scalars['String']['output'];
+  /** Exact time selected for the appointment, e.g. 14:30 */
+  time: Scalars['String']['output'];
+};
+
+export type SelectedAppointmentInput = {
+  /** The appointment date in ISO format (YYYY-MM-DD) */
+  date: Scalars['String']['input'];
+  /** Exact time selected for the appointment, e.g. 14:30 */
+  time: Scalars['String']['input'];
+};
+
+export type ProductUrl = {
+  /** The brand-specific category URL key, if available. */
+  brandCategory?: Maybe<Scalars['String']['output']>;
+  /** The main category URL key associated with the product. */
+  mainCategory?: Maybe<Scalars['String']['output']>;
+  /** The primary product URL key. For configurable products, this is the main product URL. */
+  primary?: Maybe<Scalars['String']['output']>;
+  /** The secondary product URL key. For simple products, this may be the child product’s URL. */
+  secondary?: Maybe<Scalars['String']['output']>;
+  /** Indicates the product type (e.g. configurable, simple, accessory, assembly, wheels). */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+export type ProductRating = {
+  /** Total number of reviews that contribute to the product's rating. */
+  ratingCount?: Maybe<Scalars['Int']['output']>;
+  /** Average rating value for the product, between 0 and 5. */
+  ratingValue?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Contains all data needed to display vehicle information. */
@@ -13108,12 +13301,28 @@ export type ResolversTypes = ResolversObject<{
   Promotion: ResolverTypeWrapper<Promotion>;
   Rebate: ResolverTypeWrapper<Rebate>;
   Specials: ResolverTypeWrapper<Specials>;
+  DeliveryMethod: ResolverTypeWrapper<DeliveryMethod>;
+  CartDelivery: ResolverTypeWrapper<CartDelivery>;
+  SetDeliveryMethodOnCartInput: SetDeliveryMethodOnCartInput;
+  SetDeliveryMethodOnCartOutput: ResolverTypeWrapper<Omit<SetDeliveryMethodOnCartOutput, 'cart'> & { cart: ResolversTypes['Cart'] }>;
   DescriptionOverview: ResolverTypeWrapper<DescriptionOverview>;
   Paragraph: ResolverTypeWrapper<Paragraph>;
   Specifications: ResolverTypeWrapper<Specifications>;
   MostPopularData: ResolverTypeWrapper<Omit<MostPopularData, 'groups'> & { groups?: Maybe<Array<Maybe<ResolversTypes['GroupData']>>> }>;
   GroupData: ResolverTypeWrapper<Omit<GroupData, 'category_group_products' | 'default_group_products'> & { category_group_products?: Maybe<Array<Maybe<ResolversTypes['ProductInfo']>>>, default_group_products?: Maybe<Array<Maybe<ResolversTypes['ProductInterface']>>> }>;
   ProductInfo: ResolverTypeWrapper<Omit<ProductInfo, 'product'> & { product?: Maybe<ResolversTypes['ProductInterface']> }>;
+  Installer: ResolverTypeWrapper<Installer>;
+  Appointment: ResolverTypeWrapper<Appointment>;
+  CartInstaller: ResolverTypeWrapper<CartInstaller>;
+  InstallersInput: InstallersInput;
+  InstallersSearchResult: ResolverTypeWrapper<InstallersSearchResult>;
+  SetInstallerOnCartInput: SetInstallerOnCartInput;
+  SetInstallerOnCartOutput: ResolverTypeWrapper<Omit<SetInstallerOnCartOutput, 'cart'> & { cart: ResolversTypes['Cart'] }>;
+  InstallerInput: InstallerInput;
+  SelectedAppointment: ResolverTypeWrapper<SelectedAppointment>;
+  SelectedAppointmentInput: SelectedAppointmentInput;
+  ProductUrl: ResolverTypeWrapper<ProductUrl>;
+  ProductRating: ResolverTypeWrapper<ProductRating>;
   VehiclePages: ResolverTypeWrapper<VehiclePages>;
   Faq: ResolverTypeWrapper<Faq>;
   CompatibleSizes: ResolverTypeWrapper<CompatibleSizes>;
@@ -13622,12 +13831,28 @@ export type ResolversParentTypes = ResolversObject<{
   Promotion: Promotion;
   Rebate: Rebate;
   Specials: Specials;
+  DeliveryMethod: DeliveryMethod;
+  CartDelivery: CartDelivery;
+  SetDeliveryMethodOnCartInput: SetDeliveryMethodOnCartInput;
+  SetDeliveryMethodOnCartOutput: Omit<SetDeliveryMethodOnCartOutput, 'cart'> & { cart: ResolversParentTypes['Cart'] };
   DescriptionOverview: DescriptionOverview;
   Paragraph: Paragraph;
   Specifications: Specifications;
   MostPopularData: Omit<MostPopularData, 'groups'> & { groups?: Maybe<Array<Maybe<ResolversParentTypes['GroupData']>>> };
   GroupData: Omit<GroupData, 'category_group_products' | 'default_group_products'> & { category_group_products?: Maybe<Array<Maybe<ResolversParentTypes['ProductInfo']>>>, default_group_products?: Maybe<Array<Maybe<ResolversParentTypes['ProductInterface']>>> };
   ProductInfo: Omit<ProductInfo, 'product'> & { product?: Maybe<ResolversParentTypes['ProductInterface']> };
+  Installer: Installer;
+  Appointment: Appointment;
+  CartInstaller: CartInstaller;
+  InstallersInput: InstallersInput;
+  InstallersSearchResult: InstallersSearchResult;
+  SetInstallerOnCartInput: SetInstallerOnCartInput;
+  SetInstallerOnCartOutput: Omit<SetInstallerOnCartOutput, 'cart'> & { cart: ResolversParentTypes['Cart'] };
+  InstallerInput: InstallerInput;
+  SelectedAppointment: SelectedAppointment;
+  SelectedAppointmentInput: SelectedAppointmentInput;
+  ProductUrl: ProductUrl;
+  ProductRating: ProductRating;
   VehiclePages: VehiclePages;
   Faq: Faq;
   CompatibleSizes: CompatibleSizes;
@@ -13712,6 +13937,7 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   getVaultConfig?: Resolver<Maybe<ResolversTypes['VaultConfigOutput']>, ParentType, ContextType>;
   guestOrder?: Resolver<ResolversTypes['CustomerOrder'], ParentType, ContextType, RequireFields<QueryguestOrderArgs, 'input'>>;
   guestOrderByToken?: Resolver<ResolversTypes['CustomerOrder'], ParentType, ContextType, RequireFields<QueryguestOrderByTokenArgs, 'input'>>;
+  installers?: Resolver<Maybe<ResolversTypes['InstallersSearchResult']>, ParentType, ContextType, RequireFields<QueryinstallersArgs, 'input'>>;
   isEmailAvailable?: Resolver<Maybe<ResolversTypes['IsEmailAvailableOutput']>, ParentType, ContextType, RequireFields<QueryisEmailAvailableArgs, 'email'>>;
   pickupLocations?: Resolver<Maybe<ResolversTypes['PickupLocations']>, ParentType, ContextType, RequireFields<QuerypickupLocationsArgs, 'pageSize' | 'currentPage'>>;
   productReviewRatingsMetadata?: Resolver<ResolversTypes['ProductReviewRatingsMetadata'], ParentType, ContextType>;
@@ -13793,7 +14019,9 @@ export type MutationResolvers<ContextType = MeshContext, ParentType extends Reso
   sendEmailToFriend?: Resolver<Maybe<ResolversTypes['SendEmailToFriendOutput']>, ParentType, ContextType, Partial<MutationsendEmailToFriendArgs>>;
   setBillingAddressOnCart?: Resolver<Maybe<ResolversTypes['SetBillingAddressOnCartOutput']>, ParentType, ContextType, Partial<MutationsetBillingAddressOnCartArgs>>;
   setCustomerLink?: Resolver<Maybe<ResolversTypes['SetCustomerLinkOutput']>, ParentType, ContextType, RequireFields<MutationsetCustomerLinkArgs, 'buyerToken' | 'password'>>;
+  setDeliveryMethodOnCart?: Resolver<Maybe<ResolversTypes['SetDeliveryMethodOnCartOutput']>, ParentType, ContextType, RequireFields<MutationsetDeliveryMethodOnCartArgs, 'input'>>;
   setGuestEmailOnCart?: Resolver<Maybe<ResolversTypes['SetGuestEmailOnCartOutput']>, ParentType, ContextType, Partial<MutationsetGuestEmailOnCartArgs>>;
+  setInstallerOnCart?: Resolver<Maybe<ResolversTypes['SetInstallerOnCartOutput']>, ParentType, ContextType, RequireFields<MutationsetInstallerOnCartArgs, 'input'>>;
   setPaymentMethodAndPlaceOrder?: Resolver<Maybe<ResolversTypes['PlaceOrderOutput']>, ParentType, ContextType, Partial<MutationsetPaymentMethodAndPlaceOrderArgs>>;
   setPaymentMethodOnCart?: Resolver<Maybe<ResolversTypes['SetPaymentMethodOnCartOutput']>, ParentType, ContextType, Partial<MutationsetPaymentMethodOnCartArgs>>;
   setShippingAddressesOnCart?: Resolver<Maybe<ResolversTypes['SetShippingAddressesOnCartOutput']>, ParentType, ContextType, Partial<MutationsetShippingAddressesOnCartArgs>>;
@@ -14358,6 +14586,8 @@ export type ProductInterfaceResolvers<ContextType = MeshContext, ParentType exte
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
+  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
+  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -14457,8 +14687,6 @@ export type ProductInterfaceResolvers<ContextType = MeshContext, ParentType exte
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
 }>;
 
 export type PhysicalProductInterfaceResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['PhysicalProductInterface'] = ResolversParentTypes['PhysicalProductInterface']> = ResolversObject<{
@@ -14878,6 +15106,8 @@ export type VirtualProductResolvers<ContextType = MeshContext, ParentType extend
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
+  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
+  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -14980,8 +15210,6 @@ export type VirtualProductResolvers<ContextType = MeshContext, ParentType extend
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -15070,6 +15298,8 @@ export type SimpleProductResolvers<ContextType = MeshContext, ParentType extends
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
+  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
+  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -15173,8 +15403,6 @@ export type SimpleProductResolvers<ContextType = MeshContext, ParentType extends
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -15414,9 +15642,11 @@ export type CartResolvers<ContextType = MeshContext, ParentType extends Resolver
   applied_coupons?: Resolver<Maybe<Array<Maybe<ResolversTypes['AppliedCoupon']>>>, ParentType, ContextType>;
   available_payment_methods?: Resolver<Maybe<Array<Maybe<ResolversTypes['AvailablePaymentMethod']>>>, ParentType, ContextType>;
   billing_address?: Resolver<Maybe<ResolversTypes['BillingCartAddress']>, ParentType, ContextType>;
+  delivery?: Resolver<ResolversTypes['CartDelivery'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gift_message?: Resolver<Maybe<ResolversTypes['GiftMessage']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  installer?: Resolver<ResolversTypes['CartInstaller'], ParentType, ContextType>;
   is_virtual?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   items?: Resolver<Maybe<Array<Maybe<ResolversTypes['CartItemInterface']>>>, ParentType, ContextType>;
   itemsV2?: Resolver<Maybe<ResolversTypes['CartItems']>, ParentType, ContextType, RequireFields<CartitemsV2Args, 'pageSize' | 'currentPage'>>;
@@ -15852,6 +16082,8 @@ export type DownloadableProductResolvers<ContextType = MeshContext, ParentType e
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
+  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
+  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -15954,8 +16186,6 @@ export type DownloadableProductResolvers<ContextType = MeshContext, ParentType e
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -16319,6 +16549,8 @@ export type BundleProductResolvers<ContextType = MeshContext, ParentType extends
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
   price_view?: Resolver<Maybe<ResolversTypes['PriceViewEnum']>, ParentType, ContextType>;
+  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
+  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16423,8 +16655,6 @@ export type BundleProductResolvers<ContextType = MeshContext, ParentType extends
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -16600,6 +16830,8 @@ export type GroupedProductResolvers<ContextType = MeshContext, ParentType extend
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
+  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
+  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16703,8 +16935,6 @@ export type GroupedProductResolvers<ContextType = MeshContext, ParentType extend
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -16812,6 +17042,8 @@ export type ConfigurableProductResolvers<ContextType = MeshContext, ParentType e
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
+  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
+  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16916,8 +17148,6 @@ export type ConfigurableProductResolvers<ContextType = MeshContext, ParentType e
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -18466,6 +18696,24 @@ export type SpecialsResolvers<ContextType = MeshContext, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type DeliveryMethodResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DeliveryMethod'] = ResolversParentTypes['DeliveryMethod']> = ResolversObject<{
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  delivery_info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CartDeliveryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CartDelivery'] = ResolversParentTypes['CartDelivery']> = ResolversObject<{
+  available_delivery_methods?: Resolver<Array<Maybe<ResolversTypes['DeliveryMethod']>>, ParentType, ContextType>;
+  selected_delivery_method?: Resolver<Maybe<ResolversTypes['DeliveryMethod']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SetDeliveryMethodOnCartOutputResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SetDeliveryMethodOnCartOutput'] = ResolversParentTypes['SetDeliveryMethodOnCartOutput']> = ResolversObject<{
+  cart?: Resolver<ResolversTypes['Cart'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type DescriptionOverviewResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DescriptionOverview'] = ResolversParentTypes['DescriptionOverview']> = ResolversObject<{
   bullet_points?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   main_paragraph?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -18507,6 +18755,73 @@ export type GroupDataResolvers<ContextType = MeshContext, ParentType extends Res
 export type ProductInfoResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ProductInfo'] = ResolversParentTypes['ProductInfo']> = ResolversObject<{
   most_popular_priority?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   product?: Resolver<Maybe<ResolversTypes['ProductInterface']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type InstallerResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Installer'] = ResolversParentTypes['Installer']> = ResolversObject<{
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  available_appointments?: Resolver<Array<Maybe<ResolversTypes['Appointment']>>, ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  phone_number?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price_per_tire?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  thumbnail_image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  zip_code?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AppointmentResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Appointment'] = ResolversParentTypes['Appointment']> = ResolversObject<{
+  closes_at?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  day_of_week?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  opens_at?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CartInstallerResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CartInstaller'] = ResolversParentTypes['CartInstaller']> = ResolversObject<{
+  appointment_information?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  scheduled_appointment?: Resolver<Maybe<ResolversTypes['SelectedAppointment']>, ParentType, ContextType>;
+  selected_installer?: Resolver<Maybe<ResolversTypes['Installer']>, ParentType, ContextType>;
+  vin?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type InstallersSearchResultResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['InstallersSearchResult'] = ResolversParentTypes['InstallersSearchResult']> = ResolversObject<{
+  items?: Resolver<Array<Maybe<ResolversTypes['Installer']>>, ParentType, ContextType>;
+  total_count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SetInstallerOnCartOutputResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SetInstallerOnCartOutput'] = ResolversParentTypes['SetInstallerOnCartOutput']> = ResolversObject<{
+  cart?: Resolver<ResolversTypes['Cart'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SelectedAppointmentResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SelectedAppointment'] = ResolversParentTypes['SelectedAppointment']> = ResolversObject<{
+  date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  time?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ProductUrlResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ProductUrl'] = ResolversParentTypes['ProductUrl']> = ResolversObject<{
+  brandCategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  mainCategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  primary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  secondary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ProductRatingResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ProductRating'] = ResolversParentTypes['ProductRating']> = ResolversObject<{
+  ratingCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  ratingValue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -19024,12 +19339,23 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Promotion?: PromotionResolvers<ContextType>;
   Rebate?: RebateResolvers<ContextType>;
   Specials?: SpecialsResolvers<ContextType>;
+  DeliveryMethod?: DeliveryMethodResolvers<ContextType>;
+  CartDelivery?: CartDeliveryResolvers<ContextType>;
+  SetDeliveryMethodOnCartOutput?: SetDeliveryMethodOnCartOutputResolvers<ContextType>;
   DescriptionOverview?: DescriptionOverviewResolvers<ContextType>;
   Paragraph?: ParagraphResolvers<ContextType>;
   Specifications?: SpecificationsResolvers<ContextType>;
   MostPopularData?: MostPopularDataResolvers<ContextType>;
   GroupData?: GroupDataResolvers<ContextType>;
   ProductInfo?: ProductInfoResolvers<ContextType>;
+  Installer?: InstallerResolvers<ContextType>;
+  Appointment?: AppointmentResolvers<ContextType>;
+  CartInstaller?: CartInstallerResolvers<ContextType>;
+  InstallersSearchResult?: InstallersSearchResultResolvers<ContextType>;
+  SetInstallerOnCartOutput?: SetInstallerOnCartOutputResolvers<ContextType>;
+  SelectedAppointment?: SelectedAppointmentResolvers<ContextType>;
+  ProductUrl?: ProductUrlResolvers<ContextType>;
+  ProductRating?: ProductRatingResolvers<ContextType>;
   VehiclePages?: VehiclePagesResolvers<ContextType>;
   Faq?: FaqResolvers<ContextType>;
   CompatibleSizes?: CompatibleSizesResolvers<ContextType>;
