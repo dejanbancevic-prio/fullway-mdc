@@ -17,22 +17,22 @@ const prompt = Prompt({
 });
 
 const organizationSchema = {
-  "@context": "[https://schema.org](https://schema.org)",
+  "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Fullway Tires",
-  "url": "[https://www.fullwaytires.com/](https://www.fullwaytires.com/)",
-  "logo": "[https://www.fullwaytires.com/path/to/your/logo.png](https://www.fullwaytires.com/path/to/your/logo.png)",
-  "contactPoint": {
+  name: "Fullway Tires",
+  url: "https://www.fullwaytires.com/",
+  logo: "https://www.fullwaytires.com/_next/image?url=%2Ficons%2Flogo%2FFullway-Logo.png&w=1920&q=75",
+  contactPoint: {
     "@type": "ContactPoint",
-    "telephone": "+1-XXX-XXX-XXXX",
-    "contactType": "Customer Service"
+    telephone: "+1-XXX-XXX-XXXX",
+    contactType: "Customer Service",
   },
-  "sameAs": [
-    "[https://www.facebook.com/YourFullwayProfile](https://www.facebook.com/YourFullwayProfile)",
-    "[https://www.instagram.com/YourFullwayProfile](https://www.instagram.com/YourFullwayProfile)",
-    "[https://www.linkedin.com/company/YourFullwayProfile](https://www.linkedin.com/company/YourFullwayProfile)"
-  ]
-}
+  sameAs: [
+    "https://www.facebook.com/YourFullwayProfile",
+    "https://www.instagram.com/YourFullwayProfile",
+    "https://www.linkedin.com/company/YourFullwayProfile",
+  ],
+};
 
 
 export default function RootLayout({

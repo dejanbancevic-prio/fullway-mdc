@@ -9,11 +9,11 @@ import { BreadcrumbComp } from "@/app/components/Breadcrump/Breadcrumb";
 import Script from "next/script";
 
 const productSchema = {
-  "@context": "[https://schema.org/](https://schema.org/)",
+  "@context": "https://schema.org/",
   "@type": "Product",
   name: "Fullway HS-288 All-Terrain Tire",
   image:
-    "[https://www.fullwaytires.com/path/to/hs288-image.jpg](https://www.fullwaytires.com/path/to/hs288-image.jpg)",
+    "https://www.fullwaytires.com/path/to/hs288-image.jpg",
   description:
     "The Fullway HS-288 is a rugged all-terrain tire designed for confident traction on and off the road, perfect for SUVs and light trucks.",
   sku: "FW-HS288-2657017",
@@ -29,10 +29,10 @@ const productSchema = {
   offers: {
     "@type": "Offer",
     url:
-      "[https://www.fullwaytires.com/tires/hs-288](https://www.fullwaytires.com/tires/hs-288)",
+      "https://www.fullwaytires.com/tires/hs-288",
     priceCurrency: "USD",
     price: "189.99",
-    availability: "[https://schema.org/InStock](https://schema.org/InStock)",
+    availability: "https://schema.org/InStock",
     seller: {
       "@type": "Organization",
       name: "Fullway Tires",

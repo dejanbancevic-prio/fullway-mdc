@@ -11,15 +11,15 @@ export const metadata = {
 };
 
 const homeSchema = {
-  "@context": "[https://schema.org](https://schema.org)",
+  "@context": "https://schema.org",
   "@type": "WebSite",
-  url: "[https://www.fullwaytires.com/](https://www.fullwaytires.com/)",
+  url: "https://www.fullwaytires.com/",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
       urlTemplate:
-        "[https://www.fullwaytires.com/search?q=](https://www.fullwaytires.com/search?q=){search_term_string}",
+        "https://www.fullwaytires.com/search?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },

@@ -4,7 +4,7 @@ import tempFullwayBlogs from "../../../lib/tempFullwayBlogs.json";
 import Script from "next/script";
 
 const blogSchema = {
-  "@context": "[https://schema.org](https://schema.org)",
+  "@context": "https://schema.org",
   "@type": "Article",
   headline: "How to Read Your Tire's Sidewall: A Complete Guide",
   author: {
@@ -14,14 +14,14 @@ const blogSchema = {
   datePublished: "2025-10-26",
   dateModified: "2025-10-26",
   image:
-    "[https://www.fullwaytires.com/blog/images/sidewall-guide.jpg](https://www.fullwaytires.com/blog/images/sidewall-guide.jpg)",
+    "https://www.fullwaytires.com/blog/images/sidewall-guide.jpg",
   publisher: {
     "@type": "Organization",
     name: "Fullway Tires",
     logo: {
       "@type": "ImageObject",
       url:
-        "[https://www.fullwaytires.com/path/to/your/logo.png](https://www.fullwaytires.com/path/to/your/logo.png)",
+        "https://www.fullwaytires.com/path/to/your/logo.png",
     },
   },
 };

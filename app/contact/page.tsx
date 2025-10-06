@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 const contactSchema = {
-  "@context": "[https://schema.org](https://schema.org)",
+  "@context": "https://schema.org",
   "@type": "ContactPage",
   name: "Contact Us",
 };
