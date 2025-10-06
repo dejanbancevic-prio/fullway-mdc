@@ -2,7 +2,7 @@ import Script from "next/script";
 import FAQAccordion from "./FAQAccordion";
 
 const faqSchema = {
-  "@context": "[https://schema.org](https://schema.org)",
+  "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: [
     {
