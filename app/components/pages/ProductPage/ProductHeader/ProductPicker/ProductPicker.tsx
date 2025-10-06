@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import Link from "next/link";
 import { addToCart } from "@/lib/cart";
 import { useSidebar } from "@/components/ui/sidebar";
@@ -17,10 +16,8 @@ import {
 import { useReactiveVar } from "@apollo/client/react";
 import { usePathname } from "next/navigation";
 import ProductPickerExpand from "./ProductPickerExpand";
-
-type ProductItem = NonNullable<
-  NonNullable<ProductPageQuery["products"]>["items"]
->[number];
+import SchemaScript from "@/app/components/SEO/SchemaScript";
+import { JsonLd, ProductItem, SidebarVariant } from "@/lib/types";
 
 type ProductPickerProps = {
   product: ProductItem;
@@ -88,8 +85,48 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
     selectedVariantRear?.product?.price_range?.minimum_price?.final_price
       ?.value ?? 0;
 
+  const productSchema: JsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: selectedVariant?.product?.name ?? "",
+    image: `https://www.fullwaytires.com/_next/image?url=https%3A%2F%2Fstaging.prioritytire.dev%2Fmedia%2Fcatalog%2Fproduct%2Ftires%2Ffullway%2F${selectedVariant?.product?.image?.url?.replace(
+      /\/cache\/[^/]+/,
+      ""
+    ) || ""}`,
+    description:
+      selectedVariant?.product?.description_overview?.paragraphs?.[0]
+        ?.content ?? "",
+    sku: selectedVariant?.product?.sku ?? "",
+    brand: {
+      "@type": "Brand",
+      name: "Fullway",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: selectedVariant?.product?.productRating?.ratingValue ?? "0",
+      reviewCount: selectedVariant?.product?.productRating?.ratingCount ?? "0",
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://www.fullwaytires.com/tires/${selectedVariant?.product?.url_key}`,
+      priceCurrency:
+        selectedVariant?.product?.price_range.minimum_price.final_price
+          .currency ?? "USD",
+      price:
+        selectedVariant?.product?.price_range.minimum_price.final_price.value ??
+        "0",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "Fullway Tires",
+      },
+    },
+  };
+
   return (
     <div className="flex flex-col">
+      <SchemaScript id={"product-schema"} schema={productSchema} />
+
       {!newSelect && (
         <div className="flex flex-col gap-[0.3rem]">
           <div className="flex w-full justify-between items-center">

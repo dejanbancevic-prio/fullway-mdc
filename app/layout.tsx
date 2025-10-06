@@ -3,7 +3,8 @@ import "./globals.css";
 import LayoutWrapper from "./components/layout/LayoutWrapper/LayoutWrapper";
 import ApolloProviderClient from "./providers/ApolloProviderClient";
 import { Prompt } from "next/font/google";
-import Script from "next/script";
+import SchemaScript from "./components/SEO/SchemaScript";
+import { organizationSchema } from "./components/SEO/seoSchemas";
 
 export const metadata: Metadata = {
   title: "Fullway",
@@ -16,25 +17,6 @@ const prompt = Prompt({
   display: "swap",
 });
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Fullway Tires",
-  url: "https://www.fullwaytires.com/",
-  logo: "https://www.fullwaytires.com/_next/image?url=%2Ficons%2Flogo%2FFullway-Logo.png&w=1920&q=75",
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+1-XXX-XXX-XXXX",
-    contactType: "Customer Service",
-  },
-  sameAs: [
-    "https://www.facebook.com/YourFullwayProfile",
-    "https://www.instagram.com/YourFullwayProfile",
-    "https://www.linkedin.com/company/YourFullwayProfile",
-  ],
-};
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,13 +26,7 @@ export default function RootLayout({
     <html lang="en">
     
      <head>
-        <Script
-          id="organization-schema"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
+       <SchemaScript id={"organization-schema"} schema={organizationSchema}/>
       </head>
 
       <body className={prompt.className}>

@@ -1,13 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import ProductPicker from "./ProductPicker/ProductPicker";
-import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import amazonLinksRaw from "../../../../../lib/amazonReviewLinks.json";
 import { YotpoReviews } from "../../../yotpo/YotpoReviews";
-
-type ProductItem = NonNullable<
-  NonNullable<ProductPageQuery["products"]>["items"]
->[number];
+import { ProductItem } from "@/lib/types";
 
 type ProductFeaturesProps = {
   product: ProductItem;
@@ -58,6 +54,7 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
 
   return (
     <div className="md:max-w-7xl md:mx-auto mx-[1rem] md:mt-[4.6rem] mt-[3rem]">
+
       <div className="flex flex-col md:flex-row w-full justify-between md:gap-[15rem] gap-[1rem]">
         <div className="flex justify-center md:justify-start w-full md:w-fit">
           <Image
@@ -93,7 +90,9 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
                 <p className="font-[300] text-[0.8rem] md:text-[1rem]">
                   {productVariant?.productRating?.ratingValue ?? "N/A"}
                   <YotpoReviews
-                    yotpo_review_count={productVariant?.productRating?.ratingCount ?? 0}
+                    yotpo_review_count={
+                      productVariant?.productRating?.ratingCount ?? 0
+                    }
                     id={product?.id ?? 0}
                   />
                 </p>

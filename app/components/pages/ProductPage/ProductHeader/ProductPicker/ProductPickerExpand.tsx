@@ -1,23 +1,8 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import Link from "next/link";
 import { addToCart, CartItem } from "@/lib/cart";
-
-type ItemsArray = NonNullable<
-  NonNullable<ProductPageQuery["products"]>["items"]
->;
-
-type Item = NonNullable<ItemsArray[number]>;
-
-type ConfigurableProductType = Extract<
-  Item,
-  { __typename?: "ConfigurableProduct" }
->;
-
-type SidebarVariant = NonNullable<
-  NonNullable<ConfigurableProductType["variants"]>[number]
->;
+import { SidebarVariant } from "@/lib/types";
 
 type ProductPickerExpandProps = {
   handleOpenSidebar: (side: "front" | "rear") => void;

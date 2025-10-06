@@ -10,7 +10,6 @@ export const metadata = {
     "Learn about the Fullway Tires core mission. We're driven by our deep commitment to global engineering standards, innovative technology, and superior quality.",
 };
 
-
 const AboutUsPage = () => {
   return (
     <main className="flex flex-col">

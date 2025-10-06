@@ -1,12 +1,8 @@
 import ProdFeaturedTires from "./ProductFeaturedTires";
 import Image from "next/image";
-import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import ProductInfo from "./ProductInfo";
 import ProductHeader from "./ProductHeader/ProductHeader";
-
-type ProductItem = NonNullable<
-  NonNullable<ProductPageQuery["products"]>["items"]
->[number];
+import { ProductItem } from "@/lib/types";
 
 type ProductMainProps = {
   product: ProductItem;
