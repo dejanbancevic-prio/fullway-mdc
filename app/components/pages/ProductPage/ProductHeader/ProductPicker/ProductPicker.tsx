@@ -17,7 +17,7 @@ import { useReactiveVar } from "@apollo/client/react";
 import { usePathname } from "next/navigation";
 import ProductPickerExpand from "./ProductPickerExpand";
 import SchemaScript from "@/app/components/SEO/SchemaScript";
-import { JsonLd, ProductItem, SidebarVariant } from "@/lib/types";
+import { JsonLd, ProductItem } from "@/lib/types";
 
 type ProductPickerProps = {
   product: ProductItem;
@@ -88,32 +88,31 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
   const productSchema: JsonLd = {
     "@context": "https://schema.org/",
     "@type": "Product",
-    name: selectedVariant?.product?.name ?? "",
-    image: `https://www.fullwaytires.com/_next/image?url=https%3A%2F%2Fstaging.prioritytire.dev%2Fmedia%2Fcatalog%2Fproduct%2Ftires%2Ffullway%2F${selectedVariant?.product?.image?.url?.replace(
+    name: product?.name ?? "" ,
+    image: `https://www.fullwaytires.com/_next/image?url=https%3A%2F%2Fstaging.prioritytire.dev%2Fmedia%2Fcatalog%2Fproduct%2Ftires%2Ffullway%2F${variants?.[0]?.product?.image?.url?.replace(
       /\/cache\/[^/]+/,
       ""
     ) || ""}`,
     description:
-      selectedVariant?.product?.description_overview?.paragraphs?.[0]
-        ?.content ?? "",
-    sku: selectedVariant?.product?.sku ?? "",
+     variants?.[0]?.product?.description_overview?.paragraphs?.[0]?.content ?? "",
+    sku:  variants?.[0]?.product?.sku ?? "",
     brand: {
       "@type": "Brand",
       name: "Fullway",
     },
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: selectedVariant?.product?.productRating?.ratingValue ?? "0",
-      reviewCount: selectedVariant?.product?.productRating?.ratingCount ?? "0",
+      ratingValue:  variants?.[0]?.product?.productRating?.ratingValue ?? "0",
+      reviewCount:  variants?.[0]?.product?.productRating?.ratingCount ?? "0",
     },
     offers: {
       "@type": "Offer",
-      url: `https://www.fullwaytires.com/tires/${selectedVariant?.product?.url_key}`,
+      url: `https://www.fullwaytires.com/tires/${product?.url_key?? ""}`,
       priceCurrency:
-        selectedVariant?.product?.price_range.minimum_price.final_price
+        variants?.[0]?.product?.price_range.minimum_price.final_price
           .currency ?? "USD",
       price:
-        selectedVariant?.product?.price_range.minimum_price.final_price.value ??
+        variants?.[0]?.product?.price_range.minimum_price.final_price.value ??
         "0",
       availability: "https://schema.org/InStock",
       seller: {
