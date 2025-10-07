@@ -1,4 +1,4 @@
-import { ProductPageQuery } from "./__generated__/graphql";
+import { BlogPageQuery, ProductPageQuery } from "./__generated__/graphql";
 
 export type ProductItem = NonNullable<
   NonNullable<ProductPageQuery["products"]>["items"]
@@ -23,3 +23,8 @@ export type JsonLd =
   | boolean
   | { [key: string]: JsonLd | JsonLd[] }
   | JsonLd[];
+
+
+export type BlogItem = NonNullable<
+  NonNullable<BlogPageQuery["awBlogPosts"]>["items"]
+>[number];

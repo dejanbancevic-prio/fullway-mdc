@@ -1,11 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { BlogPageQuery } from "@/lib/__generated__/graphql";
-
-type BlogItem = NonNullable<
-  NonNullable<BlogPageQuery["awBlogPosts"]>["items"]
->[number];
+import { BlogItem } from "@/lib/types";
 
 type BlogCardProps = {
   blog: BlogItem;

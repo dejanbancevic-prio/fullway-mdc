@@ -9,8 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import SchemaScript from "../SEO/SchemaScript";
-import { createFaqSchema } from "../SEO/seoSchemas";
-
+import { getFaqSchema } from "../SEO/seoSchemas";
 
 const FAQAccordion = () => {
   const [expandAll, setExpandAll] = useState(false);
@@ -64,7 +63,7 @@ const FAQAccordion = () => {
 
   const allValues = items.map((item) => item.value);
 
-  const faqSchema = createFaqSchema(items);
+  const faqSchema = getFaqSchema(items);
 
   return (
     <div className="w-full">

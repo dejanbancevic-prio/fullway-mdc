@@ -12,10 +12,7 @@ import { PaginationComp } from "../../PaginationComp/PaginationComp";
 import Image from "next/image";
 import { currentPageVar, searchVar, selectedTagsVar } from "@/lib/cache";
 import tempFullwayBlogs from "../../../../lib/tempFullwayBlogs.json";
-
-type BlogItem = NonNullable<
-  NonNullable<BlogPageQuery["awBlogPosts"]>["items"]
->[number];
+import { BlogItem } from "@/lib/types";
 
 type BlogFeaturedTiresProps = {
   initialBlogs: BlogItem[];

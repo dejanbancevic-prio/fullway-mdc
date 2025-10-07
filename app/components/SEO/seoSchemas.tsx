@@ -1,4 +1,4 @@
-import { JsonLd, ProductItem, ProductItemVariant } from "@/lib/types";
+import { BlogItem, JsonLd, ProductItem, ProductItemVariant } from "@/lib/types";
 
 export const organizationSchema: JsonLd = {
   "@context": "https://schema.org",
@@ -39,7 +39,7 @@ export const contactSchema: JsonLd = {
   name: "Contact Us",
 };
 
-export const createFaqSchema = (
+export const getFaqSchema = (
   faqs: { question: string; answer: string }[]
 ): JsonLd => ({
   "@context": "https://schema.org",
@@ -80,8 +80,8 @@ export function getProductSchema(
     description:
       firstVariant?.description_overview?.paragraphs?.[0]?.content ?? "",
     sku: firstVariant?.sku ?? "",
-    mpn: firstVariant?.mpn1 ?? "", 
-    gtin: firstVariant?.uid ?? "", 
+    mpn: firstVariant?.mpn1 ?? "",
+    gtin: firstVariant?.uid ?? "",
     brand: {
       "@type": "Brand",
       name: "Fullway",
@@ -107,3 +107,34 @@ export function getProductSchema(
     },
   };
 }
+
+export function getBlogSchema(
+  blog: BlogItem,
+ )  {
+
+  const authorName = blog?.authors?.[0]
+    ? `${blog.authors[0].firstname} ${blog.authors[0].lastname}`
+    : "Unknown";
+
+  return {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: blog?.title ?? "",
+  author: {
+    "@type": "Person",
+    name: authorName,
+  },
+  datePublished: blog?.publish_date ?? "",
+  dateModified: blog?.updated_at ?? "",
+  image: "https://www.fullwaytires.com/_next/image?url=%2Fimages%2FHomePage%2FFeaturedTires%2Ffulllway-suv-bg-image-placeholder.jpg&w=3840&q=75",
+  publisher: {
+    "@type": "Organization",
+    name: "Fullway Tires",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.fullwaytires.com/_next/image?url=%2Ficons%2Flogo%2FFullway-Logo.png&w=1920&q=75",
+    },
+  },
+};
+
+ }

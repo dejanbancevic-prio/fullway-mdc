@@ -9,6 +9,7 @@ query BlogPage($keyWord: String!, $currentPage: Int!, $pageSize: Int!) {
       url_key
       title
       publish_date
+      updated_at
       authors {
         firstname
         lastname

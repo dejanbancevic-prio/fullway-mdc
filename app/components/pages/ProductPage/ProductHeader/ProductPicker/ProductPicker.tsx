@@ -17,7 +17,7 @@ import { useReactiveVar } from "@apollo/client/react";
 import { usePathname } from "next/navigation";
 import ProductPickerExpand from "./ProductPickerExpand";
 import SchemaScript from "@/app/components/SEO/SchemaScript";
-import { JsonLd, ProductItem } from "@/lib/types";
+import { ProductItem } from "@/lib/types";
 import { getProductSchema } from "@/app/components/SEO/seoSchemas";
 
 type ProductPickerProps = {

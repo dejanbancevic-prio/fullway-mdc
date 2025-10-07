@@ -1,11 +1,9 @@
-import { BlogPageQuery } from "@/lib/__generated__/graphql";
 import Image from "next/image";
 import { parsePageBuilderHtml } from "@/lib/blog/parser/parsePageBuilderHtml";
 import PagebuilderTableOfContents from "./PagebuilderComponents/PagebuilderTableOfContents";
-
-type BlogItem = NonNullable<
-  NonNullable<BlogPageQuery["awBlogPosts"]>["items"]
->[number];
+import SchemaScript from "../../SEO/SchemaScript";
+import { getBlogSchema } from "../../SEO/seoSchemas";
+import { BlogItem } from "@/lib/types";
 
 type DynamicBlogMainProps = {
   blog: BlogItem | undefined;
@@ -26,8 +24,12 @@ const DynamicBlogMain = ({ blog }: DynamicBlogMainProps) => {
     ? new Date(blog.publish_date).toLocaleDateString()
     : "";
 
+  const blogSchema = getBlogSchema(blog);
+
   return (
     <div className="relative w-full bg-black">
+      <SchemaScript id={"blog-schema"} schema={blogSchema} />
+
       <div className="absolute inset-0 ">
         <Image
           src="/images/ProductPage/prodBg.jpg"
