@@ -76,7 +76,7 @@ const MostPopularTire = () => {
                   </div>
 
                   <div className="flex items-center gap-[1.5rem]">
-                    <Link href="/product/hs998">
+                    <Link href="/tires/hs998">
                       <Button className="buttonSkew group text-base font-[700] px-[1rem]">
                         CHECK OUT
                         <Image
@@ -126,7 +126,7 @@ const MostPopularTire = () => {
                   </div>
 
                   <div className="flex items-center gap-[1.5rem]">
-                    <Link href="/product/hs998">
+                    <Link href="/tires/hs998">
                       <Button className="buttonSkew group text-base font-[700] px-[1rem]">
                         CHECK OUT
                         <Image

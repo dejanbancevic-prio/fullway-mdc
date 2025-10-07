@@ -30,7 +30,7 @@ const OurFeaturedTiresCard = ({
             </p>
             <p className="font-[400] text-center px-[3rem] ">{text}</p>
 
-            <Link href={`/product/${url_key}`} className="flex justify-between">
+            <Link href={`/tires/${url_key}`} className="flex justify-between">
               <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[3rem] ">
                 CHECK OUT
                 <Image

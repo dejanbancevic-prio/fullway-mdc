@@ -38,7 +38,7 @@ const FeaturedTires = () => {
 
             <div className="flex items-center gap-[1.5rem]">
               <Button className="buttonSkew text-base font-[700] px-[1.1rem]">
-                <Link href="/our-tires">SHOP ALL TIRES</Link>
+                <Link href="/tires">SHOP ALL TIRES</Link>
               </Button>
 
               <Link href={`#widget`} className="font-[400] underline ">
@@ -56,7 +56,7 @@ const FeaturedTires = () => {
             tireImage={
               "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
             }
-            url={"/product/hs266"}
+            url={"/tires/hs266"}
           />
           <FeaturedTiresCard
             name={"SUV"}
@@ -67,7 +67,7 @@ const FeaturedTires = () => {
             tireImage={
               "/images/HomePage/FeaturedTires/fullway-hs266-b-aca2-1-placeholder.png"
             }
-            url={"/product/hs288"}
+            url={"/tires/hs288"}
           />
         </div>
       </div>

@@ -32,7 +32,7 @@ const Header = () => {
           <div className="flex justify-center items-center gap-[2.25rem]">
             <Link
               className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md"
-              href="/our-tires"
+              href="/tires"
             >
               OUR TIRES
             </Link>

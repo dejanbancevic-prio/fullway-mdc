@@ -23,7 +23,7 @@ const OurTiresPage = () => {
         bgColor={"bg-[#141414]"}
         color={"text-white"}
         nestedFirst={"Our Tires"}
-        pathFirst={"/our-tires"}
+        pathFirst={"/tires"}
       />
 
       <div className="bg-[#141414] w-full">

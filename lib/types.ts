@@ -4,21 +4,18 @@ export type ProductItem = NonNullable<
   NonNullable<ProductPageQuery["products"]>["items"]
 >[number];
 
-
-type ItemsArray = NonNullable<
-  NonNullable<ProductPageQuery["products"]>["items"]
->;
-
-type Item = NonNullable<ItemsArray[number]>;
-
-type ConfigurableProductType = Extract<
-  Item,
+export type ConfigurableProductItem = Extract<
+  ProductItem,
   { __typename?: "ConfigurableProduct" }
 >;
 
 export type SidebarVariant = NonNullable<
-  NonNullable<ConfigurableProductType["variants"]>[number]
+  NonNullable<ConfigurableProductItem["variants"]>[number]
 >;
+
+export type ProductItemVariant = NonNullable<
+  ConfigurableProductItem["variants"]
+>[number];
 
 export type JsonLd =
   | string

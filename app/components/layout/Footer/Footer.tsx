@@ -48,9 +48,9 @@ const Footer = () => {
             <div className="flex flex-col w-full">
               <p className="font-[600] text-[1.25rem]">OUR TIRES</p>
               <div className="md:w-[12.958rem] w-full border-b-1 font-[400] text-[1rem]" />
-              <Link href={"/product/hs266"}>Passenger</Link>
-              <Link href={"/product/hs998"}>SUV</Link>
-              <Link href={"/product/hs288"}>Light Truck</Link>
+              <Link href={"/tires/hs266"}>Passenger</Link>
+              <Link href={"/tires/hs998"}>SUV</Link>
+              <Link href={"/tires/hs288"}>Light Truck</Link>
             </div>
           </div>
 

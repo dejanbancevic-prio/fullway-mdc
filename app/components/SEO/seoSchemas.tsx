@@ -1,5 +1,4 @@
-import { JsonLd } from "@/lib/types";
-
+import { JsonLd, ProductItem, ProductItemVariant } from "@/lib/types";
 
 export const organizationSchema: JsonLd = {
   "@context": "https://schema.org",
@@ -20,7 +19,7 @@ export const organizationSchema: JsonLd = {
   ],
 };
 
-export const homeSchema: JsonLd  = {
+export const homeSchema: JsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   url: "https://www.fullwaytires.com/",
@@ -34,7 +33,7 @@ export const homeSchema: JsonLd  = {
   },
 };
 
-export const contactSchema: JsonLd  = {
+export const contactSchema: JsonLd = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
   name: "Contact Us",
@@ -42,7 +41,7 @@ export const contactSchema: JsonLd  = {
 
 export const createFaqSchema = (
   faqs: { question: string; answer: string }[]
-) : JsonLd => ({
+): JsonLd => ({
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: faqs.map((faq) => ({
@@ -55,4 +54,54 @@ export const createFaqSchema = (
   })),
 });
 
+export function getProductSchema(
+  product: ProductItem,
+  variants: ProductItemVariant[]
+) {
+  const firstVariant = variants?.[0]?.product;
 
+  const imagePath = firstVariant?.image?.url
+    ? firstVariant.image.url
+        .replace(/^https?:\/\/[^/]+/, "")
+        .replace(/\/cache\/[^/]+/, "")
+    : "";
+
+  const imageUrl = imagePath
+    ? `https://www.fullwaytires.com/_next/image?url=https%3A%2F%2Fstaging.prioritytire.dev${encodeURIComponent(
+        imagePath
+      )}`
+    : "";
+
+  return {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: product?.name ?? "",
+    image: imageUrl,
+    description:
+      firstVariant?.description_overview?.paragraphs?.[0]?.content ?? "",
+    sku: firstVariant?.sku ?? "",
+    brand: {
+      "@type": "Brand",
+      name: "Fullway",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: firstVariant?.productRating?.ratingValue ?? "0",
+      reviewCount: firstVariant?.productRating?.ratingCount ?? "0",
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://www.fullwaytires.com/tires/${product?.url_key ?? ""}`,
+      priceCurrency:
+        firstVariant?.price_range?.minimum_price?.final_price?.currency ??
+        "USD",
+      price:
+        firstVariant?.price_range?.minimum_price?.final_price?.value ?? "0",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "Fullway Tires",
+      },
+    },
+  };
+}
