@@ -80,6 +80,8 @@ export function getProductSchema(
     description:
       firstVariant?.description_overview?.paragraphs?.[0]?.content ?? "",
     sku: firstVariant?.sku ?? "",
+    mpn: firstVariant?.mpn1 ?? "", 
+    gtin: firstVariant?.uid ?? "", 
     brand: {
       "@type": "Brand",
       name: "Fullway",

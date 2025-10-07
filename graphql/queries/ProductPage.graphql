@@ -26,6 +26,7 @@ query ProductPage($urlKey: String!) {
               ratingCount
             }
             sku
+            mpn1
             max_air_pressure
             size_text
             url_key
