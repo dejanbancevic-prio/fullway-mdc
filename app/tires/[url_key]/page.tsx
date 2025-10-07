@@ -26,15 +26,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <main className="flex flex-col">
- 
       <div className="h-[5rem] bg-[#141414]" />
       <BreadcrumbComp
         bgColor={"bg-[#141414]"}
         color={"text-white"}
         nestedFirst={"Our Tires"}
-        pathFirst={"/our-tires"}
+        pathFirst={"/tires"}
         nestedSecond={product?.name}
-        pathSecond={`/product/${product?.url_key}`}
+        pathSecond={`/tires/${product?.url_key}`}
       />
       <ProductMain product={product} />
     </main>
