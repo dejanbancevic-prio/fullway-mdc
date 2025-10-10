@@ -55,7 +55,7 @@ export function defaultHandler({ $el, $cheerio, opts, parseNodes }: HandlerProps
 export const tagHandlers: Record<string, (props: HandlerProps) => React.ReactNode> = {
   p: pTagHandler,
   figure: figureTagHandler,
-  image: imageTagHandler,
+  img: imageTagHandler,
   h2: hTagsHandler,
   h3: hTagsHandler,
   h4: hTagsHandler,

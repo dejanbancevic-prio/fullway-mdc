@@ -1,8 +1,8 @@
-import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
-import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
-import BlogFeaturedTires from "../components/pages/BlogPage/BlogFeaturedTires";
-import BlogHeader from "../components/pages/BlogPage/BlogHeader";
-import tempFullwayBlogs from "../../lib/tempFullwayBlogs.json";
+import GlobalPageHero from "@components/pages/OurTiresPage/GlobalPageHero";
+import { BreadcrumbComp } from "@components/Breadcrump/Breadcrumb";
+import BlogFeaturedTires from "@components/pages/BlogPage/BlogFeaturedTires";
+import BlogHeader from "@components/pages/BlogPage/BlogHeader";
+import tempFullwayBlogs from "@lib/json/tempFullwayBlogs.json";
 
 export const metadata = {
   title: "Find out about our products an more in our Education hub",

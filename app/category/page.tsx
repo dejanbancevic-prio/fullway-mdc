@@ -1,5 +1,5 @@
-import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
-import CategoryFeaturedTires from "../components/pages/CategoryPage/CategoryFeaturedTires";
+import { BreadcrumbComp } from "@components/Breadcrump/Breadcrumb";
+import CategoryMain from "@components/pages/CategoryPage/CategoryMain";
 
 const CategoryPage = () => {
   return (
@@ -13,7 +13,7 @@ const CategoryPage = () => {
       />
 
       <div className="flex ">
-        <CategoryFeaturedTires />
+        <CategoryMain />
       </div>
     </main>
   );

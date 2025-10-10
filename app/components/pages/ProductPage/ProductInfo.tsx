@@ -107,37 +107,53 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
             onClick={() => setSelectedWidth(size)}
           >
             {size}&rdquo;
-
           </Button>
         ))}
       </div>
 
       {product?.__typename === "ConfigurableProduct" && (
         <div className="relative h-[31rem] w-full overflow-y-auto">
-          <div className="absolute top-0 left-0 w-full md:h-auto h-[3.5rem] z-20 flex text-[0.9rem] items-center bg-fullwayRed text-white font-[800] italic text-center">
-            <div className="pl-[6rem] md:pl-[7rem]">SIZE</div>
-            <div className="pl-[8rem] md:hidden">DETAILS</div>
-            <div className="hidden md:block pl-[8rem] ">LOAD INDEX</div>
-            <div className="hidden md:block pl-[3.5rem]">
-              SPEED <br /> RATING
-            </div>
-            <div className="hidden md:block pl-[5em]">UTQG</div>
-            <div className="hidden md:block pl-[4rem]">
-              RIM <br /> WIDTH (IN)
-            </div>
-            <div className="hidden md:block pl-[2.6rem]">
-              MAX <br /> PRESSURE <br /> (PSI)
-            </div>
-            <div className="hidden md:block pl-[3rem]">
-              OVERALL <br /> DIAMETER <br /> (IN)
-            </div>
-            <div className="hidden md:block pl-[3.7rem]">
-              TREAD <br /> DEPTH
-            </div>
-            <div className="hidden md:block pl-[6rem]">SIDEWALL</div>
-          </div>
+          <div className="absolute top-0 left-0 w-full z-20">
+            <table className="table-fixed w-full">
+              <thead>
+                <tr className="bg-fullwayRed text-white font-[800] italic text-[0.9rem] h-[3.5rem]">
+                  <th className="md:w-[20%] w-[60%] text-center align-middle">
+                    SIZE
+                  </th>
 
-          <div className="">
+                  <th className="w-[30%] md:hidden text-center align-middle">
+                    DETAILS
+                  </th>
+
+                  <th className="hidden md:table-cell text-center align-middle">
+                    LOAD INDEX
+                  </th>
+                  <th className="hidden md:table-cell text-center align-middle">
+                    SPEED <br /> RATING
+                  </th>
+                  <th className="hidden md:table-cell text-center align-middle">
+                    UTQG
+                  </th>
+                  <th className="hidden md:table-cell text-center align-middle">
+                    RIM <br /> WIDTH (IN)
+                  </th>
+                  <th className="hidden md:table-cell text-center align-middle">
+                    MAX <br /> PRESSURE <br /> (PSI)
+                  </th>
+                  <th className="hidden md:table-cell text-center align-middle">
+                    OVERALL <br /> DIAMETER <br /> (IN)
+                  </th>
+                  <th className="hidden md:table-cell text-center align-middle">
+                    TREAD <br /> DEPTH
+                  </th>
+                  <th className="hidden md:table-cell text-center align-middle w-[15%] ">
+                    SIDEWALL
+                  </th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div>
             <ProductInfoTable
               variants={
                 (filteredVariants ?? []).filter(

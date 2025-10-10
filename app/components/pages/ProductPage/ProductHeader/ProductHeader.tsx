@@ -1,9 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
 import ProductPicker from "./ProductPicker/ProductPicker";
-import amazonLinksRaw from "../../../../../lib/amazonReviewLinks.json";
-import { YotpoReviews } from "../../../yotpo/YotpoReviews";
-import { ProductItem } from "@/lib/types";
+import { YotpoReviews } from "@components/yotpo/YotpoReviews";
+import { ProductItem } from "@lib/types";
 
 type ProductFeaturesProps = {
   product: ProductItem;
@@ -48,13 +46,8 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
     return stars;
   };
 
-  const amazonFormat: Record<string, { value: string }> = amazonLinksRaw;
-  const amazonReviewLink =
-    product?.url_key && amazonFormat[product?.url_key]?.value;
-
   return (
     <div className="md:max-w-7xl md:mx-auto mx-[1rem] md:mt-[4.6rem] mt-[3rem]">
-
       <div className="flex flex-col md:flex-row w-full justify-between md:gap-[15rem] gap-[1rem]">
         <div className="flex justify-center md:justify-start w-full md:w-fit">
           <Image
@@ -81,7 +74,7 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
                 product?.name!.slice(8).slice(2)}
             </h1>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-[0.7rem] md:gap-[1rem]">
+            <div className="flex items-start">
               <div className="flex items-center gap-[0.7rem]">
                 <div className="flex gap-[0.3rem]">
                   {getStars(productVariant?.productRating?.ratingValue ?? 0)}
@@ -90,36 +83,15 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
                 <p className="font-[300] text-[0.8rem] md:text-[1rem]">
                   {productVariant?.productRating?.ratingValue ?? "N/A"}
                   <YotpoReviews
-                    yotpo_review_count={
-                      productVariant?.productRating?.ratingCount ?? 0
-                    }
+                    text={productVariant?.productRating?.ratingCount ?? 0}
                     id={product?.id ?? 0}
                   />
                 </p>
               </div>
 
-              <div className="flex gap-[0.5rem] font-[300] text-[0.8rem] md:text-[1rem]">
-                {amazonReviewLink ? (
-                  <Link
-                    href={amazonReviewLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline "
-                  >
-                    Write a Review
-                  </Link>
-                ) : (
-                  <Link
-                    href="https://www.amazon.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline"
-                  >
-                    Write a Review
-                  </Link>
-                )}
-                <div>on Amazon</div>
-              </div>
+              <p className="font-[300] text-[0.8rem] md:text-[1rem]">
+                <YotpoReviews text={"Write a Review"} id={product?.id ?? 0} />
+              </p>
             </div>
 
             <div className="flex justify-start font-[600] text-[1.15rem] md:gap-[1.5rem] gap-[0.7rem]">

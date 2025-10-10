@@ -1,7 +1,7 @@
-import GlobalPageHero from "../components/pages/OurTiresPage/GlobalPageHero";
-import Widget from "../components/Widget/Widget";
-import OurFeaturedTires from "../components/pages/OurTiresPage/OurFeaturedTires/OurFeaturedTires";
-import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
+import GlobalPageHero from "@components/pages/OurTiresPage/GlobalPageHero";
+import Widget from "@components/Widget/Widget";
+import OurFeaturedTires from "@components/pages/OurTiresPage/OurFeaturedTires/OurFeaturedTires";
+import { BreadcrumbComp } from "@components/Breadcrump/Breadcrumb";
 
 export const metadata = {
   title: "Home of the best High-Performance & All-Season Tires",

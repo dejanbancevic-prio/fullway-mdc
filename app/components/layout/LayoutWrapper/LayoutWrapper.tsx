@@ -1,8 +1,8 @@
 "use client";
 
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import AppSidebar from "../../AppSidebar/AppSidebar";
+import Header from "@components/layout/Header/Header";
+import Footer from "@components/layout/Footer/Footer";
+import AppSidebar from "@components/AppSidebar/AppSidebar";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -29,7 +29,7 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
         <Overlay />
         <Header />
         <main className="relative z-10">{children}</main>
-        <Toaster position="top-center"/>
+        <Toaster position="top-center" />
         <Footer />
       </div>
     </SidebarProvider>

@@ -95,10 +95,10 @@ export function getProductSchema(
       "@type": "Offer",
       url: `https://www.fullwaytires.com/tires/${product?.url_key ?? ""}`,
       priceCurrency:
-        firstVariant?.price_range?.minimum_price?.final_price?.currency ??
+        product?.price_range.minimum_price.final_price.currency ??
         "USD",
       price:
-        firstVariant?.price_range?.minimum_price?.final_price?.value ?? "0",
+        product?.price_range.minimum_price.final_price.value ?? "0",
       availability: "https://schema.org/InStock",
       seller: {
         "@type": "Organization",

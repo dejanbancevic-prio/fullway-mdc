@@ -1,9 +1,12 @@
+import { Button } from "@/components/ui/button";
 import { makeVar } from "@apollo/client";
 import { toast } from "sonner";
+import { sidebarTypeVar } from "./cache";
 
 export type CartItem = {
   url_key: string;
   sku: string;
+  id: number;
   name: string;
   size: string;
   season_text: string;
@@ -12,9 +15,14 @@ export type CartItem = {
   quantity: number;
 };
 
+type addToCartProps = {
+  item: CartItem;
+  toggleSidebar: () => void;
+};
+
 export const cartItems = makeVar<CartItem[]>([]);
 
-export const addToCart = (item: CartItem) => {
+export const addToCart = ({ item, toggleSidebar }: addToCartProps) => {
   const existing = cartItems().find((i) => i.url_key === item.url_key);
   if (existing) {
     cartItems(
@@ -27,9 +35,31 @@ export const addToCart = (item: CartItem) => {
   } else {
     cartItems([...cartItems(), item]);
   }
-  toast.success("Products have been successfully added to your cart.", {
-   className:"flex justify-center !items-center md:!w-[23rem] ",
-  });
+
+  toast.success(
+    <div className="flex ml-[0.5rem] gap-[1.5rem] items-center w-full">
+      <div className="flex flex-col gap-[0.25rem]">
+        <span className="font-[800]">{item.name}</span>
+        <p className="text-[#636363] ">
+          has been successfully added to your cart.
+        </p>
+      </div>
+
+      <Button
+        className="buttonSkew-black font-[800]"
+        onClick={() => {
+          sidebarTypeVar("cart");
+          toggleSidebar();
+        }}
+      >
+        See Cart
+      </Button>
+    </div>,
+    {
+      className: "!w-fit md:!w-[27rem] flex items-start",
+      duration: 2000,
+    }
+  );
 };
 
 export const removeFromCart = (url_key: string) => {

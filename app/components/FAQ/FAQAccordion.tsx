@@ -8,8 +8,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import SchemaScript from "../SEO/SchemaScript";
-import { getFaqSchema } from "../SEO/seoSchemas";
+import SchemaScript from "@components/SEO/SchemaScript";
+import { getFaqSchema } from "@components/SEO/seoSchemas";
 
 const FAQAccordion = () => {
   const [expandAll, setExpandAll] = useState(false);

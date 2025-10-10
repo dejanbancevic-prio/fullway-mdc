@@ -80,11 +80,11 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
 
   const price =
     selectedVariant?.product?.price_range?.minimum_price?.final_price?.value ??
-    0;
+    product?.price_range.minimum_price.final_price.value;
 
   const priceRear =
     selectedVariantRear?.product?.price_range?.minimum_price?.final_price
-      ?.value ?? 0;
+      ?.value ?? product?.price_range.minimum_price.final_price.value;
 
   const productSchema = getProductSchema(product, variants);
   return (
@@ -155,14 +155,15 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
       {newSelect && (
         <ProductPickerExpand
           handleOpenSidebar={handleOpenSidebar}
+          toggleSidebar={toggleSidebar}
           setCountFront={setCountFront}
           countFront={countFront}
           selectedVariant={selectedVariant ?? null}
-          price={price}
+          price={price ?? 0}
           setCountRear={setCountRear}
           countRear={countRear}
           selectedVariantRear={selectedVariantRear ?? null}
-          priceRear={priceRear}
+          priceRear={priceRear ?? 0}
           setNewSelect={setNewSelect}
         />
       )}
@@ -211,20 +212,24 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
                     if (!selectedVariant) return;
 
                     addToCart({
-                      url_key: selectedVariant.product?.url_key ?? "",
-                      sku: selectedVariant.product?.sku ?? "",
-                      name: selectedVariant.product?.name ?? "",
-                      size: selectedVariant.attributes?.[0]?.label ?? "",
-                      season_text: selectedVariant.product?.season_text ?? "",
-                      final_price:
-                        selectedVariant.product?.price_range?.minimum_price
-                          ?.final_price?.value ?? 0,
-                      image_url:
-                        selectedVariant.product?.image?.url?.replace(
-                          /\/cache\/[^/]+/,
-                          ""
-                        ) || "",
-                      quantity: countFront,
+                      item: {
+                        url_key: selectedVariant.product?.url_key ?? "",
+                        sku: selectedVariant.product?.sku ?? "",
+                        id: selectedVariant.product?.id ?? 0,
+                        name: selectedVariant.product?.name ?? "",
+                        size: selectedVariant.attributes?.[0]?.label ?? "",
+                        season_text: selectedVariant.product?.season_text ?? "",
+                        final_price:
+                          selectedVariant.product?.price_range?.minimum_price
+                            ?.final_price?.value ?? 0,
+                        image_url:
+                          selectedVariant.product?.image?.url?.replace(
+                            /\/cache\/[^/]+/,
+                            ""
+                          ) || "",
+                        quantity: countFront,
+                      },
+                      toggleSidebar: toggleSidebar,
                     });
                   }}
                 >

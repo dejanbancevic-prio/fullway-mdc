@@ -12,12 +12,25 @@ const BlogCard = ({ blog }: BlogCardProps) => {
     "/images/HomePage/FeaturedTires/fulllway-suv-bg-image-placeholder.jpg";
 
   const formattedDate = blog?.publish_date
-    ? new Date(blog.publish_date).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "";
+  ? (() => {
+      const date = new Date(blog.publish_date);
+      const day = date.getDate();
+      const month = date.toLocaleString("en-US", { month: "long" });
+      const year = date.getFullYear();
+
+      const suffix =
+        day % 10 === 1 && day !== 11
+          ? "st"
+          : day % 10 === 2 && day !== 12
+          ? "nd"
+          : day % 10 === 3 && day !== 13
+          ? "rd"
+          : "th";
+
+      return `${month} ${day}${suffix}, ${year}`;
+    })()
+  : "";
+
 
   const author =
     blog?.authors && blog.authors.length > 0

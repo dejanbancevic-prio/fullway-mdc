@@ -15,11 +15,11 @@ import { useYotpoInit } from "@/hooks/useYotpoInit";
 
 
 type ProductReviewsProps = {
-  yotpo_review_count: number;
+  text: number | string;
   id: number;
 };
 
-export function YotpoReviews({ yotpo_review_count, id }: ProductReviewsProps) {
+export function YotpoReviews({ text, id }: ProductReviewsProps) {
   const [open, setOpen] = useState(false);
 
   useYotpoInit(open, id);
@@ -29,7 +29,7 @@ export function YotpoReviews({ yotpo_review_count, id }: ProductReviewsProps) {
       <DialogTrigger asChild>
         <Button>
           <div className="underline cursor-pointer">
-            <span>{yotpo_review_count}</span>
+            <span>{text}</span>
           </div>
         </Button>
       </DialogTrigger>

@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { createBuiltMeshHTTPHandler } from "../../../.mesh";
+import { createBuiltMeshHTTPHandler } from ".mesh";
 
 const handler = createBuiltMeshHTTPHandler();
 

@@ -7,7 +7,7 @@ const PagebuilderParagraph = ({ children }: PagebuilderParagraphProps) => {
     ? children.map((child, index) => <div key={index}>{child}</div>)
     : children
 
-  return <div className="text-base text-justify mb-[0.5rem]">{content}</div>
+  return <div className="text-start mb-[1rem]">{content}</div>
 }
 
 export default PagebuilderParagraph

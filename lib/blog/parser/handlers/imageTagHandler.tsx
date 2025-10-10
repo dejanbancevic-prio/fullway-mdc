@@ -1,9 +1,30 @@
-import type { HandlerProps } from './tagHandlers'
+import { HandlerProps } from "./tagHandlers";
 import Image from "next/image";
 
+const imageTagHandler = ({ $el }: HandlerProps) => {
+  const fallbackSrc =
+    "/images/HomePage/FeaturedTires/fulllway-suv-bg-image-placeholder.jpg";
+  const srcFromEl = $el.attr("src") ?? "";
+  const src = srcFromEl.startsWith("http")
+    ? srcFromEl
+    : srcFromEl
+    ? `https://staging.prioritytire.dev${srcFromEl}`
+    : fallbackSrc;
 
-const imageTagHandler = ({ $el }: HandlerProps) => (
-  <Image src={$el.attr('src') ?? ''} alt={$el.attr('alt') ?? ''} layout='fill' />
-)
+  const alt = $el.attr("alt") || "Image";
+  const title = $el.attr("title") || "";
 
-export default imageTagHandler
+  return (
+    <div className="relative w-full h-[400px] my-4">
+      <Image
+        src={src}
+        alt={alt}
+        title={title}
+        fill
+        className="object-contain skew-x-[-3deg]"
+      />
+    </div>
+  );
+};
+
+export default imageTagHandler;

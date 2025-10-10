@@ -31,11 +31,11 @@ const CartSidebarContent = () => {
     if (items.length === 0) return;
 
     const queryParams = items
-      .map((item) => `id=${encodeURIComponent(item.sku)}&qty=${item.quantity}`)
-      .join("&");
+      .map((item) => `${encodeURIComponent(item.id)}%3A${item.quantity}`)
+      .join("%2C");
 
-    const url = `https://www.prioritytire.com/addtocart/product?${queryParams}`;
-
+    const url = `https://www.prioritytire.com/addtocart/meta?products=${queryParams}`;
+    console.log(url);
     window.open(url, "_blank");
   };
 

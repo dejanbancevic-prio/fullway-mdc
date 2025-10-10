@@ -1,8 +1,8 @@
-import AboutFactory from "../components/pages/AboutUsPage/AboutFactory";
-import AboutHeroBanner from "../components/pages/AboutUsPage/AboutHeroBanner";
-import Certification from "../components/pages/AboutUsPage/Certification";
-import { BreadcrumbComp } from "../components/Breadcrump/Breadcrumb";
-import FeaturedTires from "../components/FeaturedTires/FeaturedTires";
+import AboutFactory from "@components/pages/AboutUsPage/AboutFactory";
+import AboutHeroBanner from "@components/pages/AboutUsPage/AboutHeroBanner";
+import Certification from "@components/pages/AboutUsPage/Certification";
+import { BreadcrumbComp } from "@components/Breadcrump/Breadcrumb";
+import FeaturedTires from "@components/FeaturedTires/FeaturedTires";
 
 export const metadata = {
   title: "Learn more about the Fullway mission and company values",

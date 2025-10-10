@@ -8,10 +8,10 @@ import {
   BlogPageQuery,
 } from "@/lib/__generated__/graphql";
 import BlogCard from "./BlogCard";
-import { PaginationComp } from "../../PaginationComp/PaginationComp";
+import { PaginationComp } from "@components/PaginationComp/PaginationComp";
 import Image from "next/image";
 import { currentPageVar, searchVar, selectedTagsVar } from "@/lib/cache";
-import tempFullwayBlogs from "../../../../lib/tempFullwayBlogs.json";
+import tempFullwayBlogs from "@lib/json/tempFullwayBlogs.json";
 import { BlogItem } from "@/lib/types";
 
 type BlogFeaturedTiresProps = {

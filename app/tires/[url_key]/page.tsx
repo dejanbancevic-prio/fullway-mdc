@@ -6,6 +6,7 @@ import {
 import { apolloClient } from "@/lib/apollo";
 import ProductMain from "@/app/components/pages/ProductPage/ProductMain";
 import { BreadcrumbComp } from "@/app/components/Breadcrump/Breadcrumb";
+import { notFound } from "next/navigation";
 
 type ProductPageProps = {
   params: { url_key: string };
@@ -21,7 +22,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
     variables: { urlKey: url_key },
   });
 
-  if (!data?.products?.items?.length) return <p>Products not found</p>;
+  if (!data?.products?.items?.length) return notFound();
+
   const product = data.products.items[0];
 
   return (

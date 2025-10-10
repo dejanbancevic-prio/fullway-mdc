@@ -16,10 +16,10 @@ const spacingByLevel: Record<number, string> = {
 }
 
 const fontSizeByLevel: Record<number, string> = {
-  1: "text-4xl md:text-6xl",
-  2: "text-3xl md:text-5xl",
-  3: "text-2xl md:text-4xl",
-  4: "text-xl md:text-2xl",
+  1: "text-[2.25rem]",
+  2: "text-[2.25rem]",
+  3: "text-[1.75rem]",
+  4: "text-[2.25rem]",
 }
 
 const PagebuilderHeader = ({ level, id, children }: PagebuilderHeaderProps) => {
@@ -27,7 +27,7 @@ const PagebuilderHeader = ({ level, id, children }: PagebuilderHeaderProps) => {
   const fontSize = fontSizeByLevel[level]
 
   return (
-    <h2 id={id} className={`${fontSize} font-bold ${spacing} scroll-mt-[4rem]`}>
+    <h2 id={id} className={`${fontSize} font-[700] ${spacing} uppercase text-start scroll-mt-[4rem] italic`}>
       {children}
     </h2>
   )

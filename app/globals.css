@@ -138,6 +138,9 @@ body {
   .buttonSkew {
     @apply !rounded-none border !bg-transparent border-white text-white skew-x-[-15deg] hover:!bg-white hover:!text-black transition cursor-pointer;
   }
+  .buttonSkew-black {
+    @apply !rounded-none border !bg-black border-white text-white skew-x-[-15deg] hover:!bg-white hover:!border-black hover:!text-black transition cursor-pointer;
+  }
   .buttonSkew-white {
     @apply !rounded-none border !bg-white border-black !text-black skew-x-[-15deg] hover:!bg-black hover:!text-white transition cursor-pointer;
   }

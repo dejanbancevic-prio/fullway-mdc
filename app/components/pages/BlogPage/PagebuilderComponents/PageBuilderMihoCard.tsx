@@ -20,8 +20,8 @@ const PageBuilderMihoCard = ({
   buttonHref,
   buttonLabel,
 }: PageBuilderMihoCardProps) => (
-  <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-[1rem] p-[1.5rem] rounded-xl shadow-lg bg-white">
-    <div className="flex-shrink-0 rounded-xl overflow-hidden shadow-md w-full md:w-[12rem] h-[9rem] relative">
+  <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-[1rem] p-[1.5rem] rounded-xl shadow-lg !bg-white">
+    <div className="flex-shrink-0 rounded-xl overflow-hidden shadow-md w-full md:w-[12rem] h-[9rem] relative ">
       <a href={imageHref}>
         <Image
           src={imageSrc}

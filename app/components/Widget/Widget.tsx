@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import PopoverWidget from "../Popover/PopoverWidget";
+import PopoverWidget from "@components/Popover/PopoverWidget";
 
 type WidgetProps = {
   titleStyle?: string;
@@ -9,7 +9,7 @@ type WidgetProps = {
 
 const Widget = ({ titleStyle }: WidgetProps) => {
   return (
-     <div className="flex flex-col md:max-w-7xl md:mx-auto w-full">
+    <div className="flex flex-col md:max-w-7xl md:mx-auto w-full">
       <div
         className={`${titleStyle} "flex flex-col leading-none mb-[0.5rem] mx-[1rem] md:mx-[0rem]`}
       >
@@ -53,7 +53,7 @@ const Widget = ({ titleStyle }: WidgetProps) => {
                 <div className="md:w-[2.25rem]" />
                 <div className="flex flex-col">
                   <p className="font-[400] text-[1.125rem]">Width</p>
-                  <PopoverWidget placeholderText={"Width"} style="rounded-none w-[17.125rem] text-start p-[0.5rem]" />
+                  {/* <PopoverWidget placeholderText={"Width"} style="rounded-none w-[17.125rem] text-start p-[0.5rem]" /> */}
                 </div>
 
                 <div className="flex flex-col">

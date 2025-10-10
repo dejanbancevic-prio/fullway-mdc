@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import FeaturedTiresCard from "../../FeaturedTires/FeaturedTiresCard";
+import FeaturedTiresCard from "@components/FeaturedTires/FeaturedTiresCard";
 
 const ProdFeaturedTires = () => {
   return (
@@ -35,7 +35,6 @@ const ProdFeaturedTires = () => {
               </Link>
             </div>
           </div>
-          
 
           <div className="flex flex-col md:flex-row w-full items-center md:gap-[6rem] gap-[2rem] md:justify-between md:pr-[1rem]">
             <FeaturedTiresCard

@@ -13,7 +13,7 @@ const GlobalPageHero = ({  name, desc }: GlobalPageHeroProps) => {
         alt="Fullway Logo"
         width={1920}
         height={1080}
-        className="object-cover md:pl-[50rem] md:object-[center_70%] h-[17rem] md:h-[19.0625rem] w-full overflow-hidden"
+        className="object-cover md:pl-[50rem] md:object-[center_70%] h-[17rem] md:h-[18.0625rem] w-full overflow-hidden"
       />
 
       <div className="absolute inset-0 bg-gradient-to-r from-[#090909] from-[48.85%] to-transparent to-[79.1%]" />

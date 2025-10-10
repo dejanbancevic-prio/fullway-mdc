@@ -6,6 +6,7 @@ import { SidebarVariant } from "@/lib/types";
 
 type ProductPickerExpandProps = {
   handleOpenSidebar: (side: "front" | "rear") => void;
+  toggleSidebar: () => void;
   setCountFront: (val: number) => void;
   countFront: number;
   selectedVariant: SidebarVariant | null;
@@ -21,6 +22,7 @@ type ProductPickerExpandProps = {
 
 const ProductPickerExpand = ({
   handleOpenSidebar,
+  toggleSidebar,
   setCountFront,
   countFront,
   selectedVariant,
@@ -235,6 +237,7 @@ const ProductPickerExpand = ({
             itemsToAdd.push({
               url_key: selectedVariant.product?.url_key ?? "",
               sku: selectedVariant.product?.sku ?? "",
+              id: selectedVariant.product?.id ?? 0,
               name: selectedVariant.product?.name ?? "",
               size: selectedVariant.attributes?.[0]?.label ?? "",
               season_text: selectedVariant.product?.season_text ?? "",
@@ -254,6 +257,7 @@ const ProductPickerExpand = ({
             itemsToAdd.push({
               url_key: selectedVariantRear.product?.url_key ?? "",
               sku: selectedVariantRear.product?.sku ?? "",
+              id: selectedVariantRear.product?.id ?? 0,
               name: selectedVariantRear.product?.name ?? "",
               size: selectedVariantRear.attributes?.[0]?.label ?? "",
               season_text: selectedVariantRear.product?.season_text ?? "",
@@ -271,7 +275,7 @@ const ProductPickerExpand = ({
 
           if (itemsToAdd.length === 0) return;
 
-          itemsToAdd.forEach(addToCart);
+          itemsToAdd.forEach((item) => addToCart({ item, toggleSidebar }));
         }}
       >
         ADD TO CART
