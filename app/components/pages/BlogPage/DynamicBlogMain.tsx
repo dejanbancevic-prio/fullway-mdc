@@ -100,7 +100,7 @@ const DynamicBlogMain = ({ blog }: DynamicBlogMainProps) => {
                 rel="noopener noreferrer"
               >
                 <Image
-                  src="/icons/socialMedia/Instagram-Icon.svg"
+                  src="/icons/socialMedia/LinkedIn-Icon.svg"
                   alt="Fullway Logo"
                   width={1920}
                   height={1080}
