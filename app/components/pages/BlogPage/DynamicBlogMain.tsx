@@ -93,7 +93,9 @@ const DynamicBlogMain = ({ blog }: DynamicBlogMainProps) => {
                 />
               </Link>
               <Link
-                href={"https://www.instagram.com/"}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                  blogUrl
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
