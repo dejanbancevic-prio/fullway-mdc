@@ -4430,6 +4430,7 @@ export type ProductSortInput = {
 export type ProductAttributeSortInput = {
   /** Is product bestsellers. */
   bestsellers?: InputMaybe<SortEnum>;
+  category_ranking?: InputMaybe<SortEnum>;
   /** The product most_viewed. */
   most_viewed?: InputMaybe<SortEnum>;
   /** Attribute label: Product Name */
@@ -12345,12 +12346,12 @@ export type InstallersSearchResult = {
 
 export type SetInstallerOnCartInput = {
   /** The appointment chosen for the cart (date and time) */
-  appointment: SelectedAppointmentInput;
+  appointment?: InputMaybe<SelectedAppointmentInput>;
   /** Optional notes or references */
   appointment_information?: InputMaybe<Scalars['String']['input']>;
   cart_id: Scalars['String']['input'];
   /** Customer email address */
-  email: Scalars['String']['input'];
+  email?: InputMaybe<Scalars['String']['input']>;
   /** The full installer object to assign to the cart */
   installer: InstallerInput;
   /** Optional vehicle VIN */

@@ -68,6 +68,7 @@ const DynamicBlogMain = ({ blog }: DynamicBlogMainProps) => {
           alt="Background"
           width={1920}
           height={1080}
+          className="object-fit"
         />
 
         <div className="w-full flex flex-col items-center gap-[2.25rem]">

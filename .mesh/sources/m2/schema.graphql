@@ -4065,6 +4065,7 @@ input ProductSortInput {
 input ProductAttributeSortInput {
   """Is product bestsellers."""
   bestsellers: SortEnum
+  category_ranking: SortEnum
   """The product most_viewed."""
   most_viewed: SortEnum
   """Attribute label: Product Name"""
@@ -11712,12 +11713,12 @@ type InstallersSearchResult {
 
 input SetInstallerOnCartInput {
   """The appointment chosen for the cart (date and time)"""
-  appointment: SelectedAppointmentInput!
+  appointment: SelectedAppointmentInput
   """Optional notes or references"""
   appointment_information: String
   cart_id: String!
   """Customer email address"""
-  email: String!
+  email: String
   """The full installer object to assign to the cart"""
   installer: InstallerInput!
   """Optional vehicle VIN"""

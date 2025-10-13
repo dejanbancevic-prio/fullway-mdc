@@ -20,29 +20,52 @@ type addToCartProps = {
   toggleSidebar: () => void;
 };
 
-export const cartItems = makeVar<CartItem[]>([]);
+const STORAGE_KEY = "fullway_cart_v1";
+
+function readStorage(): CartItem[] {
+  try {
+    if (typeof window === "undefined") return [];
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    return JSON.parse(raw) as CartItem[];
+  } catch {
+    return [];
+  }
+}
+
+function writeStorage(items: CartItem[]) {
+  try {
+    if (typeof window === "undefined") return;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  } catch {
+  }
+}
+
+export const cartItems = makeVar<CartItem[]>(readStorage());
+
+
+export const setCartItems = (items: CartItem[]) => {
+  cartItems(items);
+  writeStorage(items);
+};
+
 
 export const addToCart = ({ item, toggleSidebar }: addToCartProps) => {
   const existing = cartItems().find((i) => i.url_key === item.url_key);
   if (existing) {
-    cartItems(
-      cartItems().map((i) =>
-        i.url_key === item.url_key
-          ? { ...i, quantity: i.quantity + item.quantity }
-          : i
-      )
+    const updated = cartItems().map((i) =>
+      i.url_key === item.url_key ? { ...i, quantity: i.quantity + item.quantity } : i
     );
+    setCartItems(updated);
   } else {
-    cartItems([...cartItems(), item]);
+    setCartItems([...cartItems(), item]);
   }
 
   toast.success(
     <div className="flex ml-[0.5rem] gap-[1.5rem] items-center w-full">
       <div className="flex flex-col gap-[0.25rem]">
         <span className="font-[800]">{item.name}</span>
-        <p className="text-[#636363] ">
-          has been successfully added to your cart.
-        </p>
+        <p className="text-[#636363] ">has been successfully added to your cart.</p>
       </div>
 
       <Button
@@ -63,5 +86,20 @@ export const addToCart = ({ item, toggleSidebar }: addToCartProps) => {
 };
 
 export const removeFromCart = (url_key: string) => {
-  cartItems(cartItems().filter((i) => i.url_key !== url_key));
+  const updated = cartItems().filter((i) => i.url_key !== url_key);
+  setCartItems(updated);
+};
+
+export const incrementCartItem = (url_key: string) => {
+  const updated = cartItems().map((i) =>
+    i.url_key === url_key ? { ...i, quantity: i.quantity + 1 } : i
+  );
+  setCartItems(updated);
+};
+
+export const decrementCartItem = (url_key: string) => {
+  const updated = cartItems().map((i) =>
+    i.url_key === url_key ? { ...i, quantity: Math.max(1, i.quantity - 1) } : i
+  );
+  setCartItems(updated);
 };

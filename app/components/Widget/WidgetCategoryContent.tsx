@@ -64,7 +64,7 @@ const WidgetCategoryContent = ({ sectionWidth }: WidgetCategoryProps) => {
 
         <div className="absolute inset-0">
           <Tabs
-            defaultValue="vehicle"
+            defaultValue="size"
             className="w-[25rem] text-black ml-[0.3rem]"
           >
             <TabsList className="skew-x-[-15deg] rounded-none mb-[1rem]">

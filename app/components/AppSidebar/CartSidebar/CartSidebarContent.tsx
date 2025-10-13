@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
-import { cartItems } from "@/lib/cart/cart";
+import { cartItems, incrementCartItem, decrementCartItem} from "@/lib/cart/cart";
 import { useReactiveVar } from "@apollo/client/react";
 import CartProductListMobile from "./CartProductListMobile";
 import CartProductList from "./CartProductList";
@@ -11,20 +11,14 @@ import CartProductList from "./CartProductList";
 const CartSidebarContent = () => {
   const { toggleSidebar } = useSidebar();
 
+  const items = useReactiveVar(cartItems);
+
   const increment = (url_key: string) => {
-    const updated = items.map((item) =>
-      item.url_key === url_key ? { ...item, quantity: item.quantity + 1 } : item
-    );
-    cartItems(updated);
+    incrementCartItem(url_key);
   };
 
   const decrement = (url_key: string) => {
-    const updated = items.map((item) =>
-      item.url_key === url_key
-        ? { ...item, quantity: Math.max(1, item.quantity - 1) }
-        : item
-    );
-    cartItems(updated);
+    decrementCartItem(url_key);
   };
 
   const handleBuyNow = () => {
@@ -39,7 +33,6 @@ const CartSidebarContent = () => {
     window.open(url, "_blank");
   };
 
-  const items = useReactiveVar(cartItems);
   const totalPrice = items.reduce(
     (acc, item) => acc + item.final_price * item.quantity,
     0

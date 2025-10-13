@@ -46676,6 +46676,21 @@ const schemaAST = {
         },
         {
           "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "category_ranking"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "SortEnum"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
           "description": {
             "kind": "StringValue",
             "value": "The product most_viewed.",
@@ -127802,13 +127817,10 @@ const schemaAST = {
             "value": "appointment"
           },
           "type": {
-            "kind": "NonNullType",
-            "type": {
-              "kind": "NamedType",
-              "name": {
-                "kind": "Name",
-                "value": "SelectedAppointmentInput"
-              }
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "SelectedAppointmentInput"
             }
           },
           "directives": []
@@ -127863,13 +127875,10 @@ const schemaAST = {
             "value": "email"
           },
           "type": {
-            "kind": "NonNullType",
-            "type": {
-              "kind": "NamedType",
-              "name": {
-                "kind": "Name",
-                "value": "String"
-              }
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "String"
             }
           },
           "directives": []
