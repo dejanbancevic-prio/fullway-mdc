@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { makeVar } from "@apollo/client";
+import { sidebarTypeVar } from "@lib/cache";
 import { toast } from "sonner";
-import { sidebarTypeVar } from "./cache";
 
 export type CartItem = {
   url_key: string;
@@ -56,7 +56,7 @@ export const addToCart = ({ item, toggleSidebar }: addToCartProps) => {
       </Button>
     </div>,
     {
-      className: "!w-fit md:!w-[27rem] flex items-start",
+      className: "!w-[21rem] md:!w-[27rem] flex items-start",
       duration: 2000,
     }
   );

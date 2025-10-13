@@ -1,4 +1,9 @@
-import { BlogItem, JsonLd, ProductItem, ProductItemVariant } from "@/lib/types";
+import {
+  BlogItem,
+  JsonLd,
+  ProductItem,
+  ScriptProductVariant,
+} from "@/lib/types";
 
 export const organizationSchema: JsonLd = {
   "@context": "https://schema.org",
@@ -56,7 +61,7 @@ export const getFaqSchema = (
 
 export function getProductSchema(
   product: ProductItem,
-  variants: ProductItemVariant[]
+  variants: ScriptProductVariant[]
 ) {
   const firstVariant = variants?.[0]?.product;
 
@@ -95,10 +100,8 @@ export function getProductSchema(
       "@type": "Offer",
       url: `https://www.fullwaytires.com/tires/${product?.url_key ?? ""}`,
       priceCurrency:
-        product?.price_range.minimum_price.final_price.currency ??
-        "USD",
-      price:
-        product?.price_range.minimum_price.final_price.value ?? "0",
+        product?.price_range.minimum_price.final_price.currency ?? "USD",
+      price: product?.price_range.minimum_price.final_price.value ?? "0",
       availability: "https://schema.org/InStock",
       seller: {
         "@type": "Organization",
@@ -108,33 +111,31 @@ export function getProductSchema(
   };
 }
 
-export function getBlogSchema(
-  blog: BlogItem,
- )  {
-
+export function getBlogSchema(blog: BlogItem) {
   const authorName = blog?.authors?.[0]
     ? `${blog.authors[0].firstname} ${blog.authors[0].lastname}`
     : "Unknown";
 
   return {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  headline: blog?.title ?? "",
-  author: {
-    "@type": "Person",
-    name: authorName,
-  },
-  datePublished: blog?.publish_date ?? "",
-  dateModified: blog?.updated_at ?? "",
-  image: "https://www.fullwaytires.com/_next/image?url=%2Fimages%2FHomePage%2FFeaturedTires%2Ffulllway-suv-bg-image-placeholder.jpg&w=3840&q=75",
-  publisher: {
-    "@type": "Organization",
-    name: "Fullway Tires",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://www.fullwaytires.com/_next/image?url=%2Ficons%2Flogo%2FFullway-Logo.png&w=1920&q=75",
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: blog?.title ?? "",
+    author: {
+      "@type": "Person",
+      name: authorName,
     },
-  },
-};
-
- }
+    datePublished: blog?.publish_date ?? "",
+    dateModified: blog?.updated_at ?? "",
+    image:
+      "https://www.fullwaytires.com/_next/image?url=%2Fimages%2FHomePage%2FFeaturedTires%2Ffulllway-suv-bg-image-placeholder.jpg&w=3840&q=75",
+    publisher: {
+      "@type": "Organization",
+      name: "Fullway Tires",
+      logo: {
+        "@type": "ImageObject",
+        url:
+          "https://www.fullwaytires.com/_next/image?url=%2Ficons%2Flogo%2FFullway-Logo.png&w=1920&q=75",
+      },
+    },
+  };
+}

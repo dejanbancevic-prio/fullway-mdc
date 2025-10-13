@@ -2,8 +2,8 @@ import FeaturedTires from "./components/FeaturedTires/FeaturedTires";
 import HomeHeroBanner from "./components/pages/HomePage/HomeHeroBanner";
 import MostPopularTire from "./components/pages/HomePage/MostPopularTire/MostPopularTire";
 import Widget from "./components/Widget/Widget";
-import SchemaScript from "./components/SEO/SchemaScript";
-import { homeSchema } from "./components/SEO/seoSchemas";
+import SchemaScript from "./components/seo/SchemaScript";
+import { homeSchema } from "../lib/seo/seoSchemas";
 
 export const metadata = {
   title: "Fullway Tires | Only the best tires for your vehicle",

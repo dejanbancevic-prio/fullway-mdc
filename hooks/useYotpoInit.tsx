@@ -1,3 +1,5 @@
+'use client'
+
 import { tryInitYotpoWidgets } from "@/app/components/yotpo/tryInitYotpoWidgets";
 import { useEffect, useRef } from "react";
 
@@ -10,7 +12,6 @@ export function useYotpoInit(open: boolean, id: number) {
     const raf = requestAnimationFrame(() => {
       timeoutRef.current = window.setTimeout(() => {
         const container = document.getElementById("reviews-section");
-        console.log("reviews-section element:", container);
 
         if (container) {
           const style = window.getComputedStyle(container);
@@ -23,7 +24,7 @@ export function useYotpoInit(open: boolean, id: number) {
         }
 
         tryInitYotpoWidgets();
-      }, 80);
+      }, 150);
     });
 
     return () => {

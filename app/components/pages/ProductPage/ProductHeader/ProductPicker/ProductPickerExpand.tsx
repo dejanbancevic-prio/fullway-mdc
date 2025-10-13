@@ -1,20 +1,20 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { addToCart, CartItem } from "@/lib/cart";
-import { SidebarVariant } from "@/lib/types";
+import { addToCart, CartItem } from "@/lib/cart/cart";
+import { ProductVariant } from "@/lib/types";
 
 type ProductPickerExpandProps = {
   handleOpenSidebar: (side: "front" | "rear") => void;
   toggleSidebar: () => void;
   setCountFront: (val: number) => void;
   countFront: number;
-  selectedVariant: SidebarVariant | null;
+  selectedVariant: ProductVariant | null;
   price: number;
 
   setCountRear: (val: number) => void;
   countRear: number;
-  selectedVariantRear: SidebarVariant | null;
+  selectedVariantRear: ProductVariant | null;
   priceRear: number;
 
   setNewSelect: (val: boolean) => void;

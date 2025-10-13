@@ -3,8 +3,8 @@ import "./globals.css";
 import LayoutWrapper from "./components/layout/LayoutWrapper/LayoutWrapper";
 import ApolloProviderClient from "./providers/ApolloProviderClient";
 import { Prompt } from "next/font/google";
-import SchemaScript from "./components/SEO/SchemaScript";
-import { organizationSchema } from "./components/SEO/seoSchemas";
+import SchemaScript from "./components/seo/SchemaScript";
+import { organizationSchema } from "../lib/seo/seoSchemas";
 
 export const metadata: Metadata = {
   title: "Fullway",

@@ -7,8 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ProductPageQuery } from "@/lib/__generated__/graphql";
-
 import {
   Drawer,
   DrawerContent,
@@ -17,19 +15,10 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useRef } from "react";
-
-type ProductItem = NonNullable<
-  NonNullable<ProductPageQuery["products"]>["items"]
->[number];
-
-type Variant = NonNullable<
-  NonNullable<
-    Extract<ProductItem, { __typename?: "ConfigurableProduct" }>
-  >["variants"]
->[number];
+import { ProductVariant } from "@lib/types";
 
 type ProductInfoTableProps = {
-  variants: Variant[];
+  variants: ProductVariant[];
 };
 
 const ProductInfoTable = ({ variants }: ProductInfoTableProps) => {

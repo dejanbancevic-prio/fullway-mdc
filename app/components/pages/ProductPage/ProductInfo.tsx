@@ -2,19 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { ProductPageQuery } from "@/lib/__generated__/graphql";
 import ProductInfoTable from "./ProductInfoTable";
 import { useState, useMemo } from "react";
-
-type ProductItem = NonNullable<
-  NonNullable<ProductPageQuery["products"]>["items"]
->[number];
-
-type Variant = NonNullable<
-  NonNullable<
-    Extract<ProductItem, { __typename?: "ConfigurableProduct" }>
-  >["variants"]
->[number];
+import { ProductItem, ProductVariant } from "@lib/types";
 
 type ProductInfoProps = {
   product: ProductItem;
@@ -24,7 +14,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   const variants = (product?.__typename === "ConfigurableProduct"
     ? product.variants ?? []
     : []
-  ).filter((v): v is Variant => v != null);
+  ).filter((v): v is ProductVariant => v != null);
 
   const rimWidths = useMemo(() => {
     const widths = variants
@@ -158,7 +148,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
               variants={
                 (filteredVariants ?? []).filter(
                   (v): v is NonNullable<typeof v> => v != null
-                ) as Variant[]
+                ) as ProductVariant[]
               }
             />
           </div>

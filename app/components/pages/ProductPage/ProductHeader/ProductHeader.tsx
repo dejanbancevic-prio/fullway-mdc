@@ -2,6 +2,7 @@ import Image from "next/image";
 import ProductPicker from "./ProductPicker/ProductPicker";
 import { YotpoReviews } from "@components/yotpo/YotpoReviews";
 import { ProductItem } from "@lib/types";
+import { getStars } from "@lib/pages/ProductPage/starsCalc";
 
 type ProductFeaturesProps = {
   product: ProductItem;
@@ -12,39 +13,6 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
     product?.__typename === "ConfigurableProduct"
       ? product.variants?.[0]?.product
       : null;
-
-  const getStars = (rating: number) => {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-
-    const stars = [
-      ...Array.from({ length: fullStars }).map((_, i) => (
-        <Image
-          key={`full-${i}`}
-          src="/icons/other/Star1.svg"
-          alt="Full Star"
-          width={20}
-          height={20}
-          className="md:w-[1.25rem] md:h-[1.25rem] w-[0.8rem] h-[0.8rem]"
-        />
-      )),
-    ];
-
-    if (hasHalfStar) {
-      stars.push(
-        <Image
-          key="half"
-          src="/icons/other/MaskedStar.svg"
-          alt="Half Star"
-          width={20}
-          height={20}
-          className="md:w-[1.25rem] md:h-[1.25rem] w-[0.8rem] h-[0.8rem]"
-        />
-      );
-    }
-
-    return stars;
-  };
 
   return (
     <div className="md:max-w-7xl md:mx-auto mx-[1rem] md:mt-[4.6rem] mt-[3rem]">

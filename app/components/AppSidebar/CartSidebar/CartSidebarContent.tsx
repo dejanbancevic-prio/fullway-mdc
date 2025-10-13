@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
-import { cartItems } from "@/lib/cart";
+import { cartItems } from "@/lib/cart/cart";
 import { useReactiveVar } from "@apollo/client/react";
 import CartProductListMobile from "./CartProductListMobile";
 import CartProductList from "./CartProductList";

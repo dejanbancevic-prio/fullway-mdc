@@ -1,4 +1,8 @@
-import { BlogPageQuery, ProductPageQuery, TireSizesQuery } from "./__generated__/graphql";
+import {
+  BlogPageQuery,
+  ProductPageQuery,
+  TireSizesQuery,
+} from "./__generated__/graphql";
 
 export type ProductItem = NonNullable<
   NonNullable<ProductPageQuery["products"]>["items"]
@@ -9,11 +13,11 @@ export type ConfigurableProductItem = Extract<
   { __typename?: "ConfigurableProduct" }
 >;
 
-export type SidebarVariant = NonNullable<
+export type ProductVariant = NonNullable<
   NonNullable<ConfigurableProductItem["variants"]>[number]
 >;
 
-export type ProductItemVariant = NonNullable<
+export type ScriptProductVariant = NonNullable<
   ConfigurableProductItem["variants"]
 >[number];
 
@@ -23,7 +27,6 @@ export type JsonLd =
   | boolean
   | { [key: string]: JsonLd | JsonLd[] }
   | JsonLd[];
-
 
 export type BlogItem = NonNullable<
   NonNullable<BlogPageQuery["awBlogPosts"]>["items"]

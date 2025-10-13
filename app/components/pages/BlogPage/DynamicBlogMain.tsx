@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { parsePageBuilderHtml } from "@/lib/blog/parser/parsePageBuilderHtml";
 import PagebuilderTableOfContents from "./PagebuilderComponents/PagebuilderTableOfContents";
-import SchemaScript from "@components/SEO/SchemaScript";
-import { getBlogSchema } from "@components/SEO/seoSchemas";
+import SchemaScript from "@components/seo/SchemaScript";
+import { getBlogSchema } from "@lib/seo/seoSchemas";
 import { BlogItem } from "@/lib/types";
 import Link from "next/link";
 import React from "react";

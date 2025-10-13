@@ -45,7 +45,7 @@ const NavSidebarContent = () => {
             className="bg-transparent text-black p-0"
             onClick={toggleSidebar}
           >
-            <Link className="navMenuLink" href="/our-tires">
+            <Link className="navMenuLink" href="/tires">
               OUR TIRES
             </Link>
           </Button>

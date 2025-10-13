@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { CartItem, removeFromCart } from "@/lib/cart";
+import { CartItem, removeFromCart } from "@/lib/cart/cart";
 
 type CartProductListProps = {
   items: CartItem[];

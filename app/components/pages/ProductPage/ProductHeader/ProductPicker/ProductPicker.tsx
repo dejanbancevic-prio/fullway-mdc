@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { addToCart } from "@/lib/cart";
+import { addToCart } from "@/lib/cart/cart";
 import { useSidebar } from "@/components/ui/sidebar";
 import {
   sidebarDataVar,
@@ -16,9 +16,9 @@ import {
 import { useReactiveVar } from "@apollo/client/react";
 import { usePathname } from "next/navigation";
 import ProductPickerExpand from "./ProductPickerExpand";
-import SchemaScript from "@/app/components/SEO/SchemaScript";
+import SchemaScript from "@components/seo/SchemaScript";
 import { ProductItem } from "@/lib/types";
-import { getProductSchema } from "@/app/components/SEO/seoSchemas";
+import { getProductSchema } from "@lib/seo/seoSchemas";
 
 type ProductPickerProps = {
   product: ProductItem;

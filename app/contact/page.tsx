@@ -2,8 +2,8 @@ import GlobalPageHero from "@components/pages/OurTiresPage/GlobalPageHero";
 import { BreadcrumbComp } from "@components/Breadcrump/Breadcrumb";
 import ContactContant from "@components/pages/ContactPage/ContactContant";
 import FAQ from "@components/FAQ/FAQ";
-import SchemaScript from "@components/SEO/SchemaScript";
-import { contactSchema } from "@components/SEO/seoSchemas";
+import SchemaScript from "@components/seo/SchemaScript";
+import { contactSchema } from "@lib/seo/seoSchemas";
 
 export const metadata = {
   title: "Contact Us for Support and Inquiries",
