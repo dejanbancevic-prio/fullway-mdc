@@ -50,7 +50,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           alt="Coin Icon"
           width={28}
           height={28}
-          className="w-[4.875rem] h-auto "
+          className="w-[4.875rem] h-auto"
         />
       </div>
 
