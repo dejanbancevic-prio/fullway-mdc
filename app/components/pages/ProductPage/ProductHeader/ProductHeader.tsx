@@ -47,16 +47,20 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
                   {getStars(productVariant?.productRating?.ratingValue ?? 0)}
                 </div>
 
-                <p className="font-[300] text-[0.8rem] md:text-[1rem]">
+                <div className="flex items-center gap-[0.5rem] font-[300] text-[0.8rem] md:text-[1rem] ">
                   {productVariant?.productRating?.ratingValue ?? "N/A"}
-                  <YotpoReviews
-                    text={productVariant?.productRating?.ratingCount ?? 0}
-                    id={product?.id ?? 0}
-                  />
-                </p>
+                  <div>
+                    (
+                    <YotpoReviews
+                      text={productVariant?.productRating?.ratingCount ?? 0}
+                      id={product?.id ?? 0}
+                    />
+                    )
+                  </div>
+                </div>
               </div>
 
-              <p className="font-[300] text-[0.8rem] md:text-[1rem]">
+              <p className="ml-[1rem] font-[300] text-[0.8rem] md:text-[1rem]">
                 <YotpoReviews text={"Write a Review"} id={product?.id ?? 0} />
               </p>
             </div>

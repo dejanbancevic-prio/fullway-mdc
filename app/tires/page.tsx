@@ -34,12 +34,12 @@ const OurTiresPage = () => {
 
       <OurFeaturedTires />
 
-      {/* <div className="relative">
-        <div className="bg-fullwayGrey w-full h-[10.375rem] md:h-[5.375rem] " />
+      <div className="relative">
+        <div className="bg-fullwayGrey w-full h-[36.4rem] md:h-[5.375rem] " />
         <div className="absolute inset-0 -top-[4rem] md:-top-[16.5rem] flex justify-center items-start z-20 mt-[6rem]">
           <Widget titleStyle="md:text-white text-black" />
         </div>
-      </div> */}
+      </div>
     </main>
   );
 };

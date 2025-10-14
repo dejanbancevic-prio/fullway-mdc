@@ -26,9 +26,9 @@ export function YotpoReviews({ text, id }: ProductReviewsProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen} modal={false}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="!m-0 !p-0">
         <Button>
-          <div className="underline cursor-pointer">
+          <div className="underline cursor-pointer ">
             <span>{text}</span>
           </div>
         </Button>

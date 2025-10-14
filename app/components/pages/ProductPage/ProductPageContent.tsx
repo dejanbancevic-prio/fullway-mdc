@@ -6,6 +6,7 @@ import ProdFeaturedTires from "./ProductFeaturedTires";
 import Image from "next/image";
 import ProductInfo from "./ProductInfo/ProductInfo";
 import ProductHeader from "./ProductHeader/ProductHeader";
+import Widget from "@components/Widget/Widget";
 
 export async function ProductPageContent({ url_key }: { url_key: string }) {
   const { data } = await apolloClient.query({
@@ -41,9 +42,9 @@ export async function ProductPageContent({ url_key }: { url_key: string }) {
               <ProductHeader product={product} />
             </div>
 
-            {/* <div id="widget" className="scroll-mt-[8rem]">
-            <Widget titleStyle="text-white" />
-          </div> */}
+            <div id="widget" className="scroll-mt-[8rem]">
+              <Widget titleStyle="text-white" />
+            </div>
 
             <div className="md:mb-[15rem] mb-[40rem]">
               <ProductInfo product={product} />

@@ -14,7 +14,7 @@ import {
   sidebarTypeVar,
 } from "@/lib/cache";
 import { useReactiveVar } from "@apollo/client/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import ProductPickerExpand from "./ProductPickerExpand";
 import SchemaScript from "@components/seo/SchemaScript";
 import { ProductItem } from "@/lib/types";
@@ -29,6 +29,9 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
   const [countRear, setCountRear] = useState(1);
   const [newSelect, setNewSelect] = useState(false);
 
+  const searchParams = useSearchParams();
+  const preselectedVariantKey = searchParams.get("size");
+
   const variants =
     product?.__typename === "ConfigurableProduct" ? product.variants ?? [] : [];
 
@@ -40,15 +43,19 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
   }));
 
   const firstInStockVariant =
+    variants.find((v) => v?.product?.url_key === preselectedVariantKey) ??
     variants.find((v) => v?.product?.stock_status === "IN_STOCK") ??
     variants[0];
+
   const defaultValue = firstInStockVariant?.product?.url_key ?? "";
+
   const sidebarSelectedProductKey = useReactiveVar(sidebarSelectedProductVar);
   const sidebarSelectedProductKeyRear = useReactiveVar(
     sidebarSelectedProductRearVar
   );
 
   const pathname = usePathname();
+
   useEffect(() => {
     if (!defaultValue) return;
     sidebarSelectedProductVar(defaultValue);
@@ -79,14 +86,15 @@ const ProductPicker = ({ product }: ProductPickerProps) => {
   );
 
   const price =
-    selectedVariant?.product?.price_range?.minimum_price?.final_price?.value ??
-    product?.price_range.minimum_price.final_price.value;
+    selectedVariant?.product?.price_range?.minimum_price?.final_price?.value;
+  // ?? product?.price_range.minimum_price.final_price.value
 
   const priceRear =
     selectedVariantRear?.product?.price_range?.minimum_price?.final_price
       ?.value ?? product?.price_range.minimum_price.final_price.value;
 
   const productSchema = getProductSchema(product, variants);
+
   return (
     <div className="flex flex-col">
       <SchemaScript id={"product-schema"} schema={productSchema} />

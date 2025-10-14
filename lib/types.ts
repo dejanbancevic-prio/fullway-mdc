@@ -1,4 +1,5 @@
 import {
+  AllProductsWidgetQuery,
   BlogPageQuery,
   ProductPageQuery,
   TireSizesQuery,
@@ -34,3 +35,16 @@ export type BlogItem = NonNullable<
 
 export type TireSizeData = NonNullable<TireSizesQuery["getTireSize"]>;
 export type SectionWidthItem = TireSizeData["section_widths"];
+
+export type WidgetProductItem = NonNullable<
+  NonNullable<AllProductsWidgetQuery["products"]>["items"]
+>[number];
+
+export type WidgetConfigurableProductItem = Extract<
+  WidgetProductItem,
+  { __typename?: "ConfigurableProduct" }
+>;
+
+export type WidgetProductVariant = NonNullable<
+  NonNullable<WidgetConfigurableProductItem["variants"]>[number]
+>;

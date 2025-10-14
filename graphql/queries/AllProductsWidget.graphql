@@ -1,0 +1,44 @@
+query AllProductsWidget($urlKeys: [String!]) {
+  products(filter: { url_key: { in: $urlKeys } }) {
+    items {
+      id
+      uid
+      url_key
+      name
+      ... on ConfigurableProduct {
+        variants {
+          attributes {
+            label
+          }
+          product {
+            productRating {
+              ratingValue
+              ratingCount
+            }
+            sku
+            id
+            mpn1
+            url_key
+            uid
+            stock_status
+            name
+            season_text
+            performance_text
+            price_range {
+              minimum_price {
+                final_price {
+                  value
+                  currency
+                }
+              }
+            }
+            utqg
+            section_width_text
+            aspect_ratio_text
+            rim_diameter_text
+          }
+        }
+      }
+    }
+  }
+}

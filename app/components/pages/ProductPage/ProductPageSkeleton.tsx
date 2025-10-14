@@ -35,7 +35,7 @@ export function ProductPageSkeleton() {
                   height={1080}
                   className="w-[7.125rem] h-[1.375rem]"
                 />
-                <Skeleton className="w-[12rem] h-[2.25rem] rounded-md" />
+                <Skeleton className="w-[12rem] h-[2.5rem] rounded-md" />
 
                 <div className="flex items-start">
                   <div className="flex items-center gap-[0.7rem]">
