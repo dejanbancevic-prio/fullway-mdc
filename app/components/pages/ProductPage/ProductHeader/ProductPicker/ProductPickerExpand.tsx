@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { addToCart, CartItem } from "@/lib/cart/cart";
-import { ProductVariant } from "@/lib/types";
+import { ProductVariant } from "@/lib/types/product/product.types";
 
 type ProductPickerExpandProps = {
   handleOpenSidebar: (side: "front" | "rear") => void;

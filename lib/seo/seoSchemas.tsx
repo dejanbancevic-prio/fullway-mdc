@@ -1,9 +1,8 @@
 import {
-  BlogItem,
-  JsonLd,
   ProductItem,
-  ScriptProductVariant,
-} from "@/lib/types";
+} from "@/lib/types/product/product.types";
+import { BlogItem } from "@lib/types/blog/blog.types";
+import { JsonLd, ScriptProductVariant } from "@lib/types/seo/seo.types";
 
 export const organizationSchema: JsonLd = {
   "@context": "https://schema.org",

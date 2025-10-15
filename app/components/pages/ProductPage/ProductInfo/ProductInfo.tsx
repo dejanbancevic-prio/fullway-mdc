@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import ProductInfoTable from "./ProductInfoTable";
 import { useState, useMemo } from "react";
-import { ProductItem, ProductVariant } from "@lib/types";
+import { ProductItem, ProductVariant } from "@lib/types/product/product.types";
 
 type ProductInfoProps = {
   product: ProductItem;

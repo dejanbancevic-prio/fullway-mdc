@@ -1,6 +1,5 @@
-import { JsonLd } from "@/lib/types";
+import { JsonLd } from "@lib/types/seo/seo.types";
 import Script from "next/script";
-
 
 type SchemaScriptProps = {
   id: string;

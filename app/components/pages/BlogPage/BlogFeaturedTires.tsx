@@ -1,18 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useQuery, useReactiveVar } from "@apollo/client/react";
-import {
-  BlogPageByTagDocument,
-  BlogPageDocument,
-  BlogPageQuery,
-} from "@/lib/__generated__/graphql";
+import {  useReactiveVar } from "@apollo/client/react";
 import BlogCard from "./BlogCard";
 import { PaginationComp } from "@components/PaginationComp/PaginationComp";
 import Image from "next/image";
 import { currentPageVar, searchVar, selectedTagsVar } from "@/lib/cache";
 import tempFullwayBlogs from "@lib/json/tempFullwayBlogs.json";
-import { BlogItem } from "@/lib/types";
+import { BlogItem } from "@/lib/types/blog/blog.types";
 
 type BlogFeaturedTiresProps = {
   initialBlogs: BlogItem[];
@@ -26,7 +21,6 @@ const BlogFeaturedTires = ({
   initialBlogs,
   totalCount,
   pageSize,
-  initialPage,
   keyword,
 }: BlogFeaturedTiresProps) => {
   const currentPage = useReactiveVar(currentPageVar);

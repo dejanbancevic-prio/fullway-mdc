@@ -3,9 +3,8 @@
 import Image from "next/image";
 import WidgetCategory from "@components/Widget/WidgetCategory";
 import CategoryFeaturedTires from "./CategoryFeaturedTires";
-import { WidgetConfigurableProductItem } from "@lib/types";
+import { WidgetConfigurableProductItem } from "@lib/types/widget/widget.types";
 import { useEffect, useState } from "react";
-import { filter } from "graphql-yoga";
 
 const CategoryMain = () => {
   const [filteredProducts, setFilteredProducts] = useState<

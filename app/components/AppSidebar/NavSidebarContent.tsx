@@ -40,7 +40,7 @@ const NavSidebarContent = () => {
           </Button>
         </div>
 
-        <div className="flex flex-col justify-start items-start gap-[1rem] ">
+        <div className="flex flex-col justify-start items-start gap-[1rem]">
           <Button
             className="bg-transparent text-black p-0"
             onClick={toggleSidebar}

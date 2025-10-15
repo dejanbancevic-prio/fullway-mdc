@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CategoryFeaturedTiresCard from "./CategoryFeaturedTiresCard";
 import { PaginationComp } from "@components/PaginationComp/PaginationComp";
-import { WidgetConfigurableProductItem } from "@lib/types";
+import { WidgetConfigurableProductItem } from "@lib/types/widget/widget.types";
 
 const itemsPerPage = 8;
 

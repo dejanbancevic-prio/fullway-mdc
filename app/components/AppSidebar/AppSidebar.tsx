@@ -19,7 +19,7 @@ const AppSidebar = () => {
   const sidebarMap: Record<string, JSX.Element> = {
     cart: <CartSidebarContent />,
     nav: <NavSidebarContent />,
-    products: <ProductsSidebarContent/>
+    products: <ProductsSidebarContent />,
   };
   const sidebarContent = sidebarMap[sidebarType] ?? sidebarMap["cart"];
 

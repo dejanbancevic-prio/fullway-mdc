@@ -1,34 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import {
-  ProductVariant,
-  SectionWidthItem,
-  WidgetConfigurableProductItem,
-} from "@lib/types";
+import { useState } from "react";
 import { useLazyQuery } from "@apollo/client/react";
 import {
   AllProductsWidgetDocument,
   AllProductsWidgetQuery,
   AllProductsWidgetQueryVariables,
 } from "@lib/__generated__/graphql";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+import WidgetBySizeContent from "./WidgetBySizeContent/WidgetBySizeContent";
+import WidgetByVehicleContent from "./WidgetByVehicleContent/WidgetByVehicleContent";
+import { WidgetConfigurableProductItem } from "@lib/types/widget/widget.types";
+import { ProductVariant } from "@lib/types/product/product.types";
 
 type WidgetProps = {
   titleStyle?: string;
-  sectionWidth?: SectionWidthItem;
 };
 
-const Widget = ({ titleStyle, sectionWidth }: WidgetProps) => {
+const Widget = ({ titleStyle }: WidgetProps) => {
   // const [getTireSizes, { data, loading }] = useLazyQuery(TireSizesDocument);
 
   const [selectedWidth, setSelectedWidth] = useState<string>("");
@@ -38,9 +28,6 @@ const Widget = ({ titleStyle, sectionWidth }: WidgetProps) => {
   const router = useRouter();
 
   const [allProducts, setAllProducts] = useState<
-    WidgetConfigurableProductItem[]
-  >([]);
-  const [filteredProducts, setFilteredProducts] = useState<
     WidgetConfigurableProductItem[]
   >([]);
 
@@ -138,10 +125,7 @@ const Widget = ({ titleStyle, sectionWidth }: WidgetProps) => {
 
     sessionStorage.setItem("filteredProducts", JSON.stringify(filtered));
 
-    // ✅ Navigate to Category page
     router.push("/category");
-    // setFilteredProducts(filtered);
-    // onFilteredProductsChange(filtered);
   };
 
   return (
@@ -185,120 +169,19 @@ const Widget = ({ titleStyle, sectionWidth }: WidgetProps) => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="size">
-              {loading ? (
-                <div className="flex flex-col md:flex-row gap-[1rem] md:items-end pr-[2rem] items-center">
-                  <div className="md:w-[2.25rem]" />
-                  <div className="flex flex-col">
-                    <p className="font-[400] text-[1.125rem]">Width</p>
-                    <Skeleton className="w-[17.125rem] h-[2.5rem] rounded-md" />
-                  </div>
-
-                  <div className="flex flex-col">
-                    <p className="font-[400] text-[1.125rem]">Aspect Ratio</p>
-                    <Skeleton className="w-[17.125rem] h-[2.5rem] rounded-md" />
-                  </div>
-
-                  <div className="flex flex-col">
-                    <p className="font-[400] text-[1.125rem]">Diameter</p>
-                    <Skeleton className="w-[17.125rem] h-[2.5rem] rounded-md" />
-                  </div>
-
-                  <Button className="buttonWidget">FIND TIRE</Button>
-                </div>
-              ) : (
-                <div className="flex flex-col md:flex-row gap-[1rem] md:items-end pr-[2rem] items-center">
-                  <div className="md:w-[2.25rem]" />
-                  <div className="flex flex-col">
-                    <p className="font-[400] text-[1.125rem]">Width</p>
-                    <Input
-                      placeholder="Width"
-                      className="rounded-none w-[17.125rem]"
-                      value={selectedWidth}
-                      onChange={(e) => setSelectedWidth(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="font-[400] text-[1.125rem]">Aspect Ratio</p>
-                    <Input
-                      placeholder="Aspect Ratio"
-                      className="rounded-none w-[17.125rem]"
-                      value={selectedAr}
-                      onChange={(e) => setSelectedAr(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="font-[400] text-[1.125rem]">Diameter</p>
-                    <Input
-                      placeholder="Diameter"
-                      className="rounded-none w-[17.125rem]"
-                      value={selectedDiameter}
-                      onChange={(e) => setSelectedDiameter(e.target.value)}
-                    />
-                  </div>
-                  <HoverCard>
-                    <HoverCardTrigger asChild>
-                      <div className="inline-block">
-                        <Button
-                          onClick={handleFindTire}
-                          disabled={
-                            loading ||
-                            !selectedWidth ||
-                            !selectedAr ||
-                            !selectedDiameter
-                          }
-                          className="buttonWidget"
-                        >
-                          FIND TIRE
-                        </Button>
-                      </div>
-                    </HoverCardTrigger>
-
-                    {(!selectedWidth || !selectedAr || !selectedDiameter) && (
-                      <HoverCardContent className="text-[0.75rem] font-[600] text-center bg-neutral-800 text-white border-none">
-                        Please fill in all fields first.
-                      </HoverCardContent>
-                    )}
-                  </HoverCard>
-                </div>
-              )}
+              <WidgetBySizeContent
+                loading={loading}
+                selectedWidth={selectedWidth}
+                setSelectedWidth={setSelectedWidth}
+                selectedAr={selectedAr}
+                setSelectedAr={setSelectedAr}
+                selectedDiameter={selectedDiameter}
+                setSelectedDiameter={setSelectedDiameter}
+                handleFindTire={handleFindTire}
+              />
             </TabsContent>
             <TabsContent value="vehicle">
-              <div className="flex flex-col md:flex-row gap-[1rem] md:items-end pr-[2rem] items-center">
-                <div className="md:w-[2.25rem]" />
-                <div className="flex flex-col">
-                  <p className="font-[400] text-[1.125rem]">Year</p>
-                  <Input
-                    placeholder="Year"
-                    className="rounded-none w-[17.125rem] md:w-[12.5938rem]"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="font-[400] text-[1.125rem]">Make</p>
-                  <Input
-                    placeholder="Make"
-                    className="rounded-none w-[17.125rem] md:w-[12.5938rem]"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="font-[400] text-[1.125rem]">Model</p>
-                  <Input
-                    placeholder="Model"
-                    className="rounded-none w-[17.125rem] md:w-[12.5938rem]"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="font-[400] text-[1.125rem]">Trim</p>
-                  <Input
-                    placeholder="Trim"
-                    className="rounded-none w-[17.125rem] md:w-[12.5938rem]"
-                  />
-                </div>
-
-                <Button className="buttonWidget">FIND TIRE</Button>
-              </div>
+              <WidgetByVehicleContent />
             </TabsContent>
           </Tabs>
         </div>

@@ -1,4 +1,4 @@
-query BlogPage($keyWord: String!, $currentPage: Int!, $pageSize: Int!) {
+query BlogPosts($keyWord: String!, $currentPage: Int!, $pageSize: Int!) {
   awBlogPosts(
     filter: { title: { like: $keyWord } }
     currentPage: $currentPage

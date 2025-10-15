@@ -17,8 +17,11 @@ const HomeHeroBanner = () => {
         loop
         muted
         playsInline
+        aria-hidden="true"
         className="object-cover h-[39.9375rem] md:h-screen w-full"
-      />
+      >
+        <source src="/videos/test.mp4" type="video/mp4" />
+      </video>
 
       <div className="absolute inset-0 -bottom-40 md:inset-0 bg-gradient-to-b from-transparent via-transparent to-[#090909]" />
       <div className="absolute inset-0 -bottom-40 md:inset-0 bg-gradient-to-b from-black/85 via-black/0 to-transparent" />

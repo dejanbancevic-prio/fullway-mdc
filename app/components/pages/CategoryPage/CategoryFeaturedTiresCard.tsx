@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { WidgetConfigurableProductItem } from "@lib/types";
-import { getStars } from "@lib/pages/ProductPage/starsCalc";
+import { WidgetConfigurableProductItem } from "@lib/types/widget/widget.types";
+import { getStars } from "@lib/product/starsCalc";
 import { YotpoReviews } from "@components/yotpo/YotpoReviews";
 
 type CategoryFeaturedTiresCardProps = {

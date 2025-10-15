@@ -1,4 +1,4 @@
-query BlogPageByTag(
+query BlogPostsByTag(
   $keyWord: String!
   $currentPage: Int!
   $pageSize: Int!

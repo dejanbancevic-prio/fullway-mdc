@@ -14,7 +14,7 @@ export const metadata = {
 const BlogPage = async () => {
   const pageSize = 6;
   const currentPage = 1;
-  const keyWord = "%fullway%"; //michelin  //fullway
+  const keyWord = "%fullway%"; //michelin //fullway
 
   const data = tempFullwayBlogs;
 

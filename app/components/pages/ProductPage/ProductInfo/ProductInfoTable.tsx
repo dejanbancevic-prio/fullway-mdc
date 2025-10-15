@@ -15,7 +15,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useRef } from "react";
-import { ProductVariant } from "@lib/types";
+import { ProductVariant } from "@lib/types/product/product.types";
 
 type ProductInfoTableProps = {
   variants: ProductVariant[];

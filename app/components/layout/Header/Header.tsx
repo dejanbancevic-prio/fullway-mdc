@@ -29,59 +29,65 @@ const Header = () => {
             />
           </Link>
 
-          <div className="flex justify-center items-center gap-[2.25rem]">
+          <nav className="flex justify-center items-center gap-[2.25rem]">
             <Link
-              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md"
               href="/tires"
+              className="italic font-[700] text-base hover:bg-gray-700/50 bg-transparent px-4 py-3 transition rounded-md min-h-[3rem] flex items-center justify-center"
             >
               OUR TIRES
             </Link>
 
             <Link
-              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md"
               href="/about-us"
+              className="italic font-[700] text-base hover:bg-gray-700/50 bg-transparent px-4 py-3 transition rounded-md min-h-[3rem] flex items-center justify-center"
             >
               ABOUT US
             </Link>
 
             <Link
-              className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md"
               href="/blog"
+              className="italic font-[700] text-base hover:bg-gray-700/50 bg-transparent px-4 py-3 transition rounded-md min-h-[3rem] flex items-center justify-center"
             >
               BLOG
             </Link>
 
-            <Button className="italic !font-[700] !text-base hover:!bg-gray-700/50 !bg-transparent !px-2 !pr-3 py-2 transition rounded-md">
-              <Link href="/contact">CONTACT</Link>
-            </Button>
+            <Link
+              href="/contact"
+              className="italic font-[700] text-base hover:bg-gray-700/50 bg-transparent px-4 py-3 transition rounded-md min-h-[3rem] flex items-center justify-center"
+            >
+              CONTACT
+            </Link>
 
             <div className="flex gap-[1rem]">
-              <Button className="buttonSkew text-base font-[700] px-[1.5rem]">
-                <Link href="/category">FIND TIRES</Link>
-              </Button>
+              <Link
+                href="/category"
+                className="buttonSkew text-base font-[700] px-[1.5rem] min-h-[2.5rem] flex items-center justify-center rounded-md"
+              >
+                FIND TIRES
+              </Link>
 
               <Button
                 onClick={() => handleSidebarType("cart")}
-                className="group buttonSkew text-base font-[700] pr-[1.1rem] relative"
+                aria-label="Open shopping cart"
+                className="group buttonSkew text-base font-[700] pr-[1.1rem] relative p-[0.75rem] min-h-[2.5rem] min-w-[3rem] rounded-md flex items-center justify-center"
               >
                 <Image
                   src="/icons/other/Icon=Cart-Color=White.svg"
-                  alt="Cart Icon"
+                  alt=""
                   width={1920}
                   height={1080}
                   className="w-[1.2rem] h-[1.2rem] group-hover:opacity-0"
                 />
-
                 <Image
                   src="/icons/other/Icon=Cart-Color=Dark.svg"
-                  alt="Cart Icon Hover"
+                  alt=""
                   width={1920}
                   height={1080}
                   className="w-[1.2rem] h-[1.2rem] absolute opacity-0 group-hover:opacity-100"
                 />
               </Button>
             </div>
-          </div>
+          </nav>
         </div>
 
         <div className="md:hidden flex justify-between items-center mx-[1.5rem]">

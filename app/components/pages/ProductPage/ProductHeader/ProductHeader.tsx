@@ -1,8 +1,8 @@
 import Image from "next/image";
 import ProductPicker from "./ProductPicker/ProductPicker";
 import { YotpoReviews } from "@components/yotpo/YotpoReviews";
-import { ProductItem } from "@lib/types";
-import { getStars } from "@lib/pages/ProductPage/starsCalc";
+import { ProductItem } from "@lib/types/product/product.types";
+import { getStars } from "@lib/product/starsCalc";
 
 type ProductFeaturesProps = {
   product: ProductItem;

@@ -14,8 +14,8 @@ const WheelMotion = () => {
       <Image
         src="/images/HomePage/MostPopularTire/fullway-tire-frontview-w-wheel-template.png"
         alt="Fullway Tire"
-        width={1920}
-        height={1080}
+        width={735}
+        height={734}
         className="size-[21.4375rem] md:size-[27.0625rem] mt-[2.5rem] md:p-0"
       />
     </motion.div>
