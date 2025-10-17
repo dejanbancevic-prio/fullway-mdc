@@ -4,6 +4,7 @@ import MostPopularTire from "./components/pages/HomePage/MostPopularTire/MostPop
 import Widget from "./components/Widget/Widget";
 import SchemaScript from "./components/seo/SchemaScript";
 import { homeSchema } from "../lib/seo/seoSchemas";
+import Testimonials from "@components/pages/HomePage/Testimonials/Testimonials";
 
 export const metadata = {
   title: "Fullway Tires | Only the best tires for your vehicle",
@@ -21,6 +22,8 @@ const HomePage = () => {
       <MostPopularTire />
 
       <FeaturedTires />
+
+      <Testimonials />
 
       <div id="widget" className="relative scroll-mt-[8rem]">
         <div className="bg-fullwayGrey w-full h-[15.3125rem]" />

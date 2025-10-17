@@ -26,7 +26,7 @@ const AboutUsPage = () => {
 
       <Certification />
 
-      <FeaturedTires />
+      <FeaturedTires hideFindTiresLink={true} />
     </main>
   );
 };

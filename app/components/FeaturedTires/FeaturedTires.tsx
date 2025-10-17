@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import FeaturedTiresCard from "./FeaturedTiresCard";
 
-const FeaturedTires = () => {
+type FeaturedTiresProps = {
+  hideFindTiresLink?: boolean;
+};
+
+const FeaturedTires = ({ hideFindTiresLink }: FeaturedTiresProps) => {
   return (
     <div className="w-full border-b-5 border-fullwayRed relative">
       <Image
@@ -41,9 +45,11 @@ const FeaturedTires = () => {
                 <Link href="/tires">SHOP ALL TIRES</Link>
               </Button>
 
-              <Link href={`#widget`} className="font-[400] underline ">
-                Find tires
-              </Link>
+              {!hideFindTiresLink && (
+                <Link href={`#widget`} className="font-[400] underline ">
+                  Find tires
+                </Link>
+              )}
             </div>
           </div>
 

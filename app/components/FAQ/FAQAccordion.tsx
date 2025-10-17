@@ -19,10 +19,10 @@ const FAQAccordion = () => {
     {
       value: "item-1",
       question: "WHO MAKES FULLWAY TIRES",
-      answer: ` Our flagship product combines cutting-edge technology with sleek
-            design. Built with premium materials, it offers unparalleled
-            performance and reliability.  Key features include advanced processing capabilities, and an
-            intuitive user interface designed for both beginners and experts.`,
+      answer: ` 
+            Fullway tires, including the Fullway HP108, are manufactured by GOLDEN HORSE RUBBER SDN BHD. 
+            Different types of tires are produced yearly under the Fullway banner for the replacement tire market. 
+            Fullway Tires offer a good choice, budget tire models.`,
     },
     {
       value: "item-2",
@@ -35,29 +35,9 @@ const FAQAccordion = () => {
     {
       value: "item-3",
       question: "WHERE ARE FULLWAY TIRES MADE?",
-      answer: `We stand behind our products with a comprehensive 30-day return
-            policy. If you&apos;re not completely satisfied, simply return the
-            item in its original condition. Our hassle-free return process includes free return shipping and
-            full refunds processed within 48 hours of receiving the returned
-            item.`,
-    },
-    {
-      value: "item-4",
-      question: "QUESTION #4",
-      answer: `We stand behind our products with a comprehensive 30-day return
-            policy. If you&apos;re not completely satisfied, simply return the
-            item in its original condition. Our hassle-free return process includes free return shipping and
-            full refunds processed within 48 hours of receiving the returned
-            item.`,
-    },
-    {
-      value: "item-5",
-      question: "QUESTION #5",
-      answer: `We stand behind our products with a comprehensive 30-day return
-            policy. If you&apos;re not completely satisfied, simply return the
-            item in its original condition. Our hassle-free return process includes free return shipping and
-            full refunds processed within 48 hours of receiving the returned
-            item.`,
+      answer: `Fullway tires are manufactured in Malaysia by GOLDEN HORSE RUBBER SDN BHD. 
+            The company uses state-of-the-art technologies to design and produce good-quality tires at budget- friendly prices.
+            Fullway tires are imported to the US, therefore, they meet safety and performance expectations.`,
     },
   ];
 
