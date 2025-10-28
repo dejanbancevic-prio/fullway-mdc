@@ -30,31 +30,19 @@ const Header = () => {
           </Link>
 
           <nav className="flex justify-center items-center gap-[2.25rem]">
-            <Link
-              href="/tires"
-              className="italic font-[700] text-base hover:bg-gray-700/50 bg-transparent px-4 py-3 transition rounded-md min-h-[3rem] flex items-center justify-center"
-            >
+            <Link href="/tires" className="navLink">
               OUR TIRES
             </Link>
 
-            <Link
-              href="/about-us"
-              className="italic font-[700] text-base hover:bg-gray-700/50 bg-transparent px-4 py-3 transition rounded-md min-h-[3rem] flex items-center justify-center"
-            >
+            <Link href="/about-us" className="navLink">
               ABOUT US
             </Link>
 
-            <Link
-              href="/blog"
-              className="italic font-[700] text-base hover:bg-gray-700/50 bg-transparent px-4 py-3 transition rounded-md min-h-[3rem] flex items-center justify-center"
-            >
+            <Link href="/blog" className="navLink">
               BLOG
             </Link>
 
-            <Link
-              href="/contact"
-              className="italic font-[700] text-base hover:bg-gray-700/50 bg-transparent px-4 py-3 transition rounded-md min-h-[3rem] flex items-center justify-center"
-            >
+            <Link href="/contact" className="navLink">
               CONTACT
             </Link>
 

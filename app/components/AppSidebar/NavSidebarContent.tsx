@@ -42,35 +42,35 @@ const NavSidebarContent = () => {
 
         <div className="flex flex-col justify-start items-start gap-[1rem]">
           <Button
-            className="bg-transparent text-black p-0"
+            className="bg-transparent text-black hover:bg-transparent p-0"
             onClick={toggleSidebar}
           >
-            <Link className="navMenuLink" href="/tires">
+            <Link className="navLink" href="/tires">
               OUR TIRES
             </Link>
           </Button>
 
           <Button
-            className="bg-transparent text-black p-0"
+            className="bg-transparent text-black hover:bg-transparent p-0"
             onClick={toggleSidebar}
           >
-            <Link className="navMenuLink" href="/about-us">
+            <Link className="navLink" href="/about-us">
               ABOUT US
             </Link>
           </Button>
           <Button
-            className="bg-transparent text-black p-0"
+            className="bg-transparent text-black hover:bg-transparent p-0"
             onClick={toggleSidebar}
           >
-            <Link className="navMenuLink" href="/blog">
+            <Link className="navLink" href="/blog">
               BLOG
             </Link>
           </Button>
           <Button
-            className="bg-transparent text-black p-0"
+            className="bg-transparent text-black hover:bg-transparent p-0"
             onClick={toggleSidebar}
           >
-            <Link className="navMenuLink" href="/contact">
+            <Link className="navLink" href="/contact">
               CONTACT
             </Link>
           </Button>

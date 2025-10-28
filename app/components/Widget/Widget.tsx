@@ -157,13 +157,13 @@ const Widget = ({ titleStyle }: WidgetProps) => {
             <TabsList className="skew-x-[-15deg] rounded-none mb-[1rem]">
               <TabsTrigger
                 value="size"
-                className="rounded-none w-[9.0625rem] font-[700]"
+                className="rounded-none w-[9.0625rem] font-[700] bg-[#E0E0E0]"
               >
                 BY SIZE
               </TabsTrigger>
               <TabsTrigger
                 value="vehicle"
-                className="rounded-none w-[9.0625rem] font-[700]"
+                className="rounded-none w-[9.0625rem] font-[700] bg-[#E0E0E0]"
               >
                 BY VEHICLE
               </TabsTrigger>

@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 type FeaturedTireCardProps = {
   name: string;
   text: string;
-  tireImage: string;
+  tireImage: StaticImageData;
   url_key: string;
 };
 

@@ -1,5 +1,12 @@
 import Image from "next/image";
 import OurFeaturedTiresCard from "./OurFeaturedTiresCard";
+import HP108 from "@images/OurTiresPage/OurFeaturedTires/HP108.png";
+import HP208 from "@images/OurTiresPage/OurFeaturedTires/HP208.png";
+import HS266 from "@images/OurTiresPage/OurFeaturedTires/HS266.png";
+import HS288 from "@images/OurTiresPage/OurFeaturedTires/HS288.png";
+import HS998 from "@images/OurTiresPage/OurFeaturedTires/HS998.png";
+import PC368 from "@images/OurTiresPage/OurFeaturedTires/PC368.png";
+import PC369 from "@images/OurTiresPage/OurFeaturedTires/PC369.png";
 
 const OurFeaturedTires = () => {
   return (
@@ -22,9 +29,7 @@ const OurFeaturedTires = () => {
               text={
                 "Designed for any element, to keep you safe through the whole year."
               }
-              tireImage={
-                "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
-              }
+              tireImage={HP108}
               url_key={"hp108"}
             />
             <OurFeaturedTiresCard
@@ -32,9 +37,7 @@ const OurFeaturedTires = () => {
               text={
                 "All season tire manufactured for passenger vehicles and SUVs."
               }
-              tireImage={
-                "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
-              }
+              tireImage={HS266}
               url_key={"hs266"}
             />
             <OurFeaturedTiresCard
@@ -42,9 +45,7 @@ const OurFeaturedTires = () => {
               text={
                 "The tread design allows the driver's full control over the vehicle during the drive.."
               }
-              tireImage={
-                "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
-              }
+              tireImage={PC369}
               url_key={"pc369"}
             />
           </div>
@@ -54,9 +55,7 @@ const OurFeaturedTires = () => {
               text={
                 "The design improves the steering responsiveness and the driving stability."
               }
-              tireImage={
-                "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
-              }
+              tireImage={PC368}
               url_key={"pc368"}
             />
             <OurFeaturedTiresCard
@@ -64,32 +63,26 @@ const OurFeaturedTires = () => {
               text={
                 "All season tire manufactured for SUVs, the tire offers excellent all weather traction."
               }
-              tireImage={
-                "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
-              }
+              tireImage={HS998}
               url_key={"hs998"}
             />
             <OurFeaturedTiresCard
-              name={"HP 208"}
+              name={"HP 288"}
               text={
-                "It combines the all season compound and the asymmetric tread design for perfect grip."
+                "High performance, all season tire manufactured for SUV, crossover and light truck vehicles."
               }
-              tireImage={
-                "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
-              }
-              url_key={"hp208"}
+              tireImage={HS288}
+              url_key={"hs288"}
             />
           </div>
           <div className="flex flex-col md:flex-row justify-center items-center w-full mt-[7.5rem] md:mt-[0rem] ">
             <OurFeaturedTiresCard
-              name={"HS 288"}
+              name={"HS 208"}
               text={
-                "High performance, all season tire manufactured for SUV, crossover and light truck vehicles."
+                "It combines the all season compound and the asymmetric tread design for perfect grip."
               }
-              tireImage={
-                "/images/OurTiresPage/OurFeaturedTires/fullway-hs266-b-aca2-1 1.svg"
-              }
-              url_key={"hs288"}
+              tireImage={HP208}
+              url_key={"hp208"}
             />
           </div>
         </div>

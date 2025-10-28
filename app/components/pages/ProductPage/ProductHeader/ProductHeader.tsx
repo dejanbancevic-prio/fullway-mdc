@@ -3,6 +3,7 @@ import ProductPicker from "./ProductPicker/ProductPicker";
 import { YotpoReviews } from "@components/yotpo/YotpoReviews";
 import { ProductItem } from "@lib/types/product/product.types";
 import { getStars } from "@lib/product/starsCalc";
+import ProductDescription from "./ProductDescription";
 
 type ProductFeaturesProps = {
   product: ProductItem;
@@ -71,14 +72,8 @@ const ProductHeader = ({ product }: ProductFeaturesProps) => {
               <p>HIGH PERFORMANCE</p>
             </div>
 
-            <div className="font-[300] text-[1.25rem] ">
-              <p>
-                {productVariant?.description_overview?.paragraphs?.[0]?.title}
-                {productVariant?.description_overview?.paragraphs?.[0]?.content
-                  ?.split(".")
-                  ?.filter(Boolean)[0]
-                  ?.trim() + "."}
-              </p>
+            <div className="font-[300] text-[1.25rem]">
+              <ProductDescription html={product?.description?.html} />
             </div>
 
             <ProductPicker product={product} />

@@ -13,6 +13,9 @@ query ProductPage($urlKey: String!) {
           }
         }
       }
+      description {
+        html
+      }
       ... on ConfigurableProduct {
         variants {
           attributes {

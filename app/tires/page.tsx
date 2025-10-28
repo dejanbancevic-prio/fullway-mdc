@@ -14,9 +14,9 @@ const OurTiresPage = () => {
     <main className="flex flex-col">
       <GlobalPageHero
         name={"OUR TIRES"}
-        desc={` We have a selected assortment of best performance tires for your
+        desc={`We have a selected assortment of best performance tires for your
               vehicle, making sure you don't have to worry  whole
-              year round and making sure the ride is as smooth as possible `}
+              year round and making sure the ride is as smooth as possible.`}
       />
 
       <BreadcrumbComp
