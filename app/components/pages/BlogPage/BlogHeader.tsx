@@ -20,7 +20,6 @@ type BlogHeaderProps = {
 };
 
 const BlogHeader = ({ tags }: BlogHeaderProps) => {
-  const selectedTag = useReactiveVar(selectedTagsVar);
   const currentPage = useReactiveVar(currentPageVar);
   const searchValue = useReactiveVar(searchVar);
 
@@ -95,7 +94,6 @@ const BlogHeader = ({ tags }: BlogHeaderProps) => {
                     height={1080}
                     className="w-[1rem] h-[1rem]"
                   />
-                 
                 </DrawerTrigger>
 
                 <DrawerContent className="p-6">

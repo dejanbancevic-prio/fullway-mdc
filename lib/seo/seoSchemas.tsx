@@ -1,6 +1,4 @@
-import {
-  ProductItem,
-} from "@/lib/types/product/product.types";
+import { ProductItem } from "@/lib/types/product/product.types";
 import { BlogItem } from "@lib/types/blog/blog.types";
 import { JsonLd, ScriptProductVariant } from "@lib/types/seo/seo.types";
 
@@ -71,7 +69,7 @@ export function getProductSchema(
     : "";
 
   const imageUrl = imagePath
-    ? `https://www.fullwaytires.com/_next/image?url=https%3A%2F%2Fstaging.prioritytire.dev${encodeURIComponent(
+    ? `https://www.fullwaytires.com/_next/image?url=https%3A%2F%2Fwww.prioritytire.com${encodeURIComponent(
         imagePath
       )}`
     : "";
@@ -92,8 +90,8 @@ export function getProductSchema(
     },
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: firstVariant?.productRating?.ratingValue ?? "0",
-      reviewCount: firstVariant?.productRating?.ratingCount ?? "0",
+      ratingValue: firstVariant?.yotpo_rating_value ?? "0",
+      reviewCount: firstVariant?.yotpo_review_count ?? "0",
     },
     offers: {
       "@type": "Offer",

@@ -12,4 +12,3 @@ export type ConfigurableProductItem = Extract<
 export type ProductVariant = NonNullable<
   NonNullable<ConfigurableProductItem["variants"]>[number]
 >;
-

@@ -13,12 +13,6 @@ const TestSpecials = () => {
     { variables: { urlKey: "hp108" } }
   );
 
-  const decodeHtml = (html: string) => {
-    const txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    return txt.value;
-  };
-
   return (
     <div className="p-6">
       {data?.products?.items?.map((item) => {
@@ -27,14 +21,11 @@ const TestSpecials = () => {
         return (
           <div key={item.url_key} className="mb-6  p-10 rounded">
             <h2 className="font-bold text-xl">{item.name}</h2>
-           
 
             {item.variants?.map((variant) => {
               if (!variant?.product) return null;
 
               const p = variant.product;
-
-              //console.log(p.name)
 
               return (
                 <div key={p.uid} className="ml-4 mt-2 border-l pl-4">

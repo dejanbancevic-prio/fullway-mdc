@@ -551,16 +551,6 @@ export type ApplyCouponToCartOutput = {
   cart: Cart;
 };
 
-export type Appointment = {
-  __typename?: 'Appointment';
-  /** Closing time of the appointment window */
-  closes_at: Scalars['String']['output'];
-  /** Day of the week for the appointment slot */
-  day_of_week: Scalars['String']['output'];
-  /** Opening time of the appointment window */
-  opens_at: Scalars['String']['output'];
-};
-
 /** AreaInput defines the parameters which will be used for filter by specified location. */
 export type AreaInput = {
   /** The radius for the search in KM. */
@@ -1697,8 +1687,6 @@ export type BundleProduct = CustomizableProductInterface & PhysicalProductInterf
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -1858,10 +1846,6 @@ export type BundleProduct = CustomizableProductInterface & PhysicalProductInterf
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
   /** One of PRICE_RANGE or AS_LOW_AS. */
   price_view?: Maybe<PriceViewEnum>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -2088,6 +2072,10 @@ export type BundleProduct = CustomizableProductInterface & PhysicalProductInterf
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -2169,24 +2157,6 @@ export type ButtonStyles = {
   use_default_height?: Maybe<Scalars['Boolean']['output']>;
 };
 
-export type CAspectRatios = {
-  __typename?: 'CAspectRatios';
-  front?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  rear?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-};
-
-export type CRimDiameters = {
-  __typename?: 'CRimDiameters';
-  front?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  rear?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-};
-
-export type CSectionWidths = {
-  __typename?: 'CSectionWidths';
-  front?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  rear?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-};
-
 /** Defines the order to cancel. */
 export type CancelOrderInput = {
   /** Order ID. */
@@ -2259,15 +2229,12 @@ export type Cart = {
   available_payment_methods?: Maybe<Array<Maybe<AvailablePaymentMethod>>>;
   /** The billing address assigned to the cart. */
   billing_address?: Maybe<BillingCartAddress>;
-  delivery: CartDelivery;
   /** The email address of the guest or customer. */
   email?: Maybe<Scalars['String']['output']>;
   /** The entered gift message for the cart */
   gift_message?: Maybe<GiftMessage>;
   /** The unique ID for a `Cart` object. */
   id: Scalars['ID']['output'];
-  /** Installer and appointment information attached to the cart */
-  installer: CartInstaller;
   /** Indicates whether the cart contains only virtual products. */
   is_virtual: Scalars['Boolean']['output'];
   /**
@@ -2383,12 +2350,6 @@ export type CartAddressRegion = {
   region_id?: Maybe<Scalars['Int']['output']>;
 };
 
-export type CartDelivery = {
-  __typename?: 'CartDelivery';
-  available_delivery_methods: Array<Maybe<DeliveryMethod>>;
-  selected_delivery_method?: Maybe<DeliveryMethod>;
-};
-
 /** Contains information about discounts applied to the cart. */
 export type CartDiscount = {
   __typename?: 'CartDiscount';
@@ -2402,20 +2363,6 @@ export enum CartDiscountType {
   Item = 'ITEM',
   Shipping = 'SHIPPING'
 }
-
-export type CartInstaller = {
-  __typename?: 'CartInstaller';
-  /** Optional notes or references provided by the customer */
-  appointment_information?: Maybe<Scalars['String']['output']>;
-  /** Customer email address provided during installer selection */
-  email?: Maybe<Scalars['String']['output']>;
-  /** The exact appointment chosen for the cart */
-  scheduled_appointment?: Maybe<SelectedAppointment>;
-  /** The installer selected for the cart */
-  selected_installer?: Maybe<Installer>;
-  /** Vehicle VIN attached to the cart */
-  vin?: Maybe<Scalars['String']['output']>;
-};
 
 export type CartItemError = {
   __typename?: 'CartItemError';
@@ -2821,7 +2768,6 @@ export type CategoryTree = CategoryInterface & RoutableInterface & {
   meta_description?: Maybe<Scalars['String']['output']>;
   meta_keywords?: Maybe<Scalars['String']['output']>;
   meta_title?: Maybe<Scalars['String']['output']>;
-  most_popular?: Maybe<MostPopularData>;
   /** The display name of the category. */
   name?: Maybe<Scalars['String']['output']>;
   /** The full category path. */
@@ -3053,39 +2999,6 @@ export type CompareList = {
   uid: Scalars['ID']['output'];
 };
 
-export type CompatibleSizes = {
-  __typename?: 'CompatibleSizes';
-  /** Tire sizes when the front and back tires are different. */
-  frontRear?: Maybe<Array<Maybe<FrontRearSizeGroup>>>;
-  /** Smaller‑than‑stock tire options for extra clearance. */
-  minusSizes?: Maybe<MinusSizes>;
-  /** Bigger‑than‑stock tire options, sorted by type. */
-  plusSizes?: Maybe<PlusSizes>;
-  /** Tire sizes that match your stock setup (same front and back). */
-  sameSizes?: Maybe<Array<Maybe<SizeGroup>>>;
-};
-
-export type ComplementarySizeLabels = {
-  __typename?: 'ComplementarySizeLabels';
-  categoryUrl?: Maybe<Scalars['String']['output']>;
-  size_label?: Maybe<Scalars['String']['output']>;
-};
-
-export type ComplementaryTireSizeAttributes = {
-  aspect_ratio?: InputMaybe<Scalars['Float']['input']>;
-  rim_diameter?: InputMaybe<Scalars['Float']['input']>;
-  section_width?: InputMaybe<Scalars['Float']['input']>;
-  size_label: Scalars['String']['input'];
-};
-
-export type ComplementaryTireSizes = {
-  __typename?: 'ComplementaryTireSizes';
-  aspect_ratios?: Maybe<Array<Maybe<CAspectRatios>>>;
-  rim_diameters?: Maybe<Array<Maybe<CRimDiameters>>>;
-  section_widths?: Maybe<Array<Maybe<CSectionWidths>>>;
-  size_labels?: Maybe<Array<Maybe<ComplementarySizeLabels>>>;
-};
-
 export type CompleteCheckoutSessionOutput = {
   __typename?: 'CompleteCheckoutSessionOutput';
   increment_id?: Maybe<Scalars['String']['output']>;
@@ -3188,8 +3101,6 @@ export type ConfigurableProduct = CustomizableProductInterface & PhysicalProduct
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -3341,10 +3252,6 @@ export type ConfigurableProduct = CustomizableProductInterface & PhysicalProduct
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -3571,6 +3478,10 @@ export type ConfigurableProduct = CustomizableProductInterface & PhysicalProduct
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -5578,13 +5489,6 @@ export type DeletePaymentTokenOutput = {
   result: Scalars['Boolean']['output'];
 };
 
-export type DeliveryMethod = {
-  __typename?: 'DeliveryMethod';
-  code: Scalars['String']['output'];
-  delivery_info: Scalars['String']['output'];
-  title: Scalars['String']['output'];
-};
-
 export type DescriptionOverview = {
   __typename?: 'DescriptionOverview';
   /** Array of bullet points. */
@@ -5784,8 +5688,6 @@ export type DownloadableProduct = CustomizableProductInterface & ProductInterfac
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -5941,10 +5843,6 @@ export type DownloadableProduct = CustomizableProductInterface & ProductInterfac
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -6167,6 +6065,10 @@ export type DownloadableProduct = CustomizableProductInterface & ProductInterfac
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -6331,15 +6233,6 @@ export type ExchangeRate = {
   rate?: Maybe<Scalars['Float']['output']>;
 };
 
-/** A frequently asked question and its answer for a vehicle page. */
-export type Faq = {
-  __typename?: 'Faq';
-  /** Answer text. */
-  answer: Scalars['String']['output'];
-  /** Question text. */
-  question: Scalars['String']['output'];
-};
-
 /** Defines a filter that matches the input exactly. */
 export type FilterEqualTypeInput = {
   /** Use this attribute to exactly match the specified string. For example, to filter on a specific category ID, specify a value such as `5`. */
@@ -6441,35 +6334,6 @@ export enum FixedProductTaxDisplaySettings {
   IncludeFptWithDetails = 'INCLUDE_FPT_WITH_DETAILS'
 }
 
-export type Front = {
-  __typename?: 'Front';
-  /** Compatible size label. */
-  label?: Maybe<Scalars['String']['output']>;
-  /** Number of products in the category */
-  product_count?: Maybe<Scalars['Int']['output']>;
-  /** URL key that leads to a size category/ */
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type FrontRearSizeGroup = {
-  __typename?: 'FrontRearSizeGroup';
-  /** Rim diameter (e.g., '18'). */
-  rim?: Maybe<Scalars['String']['output']>;
-  /** List of tire sizes for this rim diameter. */
-  size?: Maybe<Array<Maybe<FrontRearSizes>>>;
-};
-
-/** Represents a list of sizes that fit the selected vehicle. */
-export type FrontRearSizes = {
-  __typename?: 'FrontRearSizes';
-  front?: Maybe<Front>;
-  /** Compatible size label. */
-  label?: Maybe<Scalars['String']['output']>;
-  rear?: Maybe<Rear>;
-  /** URL key that leads to a size category/ */
-  url?: Maybe<Scalars['String']['output']>;
-};
-
 /** Identifies which customer requires remote shopping assistance. */
 export type GenerateCustomerTokenAsAdminInput = {
   /** The email address of the customer requesting remote shopping assistance. */
@@ -6553,16 +6417,6 @@ export type GooglePayMethodInput = {
   paypal_order_id?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type GroupData = {
-  __typename?: 'GroupData';
-  category_group_products?: Maybe<Array<Maybe<ProductInfo>>>;
-  default_group_products?: Maybe<Array<Maybe<ProductInterface>>>;
-  enabled?: Maybe<Scalars['Int']['output']>;
-  group_id?: Maybe<Scalars['Int']['output']>;
-  group_name?: Maybe<Scalars['String']['output']>;
-  priority?: Maybe<Scalars['Int']['output']>;
-};
-
 /** Defines a grouped product, which consists of simple standalone products that are presented as a group. */
 export type GroupedProduct = PhysicalProductInterface & ProductInterface & RoutableInterface & {
   __typename?: 'GroupedProduct';
@@ -6603,8 +6457,6 @@ export type GroupedProduct = PhysicalProductInterface & ProductInterface & Routa
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -6752,10 +6604,6 @@ export type GroupedProduct = PhysicalProductInterface & ProductInterface & Routa
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -6980,6 +6828,10 @@ export type GroupedProduct = PhysicalProductInterface & ProductInterface & Routa
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -7128,86 +6980,6 @@ export enum InputFilterEnum {
   Trim = 'TRIM'
 }
 
-export type Installer = {
-  __typename?: 'Installer';
-  /** Street address of the installer */
-  address: Scalars['String']['output'];
-  /** List of available appointment time slots */
-  available_appointments: Array<Maybe<Appointment>>;
-  /** City of the installer */
-  city: Scalars['String']['output'];
-  /** Primary email address of the installer */
-  email?: Maybe<Scalars['String']['output']>;
-  /** Unique identifier for the installer */
-  id: Scalars['Int']['output'];
-  /** Latitude coordinate of the installer */
-  lat?: Maybe<Scalars['Float']['output']>;
-  /** Longitude coordinate of the installer */
-  lon?: Maybe<Scalars['Float']['output']>;
-  /** Display name of the installer */
-  name: Scalars['String']['output'];
-  /** Installer contact phone number */
-  phone_number?: Maybe<Scalars['String']['output']>;
-  /** Base price per tire for installation */
-  price_per_tire?: Maybe<Scalars['String']['output']>;
-  /** State of the installer */
-  state: Scalars['String']['output'];
-  /** Thumbnail image for installer store */
-  thumbnail_image?: Maybe<Scalars['String']['output']>;
-  /** Type of installer, 'regular' and 'mobile' is supported */
-  type?: Maybe<Scalars['String']['output']>;
-  /** Website URL of the installer */
-  website?: Maybe<Scalars['String']['output']>;
-  /** Postal code of the installer */
-  zip_code?: Maybe<Scalars['Int']['output']>;
-};
-
-export type InstallerInput = {
-  /** Street address of the installer */
-  address: Scalars['String']['input'];
-  /** City of the installer */
-  city: Scalars['String']['input'];
-  /** Primary email address of the installer */
-  email?: InputMaybe<Scalars['String']['input']>;
-  /** Unique identifier for the installer */
-  id: Scalars['Int']['input'];
-  /** Latitude coordinate of the installer */
-  lat?: InputMaybe<Scalars['Float']['input']>;
-  /** Longitude coordinate of the installer */
-  lon?: InputMaybe<Scalars['Float']['input']>;
-  /** Display name of the installer */
-  name: Scalars['String']['input'];
-  /** Installer contact phone number */
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  /** Base price per tire for installation */
-  price_per_tire?: InputMaybe<Scalars['String']['input']>;
-  /** State of the installer */
-  state: Scalars['String']['input'];
-  /** Thumbnail image for installer store */
-  thumbnail_image?: InputMaybe<Scalars['String']['input']>;
-  /** Type of installer, 'regular' and 'mobile' is supported */
-  type?: InputMaybe<Scalars['String']['input']>;
-  /** Website URL of the installer */
-  website?: InputMaybe<Scalars['String']['input']>;
-  /** Postal code of the installer */
-  zip_code?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type InstallersInput = {
-  /** Installer type (e.g. regular, mobile) */
-  type: Scalars['String']['input'];
-  /** ZIP/postal code to filter installers by location */
-  zip: Scalars['String']['input'];
-};
-
-export type InstallersSearchResult = {
-  __typename?: 'InstallersSearchResult';
-  /** List of installer records */
-  items: Array<Maybe<Installer>>;
-  /** Total number of installers found */
-  total_count: Scalars['Int']['output'];
-};
-
 /** Contains an error message when an internal error occurred. */
 export type InternalError = ErrorInterface & {
   __typename?: 'InternalError';
@@ -7330,15 +7102,6 @@ export type ItemSelectedBundleOptionValue = {
   uid: Scalars['ID']['output'];
 };
 
-/** A generic item with a display name and slug/url key for navigation. */
-export type Items = {
-  __typename?: 'Items';
-  /** Display name (e.g., '2024', 'Toyota', 'Camry', 'XSE'). */
-  name?: Maybe<Scalars['String']['output']>;
-  /** URL key or slug for routing (e.g., '2024','toyota'). */
-  slug?: Maybe<Scalars['String']['output']>;
-};
-
 /** Contains a key-value pair. */
 export type KeyValue = {
   __typename?: 'KeyValue';
@@ -7415,26 +7178,6 @@ export type LayerFilterItemInterface = {
   value_string?: Maybe<Scalars['String']['output']>;
 };
 
-/** A vehicle manufacturer make. */
-export type Make = {
-  __typename?: 'Make';
-  /** The brand's logo. */
-  logo?: Maybe<Scalars['String']['output']>;
-  /** The display name of the make. */
-  name: Scalars['String']['output'];
-  /** The URL key for the make. */
-  slug: Scalars['String']['output'];
-};
-
-/** A group of makes sharing the same first letter. */
-export type MakeGroup = {
-  __typename?: 'MakeGroup';
-  /** The first letter of the make names. */
-  letter: Scalars['String']['output'];
-  /** Makes beginning with this letter. */
-  makes: Array<Maybe<Make>>;
-};
-
 /** Defines characteristics about images and videos associated with a specific product. */
 export type MediaGalleryEntry = {
   __typename?: 'MediaGalleryEntry';
@@ -7489,25 +7232,6 @@ export type MessageStyles = {
   logo?: Maybe<MessageStyleLogo>;
 };
 
-export type MinusSizes = {
-  __typename?: 'MinusSizes';
-  /** Downsize tires on both front and back equally. */
-  both?: Maybe<Array<Maybe<SizeGroup>>>;
-  /** Downsize only the front tires. */
-  frontDownstep?: Maybe<Array<Maybe<SizeGroup>>>;
-  /** Downsize only the rear tires. */
-  rearDownstep?: Maybe<Array<Maybe<SizeGroup>>>;
-};
-
-/** A vehicle model. */
-export type Model = {
-  __typename?: 'Model';
-  /** The display name of the model. */
-  name: Scalars['String']['output'];
-  /** The URL key for the model. */
-  slug: Scalars['String']['output'];
-};
-
 /** Defines a monetary value, including a numeric value and a currency code. */
 export type Money = {
   __typename?: 'Money';
@@ -7515,11 +7239,6 @@ export type Money = {
   currency?: Maybe<CurrencyEnum>;
   /** A number expressing a monetary value. */
   value?: Maybe<Scalars['Float']['output']>;
-};
-
-export type MostPopularData = {
-  __typename?: 'MostPopularData';
-  groups?: Maybe<Array<Maybe<GroupData>>>;
 };
 
 export type Mutation = {
@@ -7646,11 +7365,8 @@ export type Mutation = {
   setBillingAddressOnCart?: Maybe<SetBillingAddressOnCartOutput>;
   /** Set Customer Link */
   setCustomerLink?: Maybe<SetCustomerLinkOutput>;
-  setDeliveryMethodOnCart?: Maybe<SetDeliveryMethodOnCartOutput>;
   /** Assign the email address of a guest to the cart. */
   setGuestEmailOnCart?: Maybe<SetGuestEmailOnCartOutput>;
-  /** Assign an installer and appointment to a cart */
-  setInstallerOnCart?: Maybe<SetInstallerOnCartOutput>;
   /**
    * Set the cart payment method and convert the cart into an order.
    * @deprecated Should use setPaymentMethodOnCart and placeOrder mutations in single request.
@@ -7978,18 +7694,8 @@ export type MutationSetCustomerLinkArgs = {
 };
 
 
-export type MutationSetDeliveryMethodOnCartArgs = {
-  input: SetDeliveryMethodOnCartInput;
-};
-
-
 export type MutationSetGuestEmailOnCartArgs = {
   input?: InputMaybe<SetGuestEmailOnCartInput>;
-};
-
-
-export type MutationSetInstallerOnCartArgs = {
-  input: SetInstallerOnCartInput;
 };
 
 
@@ -8068,17 +7774,6 @@ export type NoSuchEntityUidError = ErrorInterface & {
   message: Scalars['String']['output'];
   /** The specified invalid unique ID of an object. */
   uid: Scalars['ID']['output'];
-};
-
-/** A vehicle trim or option package. */
-export type Option = {
-  __typename?: 'Option';
-  /** Returns the chassis id of the vehicle. */
-  chassis_id: Scalars['Int']['output'];
-  /** The display name of the option. */
-  name: Scalars['String']['output'];
-  /** The URL key for the option. */
-  slug: Scalars['String']['output'];
 };
 
 /** Contains the order ID. */
@@ -8753,16 +8448,6 @@ export type PlaceOrderOutput = {
   orderV2?: Maybe<CustomerOrder>;
 };
 
-export type PlusSizes = {
-  __typename?: 'PlusSizes';
-  /** Upsize tires on both front and back equally. */
-  both?: Maybe<Array<Maybe<SizeGroup>>>;
-  /** Upsize only the front tires. */
-  frontUpstep?: Maybe<Array<Maybe<SizeGroup>>>;
-  /** Upsize only the rear tires. */
-  rearUpstep?: Maybe<Array<Maybe<SizeGroup>>>;
-};
-
 /** Deprecated. Use `ProductPrice` instead. Defines the price of a product as well as any tax-related adjustments. */
 export type Price = {
   __typename?: 'Price';
@@ -8905,19 +8590,18 @@ export type ProductAttributeFilterInput = {
   sku?: InputMaybe<FilterEqualTypeInput>;
   /** Attribute label: Speed Rating */
   speed_rating?: InputMaybe<FilterEqualTypeInput>;
+  /** Attribute label: Tire Tube Material */
+  tire_tube_material?: InputMaybe<FilterEqualTypeInput>;
   /** Attribute label: Treadlife/Mileage */
   treadlife_warranty?: InputMaybe<FilterEqualTypeInput>;
   /** The part of the URL that identifies the product */
   url_key?: InputMaybe<FilterEqualTypeInput>;
-  /** Attribute label: Website Product Ranking */
-  website_product_ranking?: InputMaybe<FilterRangeTypeInput>;
 };
 
 /** ProductAttributeSortInput specifies the attribute to use for sorting. */
 export type ProductAttributeSortInput = {
   /** Is product bestsellers. */
   bestsellers?: InputMaybe<SortEnum>;
-  category_ranking?: InputMaybe<SortEnum>;
   /** The product most_viewed. */
   most_viewed?: InputMaybe<SortEnum>;
   /** Attribute label: Product Name */
@@ -8942,7 +8626,6 @@ export type ProductAttributeSortInput = {
   reviews_count?: InputMaybe<SortEnum>;
   /** The product saving. */
   saving?: InputMaybe<SortEnum>;
-  website_product_ranking?: InputMaybe<SortEnum>;
   /** Is product wished. */
   wished?: InputMaybe<SortEnum>;
 };
@@ -9083,12 +8766,6 @@ export type ProductImage = MediaGalleryInterface & {
   url?: Maybe<Scalars['String']['output']>;
 };
 
-export type ProductInfo = {
-  __typename?: 'ProductInfo';
-  most_popular_priority?: Maybe<Scalars['Int']['output']>;
-  product?: Maybe<ProductInterface>;
-};
-
 /** Product Information used for Pickup Locations search. */
 export type ProductInfoInput = {
   /** Product SKU. */
@@ -9134,8 +8811,6 @@ export type ProductInterface = {
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -9281,10 +8956,6 @@ export type ProductInterface = {
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -9501,6 +9172,10 @@ export type ProductInterface = {
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -9604,14 +9279,6 @@ export type ProductPrices = {
    * @deprecated Use `regular_price` from `PriceRange.minimum_price` or `PriceRange.maximum_price` instead.
    */
   regularPrice?: Maybe<Price>;
-};
-
-export type ProductRating = {
-  __typename?: 'ProductRating';
-  /** Total number of reviews that contribute to the product's rating. */
-  ratingCount?: Maybe<Scalars['Int']['output']>;
-  /** Average rating value for the product, between 0 and 5. */
-  ratingValue?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Contains details of a product review. */
@@ -9813,20 +9480,6 @@ export type ProductTierPrices = {
   website_id?: Maybe<Scalars['Float']['output']>;
 };
 
-export type ProductUrl = {
-  __typename?: 'ProductUrl';
-  /** The brand-specific category URL key, if available. */
-  brandCategory?: Maybe<Scalars['String']['output']>;
-  /** The main category URL key associated with the product. */
-  mainCategory?: Maybe<Scalars['String']['output']>;
-  /** The primary product URL key. For configurable products, this is the main product URL. */
-  primary?: Maybe<Scalars['String']['output']>;
-  /** The secondary product URL key. For simple products, this may be the child product’s URL. */
-  secondary?: Maybe<Scalars['String']['output']>;
-  /** Indicates the product type (e.g. configurable, simple, accessory, assembly, wheels). */
-  type?: Maybe<Scalars['String']['output']>;
-};
-
 /** Contains information about a product video. */
 export type ProductVideo = MediaGalleryInterface & {
   __typename?: 'ProductVideo';
@@ -9884,8 +9537,6 @@ export type Promotion = {
 
 export type Query = {
   __typename?: 'Query';
-  /** List all vehicle makes, grouped by their first letter. */
-  allVehicleMakes: Array<Maybe<MakeGroup>>;
   amOrderList?: Maybe<Array<Maybe<SortingOrder>>>;
   /** List of linked accounts */
   amSocialLoginAccountData?: Maybe<Array<Maybe<AmLinkedSocialAccounts>>>;
@@ -9969,7 +9620,6 @@ export type Query = {
   defaultSorting?: Maybe<Array<Maybe<SortingOrder>>>;
   /** Get FAQ Module Settings. */
   getAmFaqSettings?: Maybe<AmFaqSettings>;
-  getComplementaryTireSizes?: Maybe<ComplementaryTireSizes>;
   /** Retrieve the secure PayPal URL for a Payments Pro Hosted Solution transaction. */
   getHostedProUrl?: Maybe<HostedProUrl>;
   /** Retrieve payment credentials for a transaction. Use this query for Payflow Link and Payments Advanced payment methods. */
@@ -9980,15 +9630,12 @@ export type Query = {
   getPaymentOrder?: Maybe<PaymentOrderOutput>;
   /** Gets the payment SDK urls and values */
   getPaymentSDK?: Maybe<GetPaymentSdkOutput>;
-  getTireSize?: Maybe<TireSize>;
   /** Retrieves the vault configuration */
   getVaultConfig?: Maybe<VaultConfigOutput>;
   /** Retrieve guest order details based on number, email and postcode. */
   guestOrder: CustomerOrder;
   /** Retrieve guest order details based on token. */
   guestOrderByToken: CustomerOrder;
-  /** Search for installers by ZIP code and type */
-  installers?: Maybe<InstallersSearchResult>;
   /** Check whether the specified email has already been used to create a customer account. */
   isEmailAvailable?: Maybe<IsEmailAvailableOutput>;
   /** The pickup locations query searches for locations that match the search request requirements. */
@@ -10005,7 +9652,6 @@ export type Query = {
   searchAmFaqCategories?: Maybe<AmFaqCategoriesSearch>;
   /** Search all FAQ questions with filter and sortOrder. */
   searchAmFaqQuestions?: Maybe<AmFaqQuestionsSearch>;
-  sizeCompatible?: Maybe<SizeCompatibility>;
   specials?: Maybe<Specials>;
   /** Return details about the store's configuration. */
   storeConfig?: Maybe<StoreConfig>;
@@ -10014,15 +9660,6 @@ export type Query = {
    * @deprecated Use the `route` query instead.
    */
   urlResolver?: Maybe<EntityUrl>;
-  /** List all makes available for a given year. */
-  vehicleMakes: Array<Maybe<MakeGroup>>;
-  /** List all models for a specific year and make. */
-  vehicleModels: Array<Maybe<Model>>;
-  /** List all options for a specific year, make, and model. */
-  vehicleOptions: Array<Maybe<Option>>;
-  vehiclePages?: Maybe<VehiclePages>;
-  /** List all available vehicle years, grouped by decade. */
-  vehicleYears: Array<Maybe<VehicleYearGroup>>;
   /**
    * Return the contents of a customer's wish list.
    * @deprecated Moved under `Customer.wishlist`.
@@ -10215,11 +9852,6 @@ export type QueryDefaultSortingArgs = {
 };
 
 
-export type QueryGetComplementaryTireSizesArgs = {
-  input?: InputMaybe<ComplementaryTireSizeAttributes>;
-};
-
-
 export type QueryGetHostedProUrlArgs = {
   input: HostedProUrlInput;
 };
@@ -10246,11 +9878,6 @@ export type QueryGetPaymentSdkArgs = {
 };
 
 
-export type QueryGetTireSizeArgs = {
-  input?: InputMaybe<TireSizeAttributes>;
-};
-
-
 export type QueryGuestOrderArgs = {
   input: OrderInformationInput;
 };
@@ -10258,11 +9885,6 @@ export type QueryGuestOrderArgs = {
 
 export type QueryGuestOrderByTokenArgs = {
   input: OrderTokenInput;
-};
-
-
-export type QueryInstallersArgs = {
-  input: InstallersInput;
 };
 
 
@@ -10312,37 +9934,8 @@ export type QuerySearchAmFaqQuestionsArgs = {
 };
 
 
-export type QuerySizeCompatibleArgs = {
-  chassis_id: Scalars['Int']['input'];
-  size: Scalars['String']['input'];
-};
-
-
 export type QueryUrlResolverArgs = {
   url: Scalars['String']['input'];
-};
-
-
-export type QueryVehicleMakesArgs = {
-  year: Scalars['String']['input'];
-};
-
-
-export type QueryVehicleModelsArgs = {
-  make: Scalars['String']['input'];
-  year: Scalars['String']['input'];
-};
-
-
-export type QueryVehicleOptionsArgs = {
-  make: Scalars['String']['input'];
-  model: Scalars['String']['input'];
-  year: Scalars['String']['input'];
-};
-
-
-export type QueryVehiclePagesArgs = {
-  url_key?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Specifies the field to use for sorting quote items */
@@ -10397,16 +9990,6 @@ export enum ReCaptchaFormEnum {
   ProductReview = 'PRODUCT_REVIEW',
   Sendfriend = 'SENDFRIEND'
 }
-
-export type Rear = {
-  __typename?: 'Rear';
-  /** Compatible size label. */
-  label?: Maybe<Scalars['String']['output']>;
-  /** Number of products in the category */
-  product_count?: Maybe<Scalars['Int']['output']>;
-  /** URL key that leads to a size category/ */
-  url?: Maybe<Scalars['String']['output']>;
-};
 
 export type Rebate = {
   __typename?: 'Rebate';
@@ -10560,21 +10143,6 @@ export type SearchSuggestion = {
   __typename?: 'SearchSuggestion';
   /** The search suggestion of existing product. */
   search: Scalars['String']['output'];
-};
-
-export type SelectedAppointment = {
-  __typename?: 'SelectedAppointment';
-  /** The appointment date in ISO format (YYYY-MM-DD) */
-  date: Scalars['String']['output'];
-  /** Exact time selected for the appointment, e.g. 14:30 */
-  time: Scalars['String']['output'];
-};
-
-export type SelectedAppointmentInput = {
-  /** The appointment date in ISO format (YYYY-MM-DD) */
-  date: Scalars['String']['input'];
-  /** Exact time selected for the appointment, e.g. 14:30 */
-  time: Scalars['String']['input'];
 };
 
 /** Contains details about a selected bundle option. */
@@ -10782,16 +10350,6 @@ export type SetCustomerLinkOutput = {
   success?: Maybe<Scalars['Boolean']['output']>;
 };
 
-export type SetDeliveryMethodOnCartInput = {
-  cart_id: Scalars['String']['input'];
-  delivery_method: Scalars['String']['input'];
-};
-
-export type SetDeliveryMethodOnCartOutput = {
-  __typename?: 'SetDeliveryMethodOnCartOutput';
-  cart: Cart;
-};
-
 /** Defines the guest email and cart. */
 export type SetGuestEmailOnCartInput = {
   /** The unique ID of a `Cart` object. */
@@ -10804,26 +10362,6 @@ export type SetGuestEmailOnCartInput = {
 export type SetGuestEmailOnCartOutput = {
   __typename?: 'SetGuestEmailOnCartOutput';
   /** The cart after setting the guest email. */
-  cart: Cart;
-};
-
-export type SetInstallerOnCartInput = {
-  /** The appointment chosen for the cart (date and time) */
-  appointment?: InputMaybe<SelectedAppointmentInput>;
-  /** Optional notes or references */
-  appointment_information?: InputMaybe<Scalars['String']['input']>;
-  cart_id: Scalars['String']['input'];
-  /** Customer email address */
-  email?: InputMaybe<Scalars['String']['input']>;
-  /** The full installer object to assign to the cart */
-  installer: InstallerInput;
-  /** Optional vehicle VIN */
-  vin?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type SetInstallerOnCartOutput = {
-  __typename?: 'SetInstallerOnCartOutput';
-  /** The updated cart with installer information */
   cart: Cart;
 };
 
@@ -11082,8 +10620,6 @@ export type SimpleProduct = CustomizableProductInterface & PhysicalProductInterf
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -11231,10 +10767,6 @@ export type SimpleProduct = CustomizableProductInterface & PhysicalProductInterf
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -11459,6 +10991,10 @@ export type SimpleProduct = CustomizableProductInterface & PhysicalProductInterf
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -11497,44 +11033,6 @@ export type SimpleWishlistItem = WishlistItemInterface & {
   product?: Maybe<ProductInterface>;
   /** The quantity of this wish list item. */
   quantity: Scalars['Float']['output'];
-};
-
-/** Result of checking whether a tire size fits a given vehicle configuration. */
-export type SizeCompatibility = {
-  __typename?: 'SizeCompatibility';
-  /** Sizes compatible with the vehicle (front, rear, minus, plus, both...). */
-  compatibleSizes?: Maybe<CompatibleSizes>;
-  /** Type of fitment: 'oe', 'plus-size-both', 'minus-size-both', 'plus-size-front-only', 'plus-size-rear-only', 'minus-size-front-only', 'minus-size-rear-only', 'oe-front-only', 'oe-rear-only'. */
-  fitmentTypes: Array<Maybe<Scalars['String']['output']>>;
-  /** True if the size is compatible in any way (stock, upsize, downsize, front‑only or rear‑only). */
-  isCompatible: Scalars['Boolean']['output'];
-};
-
-export type SizeGroup = {
-  __typename?: 'SizeGroup';
-  /** Rim diameter (e.g., '18'). */
-  rim?: Maybe<Scalars['String']['output']>;
-  /** List of tire sizes for this rim diameter. */
-  size?: Maybe<Array<Maybe<Sizes>>>;
-};
-
-export type SizeLabels = {
-  __typename?: 'SizeLabels';
-  categoryUrl?: Maybe<Scalars['String']['output']>;
-  hasFrontOptions?: Maybe<Scalars['Boolean']['output']>;
-  hasRearOptions?: Maybe<Scalars['Boolean']['output']>;
-  size_label?: Maybe<Scalars['String']['output']>;
-};
-
-/** Represents a list of sizes that fit the selected vehicle. */
-export type Sizes = {
-  __typename?: 'Sizes';
-  /** Compatible size label. */
-  label?: Maybe<Scalars['String']['output']>;
-  /** Number of products in the category */
-  product_count?: Maybe<Scalars['Int']['output']>;
-  /** URL key that leads to a size category/ */
-  url?: Maybe<Scalars['String']['output']>;
 };
 
 /** Smart button payment inputs */
@@ -12219,21 +11717,6 @@ export type TierPrice = {
   quantity?: Maybe<Scalars['Float']['output']>;
 };
 
-export type TireSize = {
-  __typename?: 'TireSize';
-  aspect_ratios?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  rim_diameters?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  section_widths?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  tire_size_info?: Maybe<Array<Maybe<SizeLabels>>>;
-};
-
-export type TireSizeAttributes = {
-  aspect_ratio?: InputMaybe<Scalars['Float']['input']>;
-  rim_diameter?: InputMaybe<Scalars['Float']['input']>;
-  section_width?: InputMaybe<Scalars['Float']['input']>;
-  tire_size?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
 /** Modifies the specified items in the cart. */
 export type UpdateCartItemsInput = {
   /** The unique ID of a `Cart` object. */
@@ -12351,33 +11834,6 @@ export type VaultTokenInput = {
   public_hash: Scalars['String']['input'];
 };
 
-/** Contains all data needed to display vehicle information. */
-export type VehiclePages = {
-  __typename?: 'VehiclePages';
-  /** Banner image for the requested vehicle page. */
-  banner?: Maybe<Scalars['String']['output']>;
-  /** Url to the brand logo of the requested vehicle page. */
-  brandLogo?: Maybe<Scalars['String']['output']>;
-  /** Sizes compatible with the vehicle (front, rear, minus, plus, both...). */
-  compatibleSizes?: Maybe<Array<Maybe<CompatibleSizes>>>;
-  /** The description for the selected vehicle. */
-  description?: Maybe<Scalars['String']['output']>;
-  /** Frequently asked questions for the current vehicle page. */
-  faqs?: Maybe<Array<Maybe<Faq>>>;
-  /** List of available options for the provided url key. */
-  items?: Maybe<Array<Maybe<Items>>>;
-  /** Full name of the currently selected vehicle. */
-  title?: Maybe<Scalars['String']['output']>;
-  /** Returns the type (make,model,year,option). */
-  type?: Maybe<Scalars['String']['output']>;
-};
-
-export type VehicleYearGroup = {
-  __typename?: 'VehicleYearGroup';
-  decade: Scalars['String']['output'];
-  years: Array<Maybe<Scalars['String']['output']>>;
-};
-
 /** An implementation for virtual product cart items. */
 export type VirtualCartItem = CartItemInterface & {
   __typename?: 'VirtualCartItem';
@@ -12439,8 +11895,6 @@ export type VirtualProduct = CustomizableProductInterface & ProductInterface & R
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -12588,10 +12042,6 @@ export type VirtualProduct = CustomizableProductInterface & ProductInterface & R
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -12814,6 +12264,10 @@ export type VirtualProduct = CustomizableProductInterface & ProductInterface & R
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -13090,7 +12544,7 @@ export type AllProductsQueryVariables = Exact<{
 
 export type AllProductsQuery = { __typename?: 'Query', products?: { __typename?: 'Products', items?: Array<
       | { __typename?: 'BundleProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } } }
-      | { __typename?: 'ConfigurableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, variants?: Array<{ __typename?: 'ConfigurableVariant', attributes?: Array<{ __typename?: 'ConfigurableAttributeOption', label?: string | null } | null> | null, product?: { __typename?: 'SimpleProduct', sku?: string | null, id?: number | null, mpn1?: string | null, max_air_pressure?: string | null, size_text?: string | null, url_key?: string | null, uid: string, stock_status?: ProductStockStatus | null, name?: string | null, season_text?: string | null, load_index_text?: string | null, speed_rating?: number | null, utqg?: string | null, rim_diameter_text?: string | null, overall_diameter?: string | null, tread_depth_text?: string | null, sidewall_specifics_text?: string | null, image?: { __typename?: 'ProductImage', disabled?: boolean | null, url?: string | null } | null, description_overview?: { __typename?: 'DescriptionOverview', paragraphs?: Array<{ __typename?: 'Paragraph', title?: string | null, content?: string | null } | null> | null } | null, productRating?: { __typename?: 'ProductRating', ratingValue?: number | null, ratingCount?: number | null } | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', value?: number | null, currency?: CurrencyEnum | null } } } } | null } | null> | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } } }
+      | { __typename?: 'ConfigurableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, variants?: Array<{ __typename?: 'ConfigurableVariant', attributes?: Array<{ __typename?: 'ConfigurableAttributeOption', label?: string | null } | null> | null, product?: { __typename?: 'SimpleProduct', yotpo_rating_value?: number | null, yotpo_review_count?: number | null, sku?: string | null, id?: number | null, mpn1?: string | null, max_air_pressure?: string | null, size_text?: string | null, url_key?: string | null, uid: string, stock_status?: ProductStockStatus | null, name?: string | null, season_text?: string | null, load_index_text?: string | null, speed_rating?: number | null, utqg?: string | null, rim_diameter_text?: string | null, overall_diameter?: string | null, tread_depth_text?: string | null, sidewall_specifics_text?: string | null, description_overview?: { __typename?: 'DescriptionOverview', paragraphs?: Array<{ __typename?: 'Paragraph', title?: string | null, content?: string | null } | null> | null } | null, image?: { __typename?: 'ProductImage', disabled?: boolean | null, url?: string | null } | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', value?: number | null, currency?: CurrencyEnum | null } } } } | null } | null> | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } } }
       | { __typename?: 'DownloadableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } } }
       | { __typename?: 'GroupedProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } } }
       | { __typename?: 'SimpleProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } } }
@@ -13104,7 +12558,7 @@ export type ProductPageQueryVariables = Exact<{
 
 export type ProductPageQuery = { __typename?: 'Query', products?: { __typename?: 'Products', items?: Array<
       | { __typename?: 'BundleProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } }, description?: { __typename?: 'ComplexTextValue', html: string } | null }
-      | { __typename?: 'ConfigurableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, variants?: Array<{ __typename?: 'ConfigurableVariant', attributes?: Array<{ __typename?: 'ConfigurableAttributeOption', label?: string | null } | null> | null, product?: { __typename?: 'SimpleProduct', sku?: string | null, id?: number | null, mpn1?: string | null, max_air_pressure?: string | null, size_text?: string | null, url_key?: string | null, uid: string, stock_status?: ProductStockStatus | null, name?: string | null, season_text?: string | null, load_index_text?: string | null, speed_rating?: number | null, utqg?: string | null, rim_diameter_text?: string | null, overall_diameter?: string | null, tread_depth_text?: string | null, sidewall_specifics_text?: string | null, image?: { __typename?: 'ProductImage', disabled?: boolean | null, url?: string | null } | null, description_overview?: { __typename?: 'DescriptionOverview', paragraphs?: Array<{ __typename?: 'Paragraph', title?: string | null, content?: string | null } | null> | null } | null, productRating?: { __typename?: 'ProductRating', ratingValue?: number | null, ratingCount?: number | null } | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', value?: number | null, currency?: CurrencyEnum | null } } } } | null } | null> | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } }, description?: { __typename?: 'ComplexTextValue', html: string } | null }
+      | { __typename?: 'ConfigurableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, variants?: Array<{ __typename?: 'ConfigurableVariant', attributes?: Array<{ __typename?: 'ConfigurableAttributeOption', label?: string | null } | null> | null, product?: { __typename?: 'SimpleProduct', yotpo_rating_value?: number | null, yotpo_review_count?: number | null, sku?: string | null, id?: number | null, mpn1?: string | null, max_air_pressure?: string | null, size_text?: string | null, url_key?: string | null, uid: string, stock_status?: ProductStockStatus | null, name?: string | null, season_text?: string | null, load_index_text?: string | null, speed_rating?: number | null, utqg?: string | null, rim_diameter_text?: string | null, overall_diameter?: string | null, tread_depth_text?: string | null, sidewall_specifics_text?: string | null, description_overview?: { __typename?: 'DescriptionOverview', paragraphs?: Array<{ __typename?: 'Paragraph', title?: string | null, content?: string | null } | null> | null } | null, image?: { __typename?: 'ProductImage', disabled?: boolean | null, url?: string | null } | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', value?: number | null, currency?: CurrencyEnum | null } } } } | null } | null> | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } }, description?: { __typename?: 'ComplexTextValue', html: string } | null }
       | { __typename?: 'DownloadableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } }, description?: { __typename?: 'ComplexTextValue', html: string } | null }
       | { __typename?: 'GroupedProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } }, description?: { __typename?: 'ComplexTextValue', html: string } | null }
       | { __typename?: 'SimpleProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', currency?: CurrencyEnum | null, value?: number | null } } }, description?: { __typename?: 'ComplexTextValue', html: string } | null }
@@ -13118,58 +12572,17 @@ export type AllProductsWidgetQueryVariables = Exact<{
 
 export type AllProductsWidgetQuery = { __typename?: 'Query', products?: { __typename?: 'Products', items?: Array<
       | { __typename?: 'BundleProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null }
-      | { __typename?: 'ConfigurableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, variants?: Array<{ __typename?: 'ConfigurableVariant', attributes?: Array<{ __typename?: 'ConfigurableAttributeOption', label?: string | null } | null> | null, product?: { __typename?: 'SimpleProduct', sku?: string | null, id?: number | null, mpn1?: string | null, url_key?: string | null, uid: string, stock_status?: ProductStockStatus | null, name?: string | null, season_text?: string | null, performance_text?: string | null, utqg?: string | null, section_width_text?: string | null, aspect_ratio_text?: string | null, rim_diameter_text?: string | null, productRating?: { __typename?: 'ProductRating', ratingValue?: number | null, ratingCount?: number | null } | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', value?: number | null, currency?: CurrencyEnum | null } } } } | null } | null> | null }
+      | { __typename?: 'ConfigurableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null, variants?: Array<{ __typename?: 'ConfigurableVariant', attributes?: Array<{ __typename?: 'ConfigurableAttributeOption', label?: string | null } | null> | null, product?: { __typename?: 'SimpleProduct', yotpo_rating_value?: number | null, yotpo_review_count?: number | null, sku?: string | null, id?: number | null, mpn1?: string | null, url_key?: string | null, uid: string, stock_status?: ProductStockStatus | null, name?: string | null, season_text?: string | null, performance_text?: string | null, utqg?: string | null, section_width_text?: string | null, aspect_ratio_text?: string | null, rim_diameter_text?: string | null, price_range: { __typename?: 'PriceRange', minimum_price: { __typename?: 'ProductPrice', final_price: { __typename?: 'Money', value?: number | null, currency?: CurrencyEnum | null } } } } | null } | null> | null }
       | { __typename?: 'DownloadableProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null }
       | { __typename?: 'GroupedProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null }
       | { __typename?: 'SimpleProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null }
       | { __typename?: 'VirtualProduct', id?: number | null, uid: string, url_key?: string | null, name?: string | null }
      | null> | null } | null };
 
-export type TireSizesQueryVariables = Exact<{
-  input?: InputMaybe<TireSizeAttributes>;
-}>;
-
-
-export type TireSizesQuery = { __typename?: 'Query', getTireSize?: { __typename?: 'TireSize', aspect_ratios?: Array<number | null> | null, rim_diameters?: Array<number | null> | null, section_widths?: Array<number | null> | null, tire_size_info?: Array<{ __typename?: 'SizeLabels', hasFrontOptions?: boolean | null, hasRearOptions?: boolean | null, size_label?: string | null, categoryUrl?: string | null } | null> | null } | null };
-
-export type GetVehicleYearsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetVehicleYearsQuery = { __typename?: 'Query', vehicleYears: Array<{ __typename?: 'VehicleYearGroup', decade: string, years: Array<string | null> } | null> };
-
-export type GetVehicleMakesQueryVariables = Exact<{
-  year: Scalars['String']['input'];
-}>;
-
-
-export type GetVehicleMakesQuery = { __typename?: 'Query', vehicleMakes: Array<{ __typename?: 'MakeGroup', letter: string, makes: Array<{ __typename?: 'Make', name: string, slug: string, logo?: string | null } | null> } | null> };
-
-export type GetVehicleModelsQueryVariables = Exact<{
-  year: Scalars['String']['input'];
-  make: Scalars['String']['input'];
-}>;
-
-
-export type GetVehicleModelsQuery = { __typename?: 'Query', vehicleModels: Array<{ __typename?: 'Model', name: string, slug: string } | null> };
-
-export type GetVehicleOptionsQueryVariables = Exact<{
-  year: Scalars['String']['input'];
-  make: Scalars['String']['input'];
-  model: Scalars['String']['input'];
-}>;
-
-
-export type GetVehicleOptionsQuery = { __typename?: 'Query', vehicleOptions: Array<{ __typename?: 'Option', name: string, slug: string, chassis_id: number } | null> };
-
 
 export const SubscribeEmailToNewsletterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SubscribeEmailToNewsletter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscribeEmailToNewsletter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables>;
 export const BlogPostsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BlogPosts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"keyWord"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"awBlogPosts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"like"},"value":{"kind":"Variable","name":{"kind":"Name","value":"keyWord"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"currentPage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total_count"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"publish_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstname"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<BlogPostsQuery, BlogPostsQueryVariables>;
 export const BlogPostsByTagDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BlogPostsByTag"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"keyWord"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"tag_names"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"awBlogPosts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"like"},"value":{"kind":"Variable","name":{"kind":"Name","value":"keyWord"}}}]}},{"kind":"ObjectField","name":{"kind":"Name","value":"tag_name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"tag_names"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"currentPage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}}},{"kind":"Argument","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pageSize"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total_count"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"publish_date"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstname"}},{"kind":"Field","name":{"kind":"Name","value":"lastname"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<BlogPostsByTagQuery, BlogPostsByTagQueryVariables>;
-export const AllProductsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllProducts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"urlKeys"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url_key"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"urlKeys"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ConfigurableProduct"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disabled"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description_overview"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paragraphs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"productRating"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ratingValue"}},{"kind":"Field","name":{"kind":"Name","value":"ratingCount"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sku"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mpn1"}},{"kind":"Field","name":{"kind":"Name","value":"max_air_pressure"}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"stock_status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"season_text"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"load_index_text"}},{"kind":"Field","name":{"kind":"Name","value":"speed_rating"}},{"kind":"Field","name":{"kind":"Name","value":"utqg"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameter_text"}},{"kind":"Field","name":{"kind":"Name","value":"overall_diameter"}},{"kind":"Field","name":{"kind":"Name","value":"tread_depth_text"}},{"kind":"Field","name":{"kind":"Name","value":"sidewall_specifics_text"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<AllProductsQuery, AllProductsQueryVariables>;
-export const ProductPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProductPage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"urlKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url_key"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"urlKey"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"html"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ConfigurableProduct"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disabled"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description_overview"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paragraphs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"productRating"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ratingValue"}},{"kind":"Field","name":{"kind":"Name","value":"ratingCount"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sku"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mpn1"}},{"kind":"Field","name":{"kind":"Name","value":"max_air_pressure"}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"stock_status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"season_text"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"load_index_text"}},{"kind":"Field","name":{"kind":"Name","value":"speed_rating"}},{"kind":"Field","name":{"kind":"Name","value":"utqg"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameter_text"}},{"kind":"Field","name":{"kind":"Name","value":"overall_diameter"}},{"kind":"Field","name":{"kind":"Name","value":"tread_depth_text"}},{"kind":"Field","name":{"kind":"Name","value":"sidewall_specifics_text"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProductPageQuery, ProductPageQueryVariables>;
-export const AllProductsWidgetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllProductsWidget"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"urlKeys"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url_key"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"urlKeys"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ConfigurableProduct"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"productRating"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ratingValue"}},{"kind":"Field","name":{"kind":"Name","value":"ratingCount"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sku"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mpn1"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"stock_status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"season_text"}},{"kind":"Field","name":{"kind":"Name","value":"performance_text"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"utqg"}},{"kind":"Field","name":{"kind":"Name","value":"section_width_text"}},{"kind":"Field","name":{"kind":"Name","value":"aspect_ratio_text"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameter_text"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<AllProductsWidgetQuery, AllProductsWidgetQueryVariables>;
-export const TireSizesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TireSizes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"TireSizeAttributes"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getTireSize"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"aspect_ratios"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameters"}},{"kind":"Field","name":{"kind":"Name","value":"section_widths"}},{"kind":"Field","name":{"kind":"Name","value":"tire_size_info"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasFrontOptions"}},{"kind":"Field","name":{"kind":"Name","value":"hasRearOptions"}},{"kind":"Field","name":{"kind":"Name","value":"size_label"}},{"kind":"Field","name":{"kind":"Name","value":"categoryUrl"}}]}}]}}]}}]} as unknown as DocumentNode<TireSizesQuery, TireSizesQueryVariables>;
-export const GetVehicleYearsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleYears"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicleYears"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"decade"}},{"kind":"Field","name":{"kind":"Name","value":"years"}}]}}]}}]} as unknown as DocumentNode<GetVehicleYearsQuery, GetVehicleYearsQueryVariables>;
-export const GetVehicleMakesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleMakes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"year"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicleMakes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"year"},"value":{"kind":"Variable","name":{"kind":"Name","value":"year"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"letter"}},{"kind":"Field","name":{"kind":"Name","value":"makes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"logo"}}]}}]}}]}}]} as unknown as DocumentNode<GetVehicleMakesQuery, GetVehicleMakesQueryVariables>;
-export const GetVehicleModelsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleModels"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"year"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"make"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicleModels"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"year"},"value":{"kind":"Variable","name":{"kind":"Name","value":"year"}}},{"kind":"Argument","name":{"kind":"Name","value":"make"},"value":{"kind":"Variable","name":{"kind":"Name","value":"make"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<GetVehicleModelsQuery, GetVehicleModelsQueryVariables>;
-export const GetVehicleOptionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetVehicleOptions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"year"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"make"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"model"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vehicleOptions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"year"},"value":{"kind":"Variable","name":{"kind":"Name","value":"year"}}},{"kind":"Argument","name":{"kind":"Name","value":"make"},"value":{"kind":"Variable","name":{"kind":"Name","value":"make"}}},{"kind":"Argument","name":{"kind":"Name","value":"model"},"value":{"kind":"Variable","name":{"kind":"Name","value":"model"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"chassis_id"}}]}}]}}]} as unknown as DocumentNode<GetVehicleOptionsQuery, GetVehicleOptionsQueryVariables>;
+export const AllProductsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllProducts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"urlKeys"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url_key"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"urlKeys"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ConfigurableProduct"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_overview"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paragraphs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"yotpo_rating_value"}},{"kind":"Field","name":{"kind":"Name","value":"yotpo_review_count"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disabled"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sku"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mpn1"}},{"kind":"Field","name":{"kind":"Name","value":"max_air_pressure"}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"stock_status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"season_text"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"load_index_text"}},{"kind":"Field","name":{"kind":"Name","value":"speed_rating"}},{"kind":"Field","name":{"kind":"Name","value":"utqg"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameter_text"}},{"kind":"Field","name":{"kind":"Name","value":"overall_diameter"}},{"kind":"Field","name":{"kind":"Name","value":"tread_depth_text"}},{"kind":"Field","name":{"kind":"Name","value":"sidewall_specifics_text"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<AllProductsQuery, AllProductsQueryVariables>;
+export const ProductPageDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProductPage"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"urlKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url_key"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"urlKey"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"html"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ConfigurableProduct"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description_overview"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paragraphs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"yotpo_rating_value"}},{"kind":"Field","name":{"kind":"Name","value":"yotpo_review_count"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disabled"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sku"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mpn1"}},{"kind":"Field","name":{"kind":"Name","value":"max_air_pressure"}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"stock_status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"season_text"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"size_text"}},{"kind":"Field","name":{"kind":"Name","value":"load_index_text"}},{"kind":"Field","name":{"kind":"Name","value":"speed_rating"}},{"kind":"Field","name":{"kind":"Name","value":"utqg"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameter_text"}},{"kind":"Field","name":{"kind":"Name","value":"overall_diameter"}},{"kind":"Field","name":{"kind":"Name","value":"tread_depth_text"}},{"kind":"Field","name":{"kind":"Name","value":"sidewall_specifics_text"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProductPageQuery, ProductPageQueryVariables>;
+export const AllProductsWidgetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllProductsWidget"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"urlKeys"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"url_key"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"in"},"value":{"kind":"Variable","name":{"kind":"Name","value":"urlKeys"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ConfigurableProduct"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"label"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"yotpo_rating_value"}},{"kind":"Field","name":{"kind":"Name","value":"yotpo_review_count"}},{"kind":"Field","name":{"kind":"Name","value":"sku"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mpn1"}},{"kind":"Field","name":{"kind":"Name","value":"url_key"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}},{"kind":"Field","name":{"kind":"Name","value":"stock_status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"season_text"}},{"kind":"Field","name":{"kind":"Name","value":"performance_text"}},{"kind":"Field","name":{"kind":"Name","value":"price_range"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"minimum_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"final_price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"utqg"}},{"kind":"Field","name":{"kind":"Name","value":"section_width_text"}},{"kind":"Field","name":{"kind":"Name","value":"aspect_ratio_text"}},{"kind":"Field","name":{"kind":"Name","value":"rim_diameter_text"}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<AllProductsWidgetQuery, AllProductsWidgetQueryVariables>;

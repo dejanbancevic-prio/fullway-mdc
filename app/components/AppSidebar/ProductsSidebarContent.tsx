@@ -68,20 +68,6 @@ const ProductsSidebarContent = () => {
     }));
   };
 
-  const contentVariants = {
-    hidden: { opacity: 0, height: 0 },
-    visible: (i: number) => ({
-      opacity: 1,
-      height: "auto",
-      transition: { delay: i * 0.05, duration: 0.3, ease: "easeInOut" },
-    }),
-    exit: {
-      opacity: 0,
-      height: 0,
-      transition: { duration: 0.2, ease: "easeInOut" },
-    },
-  };
-
   return (
     <div className="space-y-[0.5rem]">
       <div className="relative flex items-center justify-between mb-[1rem]">
@@ -187,7 +173,7 @@ const ProductsSidebarContent = () => {
                                 Low Stock
                               </p>
                             </div>
-                          ): (
+                          ) : (
                             <div className="flex ml-[1rem] gap-[0.3rem] items-center">
                               <Image
                                 src="/icons/other/redX.svg"

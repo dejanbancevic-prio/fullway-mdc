@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, HttpLink, makeVar } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import fetch from "cross-fetch";
 
 export function createApolloClient() {

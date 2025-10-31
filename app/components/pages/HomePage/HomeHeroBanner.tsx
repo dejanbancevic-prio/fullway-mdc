@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const HomeHeroBanner = () => {
   return (
     <div className="w-full relative">

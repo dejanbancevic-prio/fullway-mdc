@@ -9,7 +9,6 @@ import {
   AllProductsWidgetQueryVariables,
 } from "@lib/__generated__/graphql";
 import WidgetCategoryBySizeContent from "./WidgetBySizeContent/WidgetCategoryBySizeContent";
-import WidgetCategoryByVehicleContent from "./WidgetByVehicleContent/WidgetCategoryByVehicleContent";
 import { WidgetConfigurableProductItem } from "@lib/types/widget/widget.types";
 import { ProductVariant } from "@lib/types/product/product.types";
 
@@ -18,8 +17,6 @@ type WidgetCategoryProps = {
 };
 
 const WidgetCategory = ({ onFilteredProductsChange }: WidgetCategoryProps) => {
-  // const [getTireSizes, { data, loading }] = useLazyQuery(TireSizesDocument);
-
   const [selectedWidth, setSelectedWidth] = useState<string>("");
   const [selectedAr, setSelectedAr] = useState<string>("");
   const [selectedDiameter, setSelectedDiameter] = useState<string>("");
@@ -35,34 +32,6 @@ const WidgetCategory = ({ onFilteredProductsChange }: WidgetCategoryProps) => {
     AllProductsWidgetQuery,
     AllProductsWidgetQueryVariables
   >(AllProductsWidgetDocument);
-
-  // useEffect(() => {
-  //   if (!selectedWidth) return;
-
-  //   const variables: TireSizesQueryVariables = {
-  //     input: {
-  //       section_width: Number(selectedWidth),
-  //       ...(selectedAr ? { aspect_ratio: Number(selectedAr) } : {}),
-  //       ...(selectedRim ? { rim_diameter: Number(selectedRim) } : {}),
-  //     },
-  //   };
-
-  //   getTireSizes({ variables });
-  // }, [selectedWidth, selectedAr, getTireSizes]);
-
-  // const handleFindTire = () => {
-  //   if (!selectedWidth) return;
-
-  //   const variables: TireSizesQueryVariables = {
-  //     input: {
-  //       section_width: Number(selectedWidth),
-  //       ...(selectedAr ? { aspect_ratio: Number(selectedAr) } : {}),
-  //       ...(selectedRim ? { rim_diameter: Number(selectedRim) } : {}),
-  //     },
-  //   };
-
-  //   getTireSizes({ variables });
-  // };
 
   const handleFindTire = async () => {
     let products: WidgetConfigurableProductItem[] = allProducts;
@@ -150,12 +119,6 @@ const WidgetCategory = ({ onFilteredProductsChange }: WidgetCategoryProps) => {
               >
                 BY SIZE
               </TabsTrigger>
-              <TabsTrigger
-                value="vehicle"
-                className="rounded-none w-[9.0625rem] font-[700] bg-[#E0E0E0]"
-              >
-                BY VEHICLE
-              </TabsTrigger>
             </TabsList>
             <TabsContent value="size">
               <WidgetCategoryBySizeContent
@@ -168,9 +131,6 @@ const WidgetCategory = ({ onFilteredProductsChange }: WidgetCategoryProps) => {
                 setSelectedDiameter={setSelectedDiameter}
                 handleFindTire={handleFindTire}
               />
-            </TabsContent>
-            <TabsContent value="vehicle">
-              <WidgetCategoryByVehicleContent />
             </TabsContent>
           </Tabs>
         </div>

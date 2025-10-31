@@ -3,7 +3,7 @@
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "staging.prioritytire.dev",
+        hostname: "www.prioritytire.com",
         pathname: "/**",
       },
     ],

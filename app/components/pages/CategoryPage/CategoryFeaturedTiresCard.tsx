@@ -12,7 +12,7 @@ type CategoryFeaturedTiresCardProps = {
 const CategoryFeaturedTiresCard = ({
   product,
 }: CategoryFeaturedTiresCardProps) => {
-  const variant = product?.variants?.[0]?.product;
+  const productVariant = product?.variants?.[0]?.product;
 
   const rawName = product?.name ?? "Unknown Tire";
   const name = rawName.replace(/^Fullway\s*/i, "");
@@ -43,15 +43,15 @@ const CategoryFeaturedTiresCard = ({
             <div className="flex items-start">
               <div className="flex items-center gap-[0.7rem]">
                 <div className="flex gap-[0.3rem]">
-                  {getStars(variant?.productRating?.ratingValue ?? 0)}
+                  {getStars(productVariant?.yotpo_rating_value ?? 5)}
                 </div>
 
                 <div className="flex items-center gap-[0.5rem] font-[300] text-[0.8rem] md:text-[1rem] ">
-                  {variant?.productRating?.ratingValue ?? "N/A"}
+                  {productVariant?.yotpo_rating_value ?? "5.0"}
                   <div>
                     (
                     <YotpoReviews
-                      text={variant?.productRating?.ratingCount ?? 0}
+                      text={productVariant?.yotpo_review_count ?? 0}
                       id={product?.id ?? 0}
                     />
                     )
@@ -69,7 +69,7 @@ const CategoryFeaturedTiresCard = ({
                   height={1080}
                   className="w-[1rem] h-[1rem]"
                 />
-                {variant?.season_text ?? "All Season"}
+                {productVariant?.season_text ?? "All Season"}
               </div>
               <div className="flex items-center gap-[0.2rem]">
                 <Image
@@ -79,12 +79,14 @@ const CategoryFeaturedTiresCard = ({
                   height={1080}
                   className="w-[1rem] h-[1rem]"
                 />
-                {variant?.performance_text ?? "High Performance"}
+                {productVariant?.performance_text ?? "High Performance"}
               </div>
             </div>
 
             <Link
-              href={`/tires/${product?.url_key}?size=${variant?.url_key ?? ""}`}
+              href={`/tires/${
+                product?.url_key
+              }?size=${productVariant?.url_key ?? ""}`}
               className="flex justify-between"
             >
               <Button className="buttonSkew group text-base font-[700] gap-[0.5rem] mt-[1.5rem]">

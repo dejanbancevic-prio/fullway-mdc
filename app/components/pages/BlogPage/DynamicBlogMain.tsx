@@ -6,7 +6,6 @@ import { getBlogSchema } from "@lib/seo/seoSchemas";
 import { BlogItem } from "@/lib/types/blog/blog.types";
 import Link from "next/link";
 import React from "react";
-import { UniqueDirectiveNamesRule } from "graphql";
 
 type DynamicBlogMainProps = {
   blog: BlogItem | undefined;

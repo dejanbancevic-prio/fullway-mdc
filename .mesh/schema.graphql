@@ -4,8 +4,6 @@ schema {
 }
 
 type Query {
-  """List all vehicle makes, grouped by their first letter."""
-  allVehicleMakes: [MakeGroup]!
   amOrderList: [SortingOrder]
   """List of linked accounts"""
   amSocialLoginAccountData: [AmLinkedSocialAccounts]
@@ -270,7 +268,6 @@ type Query {
   ): [SortingOrder]
   """Get FAQ Module Settings."""
   getAmFaqSettings: AmFaqSettings
-  getComplementaryTireSizes(input: ComplementaryTireSizeAttributes): ComplementaryTireSizes
   """
   Retrieve the secure PayPal URL for a Payments Pro Hosted Solution transaction.
   """
@@ -304,15 +301,12 @@ type Query {
     """Defines the origin location for that payment request"""
     location: PaymentLocation!
   ): GetPaymentSDKOutput
-  getTireSize(input: TireSizeAttributes): TireSize
   """Retrieves the vault configuration"""
   getVaultConfig: VaultConfigOutput
   """Retrieve guest order details based on number, email and postcode."""
   guestOrder(input: OrderInformationInput!): CustomerOrder!
   """Retrieve guest order details based on token."""
   guestOrderByToken(input: OrderTokenInput!): CustomerOrder!
-  """Search for installers by ZIP code and type"""
-  installers(input: InstallersInput!): InstallersSearchResult
   """
   Check whether the specified email has already been used to create a customer account.
   """
@@ -399,12 +393,6 @@ type Query {
     """
     sort: AmFaqQuestionSortInput
   ): AmFaqQuestionsSearch
-  sizeCompatible(
-    """The chassis identifier of the selected vehicle configuration."""
-    chassis_id: Int!
-    """Tire size to check (e.g., '225/45R18')."""
-    size: String!
-  ): SizeCompatibility
   specials: Specials
   """Return details about the store's configuration."""
   storeConfig: StoreConfig
@@ -413,33 +401,6 @@ type Query {
     """A `url_key` appended by the `url_suffix, if one exists."""
     url: String!
   ): EntityUrl @deprecated(reason: "Use the `route` query instead.")
-  """List all makes available for a given year."""
-  vehicleMakes(
-    """The year to filter makes by."""
-    year: String!
-  ): [MakeGroup]!
-  """List all models for a specific year and make."""
-  vehicleModels(
-    """The year to filter models by."""
-    year: String!
-    """The make to filter models by."""
-    make: String!
-  ): [Model]!
-  """List all options for a specific year, make, and model."""
-  vehicleOptions(
-    """The year to filter options by."""
-    year: String!
-    """The make to filter options by."""
-    make: String!
-    """The model to filter options by."""
-    model: String!
-  ): [Option]!
-  vehiclePages(
-    """Unique url key of the vehicle instance."""
-    url_key: String
-  ): VehiclePages
-  """List all available vehicle years, grouped by decade."""
-  vehicleYears: [VehicleYearGroup]!
   """Return the contents of a customer's wish list."""
   wishlist: WishlistOutput @deprecated(reason: "Moved under `Customer.wishlist`.")
 }
@@ -790,14 +751,11 @@ type Mutation {
   ): SetBillingAddressOnCartOutput
   """Set Customer Link"""
   setCustomerLink(buyerToken: String!, password: String!): SetCustomerLinkOutput
-  setDeliveryMethodOnCart(input: SetDeliveryMethodOnCartInput!): SetDeliveryMethodOnCartOutput
   """Assign the email address of a guest to the cart."""
   setGuestEmailOnCart(
     """An input object that defines a guest email address."""
     input: SetGuestEmailOnCartInput
   ): SetGuestEmailOnCartOutput
-  """Assign an installer and appointment to a cart"""
-  setInstallerOnCart(input: SetInstallerOnCartInput!): SetInstallerOnCartOutput
   """Set the cart payment method and convert the cart into an order."""
   setPaymentMethodAndPlaceOrder(input: SetPaymentMethodAndPlaceOrderInput): PlaceOrderOutput @deprecated(reason: "Should use setPaymentMethodOnCart and placeOrder mutations in single request.")
   """Apply a payment method to the cart."""
@@ -2266,10 +2224,6 @@ interface ProductInterface {
   bolt_pattern: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   bolt_pattern_alternative: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   brand: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
-  """
-  Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin.
-  """
-  brand_logo: String
   brand_text: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """
   The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled.
@@ -2374,12 +2328,6 @@ interface ProductInterface {
   price_range: PriceRange!
   """An array of `TierPrice` objects."""
   price_tiers: [TierPrice]
-  """
-  Aggregated rating information for the product, including average rating and review count.
-  """
-  productRating: ProductRating
-  """Returns all related productUrl entities for the product."""
-  productUrl: ProductUrl
   """An array of `ProductLinks` objects."""
   product_links: [ProductLinksInterface]
   """The average of all the ratings given to the product."""
@@ -2514,6 +2462,10 @@ interface ProductInterface {
   wheel_size: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   wheel_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   winter_tire_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  """Returns product's rating value from Yotpo."""
+  yotpo_rating_value: Float
+  """Returns product's number of reviews from Yotpo."""
+  yotpo_review_count: Int
 }
 
 """Contains attributes specific to tangible products."""
@@ -2607,7 +2559,6 @@ type CategoryTree implements CategoryInterface & RoutableInterface {
   meta_description: String
   meta_keywords: String
   meta_title: String
-  most_popular: MostPopularData
   """The display name of the category."""
   name: String
   """The full category path."""
@@ -3128,10 +3079,6 @@ type VirtualProduct implements ProductInterface & RoutableInterface & Customizab
   bolt_pattern: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   bolt_pattern_alternative: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   brand: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
-  """
-  Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin.
-  """
-  brand_logo: String
   brand_text: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """
   The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled.
@@ -3238,12 +3185,6 @@ type VirtualProduct implements ProductInterface & RoutableInterface & Customizab
   price_range: PriceRange!
   """An array of `TierPrice` objects."""
   price_tiers: [TierPrice]
-  """
-  Aggregated rating information for the product, including average rating and review count.
-  """
-  productRating: ProductRating
-  """Returns all related productUrl entities for the product."""
-  productUrl: ProductUrl
   """An array of `ProductLinks` objects."""
   product_links: [ProductLinksInterface]
   """The average of all the ratings given to the product."""
@@ -3388,6 +3329,10 @@ type VirtualProduct implements ProductInterface & RoutableInterface & Customizab
   wheel_size: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   wheel_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   winter_tire_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  """Returns product's rating value from Yotpo."""
+  yotpo_rating_value: Float
+  """Returns product's number of reviews from Yotpo."""
+  yotpo_review_count: Int
 }
 
 """
@@ -3413,10 +3358,6 @@ type SimpleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   bolt_pattern: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   bolt_pattern_alternative: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   brand: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
-  """
-  Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin.
-  """
-  brand_logo: String
   brand_text: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """
   The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled.
@@ -3523,12 +3464,6 @@ type SimpleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   price_range: PriceRange!
   """An array of `TierPrice` objects."""
   price_tiers: [TierPrice]
-  """
-  Aggregated rating information for the product, including average rating and review count.
-  """
-  productRating: ProductRating
-  """Returns all related productUrl entities for the product."""
-  productUrl: ProductUrl
   """An array of `ProductLinks` objects."""
   product_links: [ProductLinksInterface]
   """The average of all the ratings given to the product."""
@@ -3675,6 +3610,10 @@ type SimpleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   wheel_size: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   wheel_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   winter_tire_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  """Returns product's rating value from Yotpo."""
+  yotpo_rating_value: Float
+  """Returns product's number of reviews from Yotpo."""
+  yotpo_review_count: Int
 }
 
 """Contains the results of a `products` query."""
@@ -3787,12 +3726,12 @@ input ProductAttributeFilterInput {
   sku: FilterEqualTypeInput
   """Attribute label: Speed Rating"""
   speed_rating: FilterEqualTypeInput
+  """Attribute label: Tire Tube Material"""
+  tire_tube_material: FilterEqualTypeInput
   """Attribute label: Treadlife/Mileage"""
   treadlife_warranty: FilterEqualTypeInput
   """The part of the URL that identifies the product"""
   url_key: FilterEqualTypeInput
-  """Attribute label: Website Product Ranking"""
-  website_product_ranking: FilterRangeTypeInput
 }
 
 """
@@ -4065,7 +4004,6 @@ input ProductSortInput {
 input ProductAttributeSortInput {
   """Is product bestsellers."""
   bestsellers: SortEnum
-  category_ranking: SortEnum
   """The product most_viewed."""
   most_viewed: SortEnum
   """Attribute label: Product Name"""
@@ -4090,7 +4028,6 @@ input ProductAttributeSortInput {
   reviews_count: SortEnum
   """The product saving."""
   saving: SortEnum
-  website_product_ranking: SortEnum
   """Is product wished."""
   wished: SortEnum
 }
@@ -4778,15 +4715,12 @@ type Cart {
   available_payment_methods: [AvailablePaymentMethod]
   """The billing address assigned to the cart."""
   billing_address: BillingCartAddress
-  delivery: CartDelivery!
   """The email address of the guest or customer."""
   email: String
   """The entered gift message for the cart"""
   gift_message: GiftMessage
   """The unique ID for a `Cart` object."""
   id: ID!
-  """Installer and appointment information attached to the cart"""
-  installer: CartInstaller!
   """Indicates whether the cart contains only virtual products."""
   is_virtual: Boolean!
   """An array of products that have been added to the cart."""
@@ -5461,10 +5395,6 @@ type DownloadableProduct implements ProductInterface & RoutableInterface & Custo
   bolt_pattern: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   bolt_pattern_alternative: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   brand: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
-  """
-  Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin.
-  """
-  brand_logo: String
   brand_text: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """
   The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled.
@@ -5585,12 +5515,6 @@ type DownloadableProduct implements ProductInterface & RoutableInterface & Custo
   price_range: PriceRange!
   """An array of `TierPrice` objects."""
   price_tiers: [TierPrice]
-  """
-  Aggregated rating information for the product, including average rating and review count.
-  """
-  productRating: ProductRating
-  """Returns all related productUrl entities for the product."""
-  productUrl: ProductUrl
   """An array of `ProductLinks` objects."""
   product_links: [ProductLinksInterface]
   """The average of all the ratings given to the product."""
@@ -5735,6 +5659,10 @@ type DownloadableProduct implements ProductInterface & RoutableInterface & Custo
   wheel_size: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   wheel_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   winter_tire_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  """Returns product's rating value from Yotpo."""
+  yotpo_rating_value: Float
+  """Returns product's number of reviews from Yotpo."""
+  yotpo_review_count: Int
 }
 
 enum DownloadableFileTypeEnum {
@@ -6276,10 +6204,6 @@ type BundleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   bolt_pattern: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   bolt_pattern_alternative: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   brand: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
-  """
-  Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin.
-  """
-  brand_logo: String
   brand_text: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """
   The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled.
@@ -6400,12 +6324,6 @@ type BundleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   price_tiers: [TierPrice]
   """One of PRICE_RANGE or AS_LOW_AS."""
   price_view: PriceViewEnum
-  """
-  Aggregated rating information for the product, including average rating and review count.
-  """
-  productRating: ProductRating
-  """Returns all related productUrl entities for the product."""
-  productUrl: ProductUrl
   """An array of `ProductLinks` objects."""
   product_links: [ProductLinksInterface]
   """The average of all the ratings given to the product."""
@@ -6554,6 +6472,10 @@ type BundleProduct implements ProductInterface & RoutableInterface & PhysicalPro
   wheel_size: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   wheel_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   winter_tire_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  """Returns product's rating value from Yotpo."""
+  yotpo_rating_value: Float
+  """Returns product's number of reviews from Yotpo."""
+  yotpo_review_count: Int
 }
 
 """
@@ -6749,10 +6671,6 @@ type GroupedProduct implements ProductInterface & RoutableInterface & PhysicalPr
   bolt_pattern: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   bolt_pattern_alternative: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   brand: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
-  """
-  Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin.
-  """
-  brand_logo: String
   brand_text: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """
   The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled.
@@ -6859,12 +6777,6 @@ type GroupedProduct implements ProductInterface & RoutableInterface & PhysicalPr
   price_range: PriceRange!
   """An array of `TierPrice` objects."""
   price_tiers: [TierPrice]
-  """
-  Aggregated rating information for the product, including average rating and review count.
-  """
-  productRating: ProductRating
-  """Returns all related productUrl entities for the product."""
-  productUrl: ProductUrl
   """An array of `ProductLinks` objects."""
   product_links: [ProductLinksInterface]
   """The average of all the ratings given to the product."""
@@ -7011,6 +6923,10 @@ type GroupedProduct implements ProductInterface & RoutableInterface & PhysicalPr
   wheel_size: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   wheel_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   winter_tire_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  """Returns product's rating value from Yotpo."""
+  yotpo_rating_value: Float
+  """Returns product's number of reviews from Yotpo."""
+  yotpo_review_count: Int
 }
 
 """Contains information about an individual grouped product item."""
@@ -7062,10 +6978,6 @@ type ConfigurableProduct implements ProductInterface & RoutableInterface & Physi
   bolt_pattern: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   bolt_pattern_alternative: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   brand: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
-  """
-  Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin.
-  """
-  brand_logo: String
   brand_text: String @deprecated(reason: "Use the `custom_attributes` field instead.")
   """
   The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled.
@@ -7178,12 +7090,6 @@ type ConfigurableProduct implements ProductInterface & RoutableInterface & Physi
   price_range: PriceRange!
   """An array of `TierPrice` objects."""
   price_tiers: [TierPrice]
-  """
-  Aggregated rating information for the product, including average rating and review count.
-  """
-  productRating: ProductRating
-  """Returns all related productUrl entities for the product."""
-  productUrl: ProductUrl
   """An array of `ProductLinks` objects."""
   product_links: [ProductLinksInterface]
   """The average of all the ratings given to the product."""
@@ -7332,6 +7238,10 @@ type ConfigurableProduct implements ProductInterface & RoutableInterface & Physi
   wheel_size: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   wheel_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
   winter_tire_type: Int @deprecated(reason: "Use the `custom_attributes` field instead.")
+  """Returns product's rating value from Yotpo."""
+  yotpo_rating_value: Float
+  """Returns product's number of reviews from Yotpo."""
+  yotpo_review_count: Int
 }
 
 """Contains all the simple product variants of a configurable product."""
@@ -11573,26 +11483,6 @@ type Specials {
   rebates: [Rebate]
 }
 
-type DeliveryMethod {
-  code: String!
-  delivery_info: String!
-  title: String!
-}
-
-type CartDelivery {
-  available_delivery_methods: [DeliveryMethod]!
-  selected_delivery_method: DeliveryMethod
-}
-
-input SetDeliveryMethodOnCartInput {
-  cart_id: String!
-  delivery_method: String!
-}
-
-type SetDeliveryMethodOnCartOutput {
-  cart: Cart!
-}
-
 type DescriptionOverview {
   """Array of bullet points."""
   bullet_points: [String]
@@ -11624,357 +11514,6 @@ type Specifications {
   value: String
 }
 
-type MostPopularData {
-  groups: [GroupData]
-}
-
-type GroupData {
-  category_group_products: [ProductInfo]
-  default_group_products: [ProductInterface]
-  enabled: Int
-  group_id: Int
-  group_name: String
-  priority: Int
-}
-
-type ProductInfo {
-  most_popular_priority: Int
-  product: ProductInterface
-}
-
-type Installer {
-  """Street address of the installer"""
-  address: String!
-  """List of available appointment time slots"""
-  available_appointments: [Appointment]!
-  """City of the installer"""
-  city: String!
-  """Primary email address of the installer"""
-  email: String
-  """Unique identifier for the installer"""
-  id: Int!
-  """Latitude coordinate of the installer"""
-  lat: Float
-  """Longitude coordinate of the installer"""
-  lon: Float
-  """Display name of the installer"""
-  name: String!
-  """Installer contact phone number"""
-  phone_number: String
-  """Base price per tire for installation"""
-  price_per_tire: String
-  """State of the installer"""
-  state: String!
-  """Thumbnail image for installer store"""
-  thumbnail_image: String
-  """Type of installer, 'regular' and 'mobile' is supported"""
-  type: String
-  """Website URL of the installer"""
-  website: String
-  """Postal code of the installer"""
-  zip_code: Int
-}
-
-type Appointment {
-  """Closing time of the appointment window"""
-  closes_at: String!
-  """Day of the week for the appointment slot"""
-  day_of_week: String!
-  """Opening time of the appointment window"""
-  opens_at: String!
-}
-
-type CartInstaller {
-  """Optional notes or references provided by the customer"""
-  appointment_information: String
-  """Customer email address provided during installer selection"""
-  email: String
-  """The exact appointment chosen for the cart"""
-  scheduled_appointment: SelectedAppointment
-  """The installer selected for the cart"""
-  selected_installer: Installer
-  """Vehicle VIN attached to the cart"""
-  vin: String
-}
-
-input InstallersInput {
-  """Installer type (e.g. regular, mobile)"""
-  type: String!
-  """ZIP/postal code to filter installers by location"""
-  zip: String!
-}
-
-type InstallersSearchResult {
-  """List of installer records"""
-  items: [Installer]!
-  """Total number of installers found"""
-  total_count: Int!
-}
-
-input SetInstallerOnCartInput {
-  """The appointment chosen for the cart (date and time)"""
-  appointment: SelectedAppointmentInput
-  """Optional notes or references"""
-  appointment_information: String
-  cart_id: String!
-  """Customer email address"""
-  email: String
-  """The full installer object to assign to the cart"""
-  installer: InstallerInput!
-  """Optional vehicle VIN"""
-  vin: String
-}
-
-type SetInstallerOnCartOutput {
-  """The updated cart with installer information"""
-  cart: Cart!
-}
-
-input InstallerInput {
-  """Street address of the installer"""
-  address: String!
-  """City of the installer"""
-  city: String!
-  """Primary email address of the installer"""
-  email: String
-  """Unique identifier for the installer"""
-  id: Int!
-  """Latitude coordinate of the installer"""
-  lat: Float
-  """Longitude coordinate of the installer"""
-  lon: Float
-  """Display name of the installer"""
-  name: String!
-  """Installer contact phone number"""
-  phone_number: String
-  """Base price per tire for installation"""
-  price_per_tire: String
-  """State of the installer"""
-  state: String!
-  """Thumbnail image for installer store"""
-  thumbnail_image: String
-  """Type of installer, 'regular' and 'mobile' is supported"""
-  type: String
-  """Website URL of the installer"""
-  website: String
-  """Postal code of the installer"""
-  zip_code: Int
-}
-
-type SelectedAppointment {
-  """The appointment date in ISO format (YYYY-MM-DD)"""
-  date: String!
-  """Exact time selected for the appointment, e.g. 14:30"""
-  time: String!
-}
-
-input SelectedAppointmentInput {
-  """The appointment date in ISO format (YYYY-MM-DD)"""
-  date: String!
-  """Exact time selected for the appointment, e.g. 14:30"""
-  time: String!
-}
-
-type ProductUrl {
-  """The brand-specific category URL key, if available."""
-  brandCategory: String
-  """The main category URL key associated with the product."""
-  mainCategory: String
-  """
-  The primary product URL key. For configurable products, this is the main product URL.
-  """
-  primary: String
-  """
-  The secondary product URL key. For simple products, this may be the child product’s URL.
-  """
-  secondary: String
-  """
-  Indicates the product type (e.g. configurable, simple, accessory, assembly, wheels).
-  """
-  type: String
-}
-
-type ProductRating {
-  """Total number of reviews that contribute to the product's rating."""
-  ratingCount: Int
-  """Average rating value for the product, between 0 and 5."""
-  ratingValue: Float
-}
-
-"""Contains all data needed to display vehicle information."""
-type VehiclePages {
-  """Banner image for the requested vehicle page."""
-  banner: String
-  """Url to the brand logo of the requested vehicle page."""
-  brandLogo: String
-  """Sizes compatible with the vehicle (front, rear, minus, plus, both...)."""
-  compatibleSizes: [CompatibleSizes]
-  """The description for the selected vehicle."""
-  description: String
-  """Frequently asked questions for the current vehicle page."""
-  faqs: [Faq]
-  """List of available options for the provided url key."""
-  items: [Items]
-  """Full name of the currently selected vehicle."""
-  title: String
-  """Returns the type (make,model,year,option)."""
-  type: String
-}
-
-"""A frequently asked question and its answer for a vehicle page."""
-type Faq {
-  """Answer text."""
-  answer: String!
-  """Question text."""
-  question: String!
-}
-
-type CompatibleSizes {
-  """Tire sizes when the front and back tires are different."""
-  frontRear: [FrontRearSizeGroup]
-  """Smaller‑than‑stock tire options for extra clearance."""
-  minusSizes: MinusSizes
-  """Bigger‑than‑stock tire options, sorted by type."""
-  plusSizes: PlusSizes
-  """Tire sizes that match your stock setup (same front and back)."""
-  sameSizes: [SizeGroup]
-}
-
-type PlusSizes {
-  """Upsize tires on both front and back equally."""
-  both: [SizeGroup]
-  """Upsize only the front tires."""
-  frontUpstep: [SizeGroup]
-  """Upsize only the rear tires."""
-  rearUpstep: [SizeGroup]
-}
-
-type MinusSizes {
-  """Downsize tires on both front and back equally."""
-  both: [SizeGroup]
-  """Downsize only the front tires."""
-  frontDownstep: [SizeGroup]
-  """Downsize only the rear tires."""
-  rearDownstep: [SizeGroup]
-}
-
-type Front {
-  """Compatible size label."""
-  label: String
-  """Number of products in the category"""
-  product_count: Int
-  """URL key that leads to a size category/"""
-  url: String
-}
-
-type Rear {
-  """Compatible size label."""
-  label: String
-  """Number of products in the category"""
-  product_count: Int
-  """URL key that leads to a size category/"""
-  url: String
-}
-
-type SizeGroup {
-  """Rim diameter (e.g., '18')."""
-  rim: String
-  """List of tire sizes for this rim diameter."""
-  size: [Sizes]
-}
-
-type FrontRearSizeGroup {
-  """Rim diameter (e.g., '18')."""
-  rim: String
-  """List of tire sizes for this rim diameter."""
-  size: [FrontRearSizes]
-}
-
-"""Represents a list of sizes that fit the selected vehicle."""
-type FrontRearSizes {
-  front: Front
-  """Compatible size label."""
-  label: String
-  rear: Rear
-  """URL key that leads to a size category/"""
-  url: String
-}
-
-"""Represents a list of sizes that fit the selected vehicle."""
-type Sizes {
-  """Compatible size label."""
-  label: String
-  """Number of products in the category"""
-  product_count: Int
-  """URL key that leads to a size category/"""
-  url: String
-}
-
-"""A generic item with a display name and slug/url key for navigation."""
-type Items {
-  """Display name (e.g., '2024', 'Toyota', 'Camry', 'XSE')."""
-  name: String
-  """URL key or slug for routing (e.g., '2024','toyota')."""
-  slug: String
-}
-
-"""A vehicle manufacturer make."""
-type Make {
-  """The brand's logo."""
-  logo: String
-  """The display name of the make."""
-  name: String!
-  """The URL key for the make."""
-  slug: String!
-}
-
-"""A group of makes sharing the same first letter."""
-type MakeGroup {
-  """The first letter of the make names."""
-  letter: String!
-  """Makes beginning with this letter."""
-  makes: [Make]!
-}
-
-"""A vehicle model."""
-type Model {
-  """The display name of the model."""
-  name: String!
-  """The URL key for the model."""
-  slug: String!
-}
-
-"""A vehicle trim or option package."""
-type Option {
-  """Returns the chassis id of the vehicle."""
-  chassis_id: Int!
-  """The display name of the option."""
-  name: String!
-  """The URL key for the option."""
-  slug: String!
-}
-
-"""
-Result of checking whether a tire size fits a given vehicle configuration.
-"""
-type SizeCompatibility {
-  """Sizes compatible with the vehicle (front, rear, minus, plus, both...)."""
-  compatibleSizes: CompatibleSizes
-  """
-  Type of fitment: 'oe', 'plus-size-both', 'minus-size-both', 'plus-size-front-only', 'plus-size-rear-only', 'minus-size-front-only', 'minus-size-rear-only', 'oe-front-only', 'oe-rear-only'.
-  """
-  fitmentTypes: [String]!
-  """
-  True if the size is compatible in any way (stock, upsize, downsize, front‑only or rear‑only).
-  """
-  isCompatible: Boolean!
-}
-
-type VehicleYearGroup {
-  decade: String!
-  years: [String]!
-}
-
 input BraintreeInput {
   """
   Contains a fingerprint provided by Braintree JS SDK and should be sent with sale transaction details to the Braintree payment gateway.
@@ -11998,59 +11537,4 @@ input BraintreeCcVaultInput {
 input BraintreeVaultInput {
   device_data: String
   public_hash: String!
-}
-
-input TireSizeAttributes {
-  aspect_ratio: Float
-  rim_diameter: Float
-  section_width: Float
-  tire_size: [String]
-}
-
-type TireSize {
-  aspect_ratios: [Float]
-  rim_diameters: [Float]
-  section_widths: [Float]
-  tire_size_info: [SizeLabels]
-}
-
-type SizeLabels {
-  categoryUrl: String
-  hasFrontOptions: Boolean
-  hasRearOptions: Boolean
-  size_label: String
-}
-
-input ComplementaryTireSizeAttributes {
-  aspect_ratio: Float
-  rim_diameter: Float
-  section_width: Float
-  size_label: String!
-}
-
-type ComplementaryTireSizes {
-  aspect_ratios: [CAspectRatios]
-  rim_diameters: [CRimDiameters]
-  section_widths: [CSectionWidths]
-  size_labels: [ComplementarySizeLabels]
-}
-
-type ComplementarySizeLabels {
-  categoryUrl: String
-  size_label: String
-}
-
-type CSectionWidths {
-  front: [Float]
-  rear: [Float]
-}
-
-type CAspectRatios {
-  front: [Float]
-  rear: [Float]
-}
-
-type CRimDiameters {
-  front: [Float]
-  rear: [Float]
 }

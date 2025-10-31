@@ -14,7 +14,7 @@ import { toast } from "sonner";
 const NewsLetterForm = () => {
   const [email, setEmail] = useState("");
 
- const [subscribe, { data, loading, error }] = useMutation<
+ const [subscribe, { loading }] = useMutation<
     SubscribeEmailToNewsletterMutation,
     SubscribeEmailToNewsletterMutationVariables
   >(SubscribeEmailToNewsletterDocument);

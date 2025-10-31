@@ -11,10 +11,8 @@ query AllProductsWidget($urlKeys: [String!]) {
             label
           }
           product {
-            productRating {
-              ratingValue
-              ratingCount
-            }
+            yotpo_rating_value
+            yotpo_review_count
             sku
             id
             mpn1

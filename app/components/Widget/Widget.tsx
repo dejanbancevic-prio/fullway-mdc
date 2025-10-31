@@ -10,7 +10,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import WidgetBySizeContent from "./WidgetBySizeContent/WidgetBySizeContent";
-import WidgetByVehicleContent from "./WidgetByVehicleContent/WidgetByVehicleContent";
 import { WidgetConfigurableProductItem } from "@lib/types/widget/widget.types";
 import { ProductVariant } from "@lib/types/product/product.types";
 
@@ -19,8 +18,6 @@ type WidgetProps = {
 };
 
 const Widget = ({ titleStyle }: WidgetProps) => {
-  // const [getTireSizes, { data, loading }] = useLazyQuery(TireSizesDocument);
-
   const [selectedWidth, setSelectedWidth] = useState<string>("");
   const [selectedAr, setSelectedAr] = useState<string>("");
   const [selectedDiameter, setSelectedDiameter] = useState<string>("");
@@ -35,34 +32,6 @@ const Widget = ({ titleStyle }: WidgetProps) => {
     AllProductsWidgetQuery,
     AllProductsWidgetQueryVariables
   >(AllProductsWidgetDocument);
-
-  // useEffect(() => {
-  //   if (!selectedWidth) return;
-
-  //   const variables: TireSizesQueryVariables = {
-  //     input: {
-  //       section_width: Number(selectedWidth),
-  //       ...(selectedAr ? { aspect_ratio: Number(selectedAr) } : {}),
-  //       ...(selectedRim ? { rim_diameter: Number(selectedRim) } : {}),
-  //     },
-  //   };
-
-  //   getTireSizes({ variables });
-  // }, [selectedWidth, selectedAr, getTireSizes]);
-
-  // const handleFindTire = () => {
-  //   if (!selectedWidth) return;
-
-  //   const variables: TireSizesQueryVariables = {
-  //     input: {
-  //       section_width: Number(selectedWidth),
-  //       ...(selectedAr ? { aspect_ratio: Number(selectedAr) } : {}),
-  //       ...(selectedRim ? { rim_diameter: Number(selectedRim) } : {}),
-  //     },
-  //   };
-
-  //   getTireSizes({ variables });
-  // };
 
   const handleFindTire = async () => {
     let products: WidgetConfigurableProductItem[] = allProducts;
@@ -161,12 +130,6 @@ const Widget = ({ titleStyle }: WidgetProps) => {
               >
                 BY SIZE
               </TabsTrigger>
-              <TabsTrigger
-                value="vehicle"
-                className="rounded-none w-[9.0625rem] font-[700] bg-[#E0E0E0]"
-              >
-                BY VEHICLE
-              </TabsTrigger>
             </TabsList>
             <TabsContent value="size">
               <WidgetBySizeContent
@@ -179,9 +142,6 @@ const Widget = ({ titleStyle }: WidgetProps) => {
                 setSelectedDiameter={setSelectedDiameter}
                 handleFindTire={handleFindTire}
               />
-            </TabsContent>
-            <TabsContent value="vehicle">
-              <WidgetByVehicleContent />
             </TabsContent>
           </Tabs>
         </div>

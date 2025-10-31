@@ -19,19 +19,17 @@ query AllProducts($urlKeys: [String!]) {
             label
           }
           product {
-            image {
-              disabled
-              url
-            }
             description_overview {
               paragraphs {
                 title
                 content
               }
             }
-            productRating {
-              ratingValue
-              ratingCount
+            yotpo_rating_value
+            yotpo_review_count
+            image {
+              disabled
+              url
             }
             sku
             id

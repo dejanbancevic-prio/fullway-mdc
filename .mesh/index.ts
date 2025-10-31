@@ -35,8 +35,6 @@ export type Scalars = {
 };
 
 export type Query = {
-  /** List all vehicle makes, grouped by their first letter. */
-  allVehicleMakes: Array<Maybe<MakeGroup>>;
   amOrderList?: Maybe<Array<Maybe<SortingOrder>>>;
   /** List of linked accounts */
   amSocialLoginAccountData?: Maybe<Array<Maybe<AmLinkedSocialAccounts>>>;
@@ -120,7 +118,6 @@ export type Query = {
   defaultSorting?: Maybe<Array<Maybe<SortingOrder>>>;
   /** Get FAQ Module Settings. */
   getAmFaqSettings?: Maybe<AmFaqSettings>;
-  getComplementaryTireSizes?: Maybe<ComplementaryTireSizes>;
   /** Retrieve the secure PayPal URL for a Payments Pro Hosted Solution transaction. */
   getHostedProUrl?: Maybe<HostedProUrl>;
   /** Retrieve payment credentials for a transaction. Use this query for Payflow Link and Payments Advanced payment methods. */
@@ -131,15 +128,12 @@ export type Query = {
   getPaymentOrder?: Maybe<PaymentOrderOutput>;
   /** Gets the payment SDK urls and values */
   getPaymentSDK?: Maybe<GetPaymentSDKOutput>;
-  getTireSize?: Maybe<TireSize>;
   /** Retrieves the vault configuration */
   getVaultConfig?: Maybe<VaultConfigOutput>;
   /** Retrieve guest order details based on number, email and postcode. */
   guestOrder: CustomerOrder;
   /** Retrieve guest order details based on token. */
   guestOrderByToken: CustomerOrder;
-  /** Search for installers by ZIP code and type */
-  installers?: Maybe<InstallersSearchResult>;
   /** Check whether the specified email has already been used to create a customer account. */
   isEmailAvailable?: Maybe<IsEmailAvailableOutput>;
   /** The pickup locations query searches for locations that match the search request requirements. */
@@ -156,7 +150,6 @@ export type Query = {
   searchAmFaqCategories?: Maybe<AmFaqCategoriesSearch>;
   /** Search all FAQ questions with filter and sortOrder. */
   searchAmFaqQuestions?: Maybe<AmFaqQuestionsSearch>;
-  sizeCompatible?: Maybe<SizeCompatibility>;
   specials?: Maybe<Specials>;
   /** Return details about the store's configuration. */
   storeConfig?: Maybe<StoreConfig>;
@@ -165,15 +158,6 @@ export type Query = {
    * @deprecated Use the `route` query instead.
    */
   urlResolver?: Maybe<EntityUrl>;
-  /** List all makes available for a given year. */
-  vehicleMakes: Array<Maybe<MakeGroup>>;
-  /** List all models for a specific year and make. */
-  vehicleModels: Array<Maybe<Model>>;
-  /** List all options for a specific year, make, and model. */
-  vehicleOptions: Array<Maybe<Option>>;
-  vehiclePages?: Maybe<VehiclePages>;
-  /** List all available vehicle years, grouped by decade. */
-  vehicleYears: Array<Maybe<VehicleYearGroup>>;
   /**
    * Return the contents of a customer's wish list.
    * @deprecated Moved under `Customer.wishlist`.
@@ -366,11 +350,6 @@ export type QuerydefaultSortingArgs = {
 };
 
 
-export type QuerygetComplementaryTireSizesArgs = {
-  input?: InputMaybe<ComplementaryTireSizeAttributes>;
-};
-
-
 export type QuerygetHostedProUrlArgs = {
   input: HostedProUrlInput;
 };
@@ -397,11 +376,6 @@ export type QuerygetPaymentSDKArgs = {
 };
 
 
-export type QuerygetTireSizeArgs = {
-  input?: InputMaybe<TireSizeAttributes>;
-};
-
-
 export type QueryguestOrderArgs = {
   input: OrderInformationInput;
 };
@@ -409,11 +383,6 @@ export type QueryguestOrderArgs = {
 
 export type QueryguestOrderByTokenArgs = {
   input: OrderTokenInput;
-};
-
-
-export type QueryinstallersArgs = {
-  input: InstallersInput;
 };
 
 
@@ -463,37 +432,8 @@ export type QuerysearchAmFaqQuestionsArgs = {
 };
 
 
-export type QuerysizeCompatibleArgs = {
-  chassis_id: Scalars['Int']['input'];
-  size: Scalars['String']['input'];
-};
-
-
 export type QueryurlResolverArgs = {
   url: Scalars['String']['input'];
-};
-
-
-export type QueryvehicleMakesArgs = {
-  year: Scalars['String']['input'];
-};
-
-
-export type QueryvehicleModelsArgs = {
-  year: Scalars['String']['input'];
-  make: Scalars['String']['input'];
-};
-
-
-export type QueryvehicleOptionsArgs = {
-  year: Scalars['String']['input'];
-  make: Scalars['String']['input'];
-  model: Scalars['String']['input'];
-};
-
-
-export type QueryvehiclePagesArgs = {
-  url_key?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Mutation = {
@@ -619,11 +559,8 @@ export type Mutation = {
   setBillingAddressOnCart?: Maybe<SetBillingAddressOnCartOutput>;
   /** Set Customer Link */
   setCustomerLink?: Maybe<SetCustomerLinkOutput>;
-  setDeliveryMethodOnCart?: Maybe<SetDeliveryMethodOnCartOutput>;
   /** Assign the email address of a guest to the cart. */
   setGuestEmailOnCart?: Maybe<SetGuestEmailOnCartOutput>;
-  /** Assign an installer and appointment to a cart */
-  setInstallerOnCart?: Maybe<SetInstallerOnCartOutput>;
   /**
    * Set the cart payment method and convert the cart into an order.
    * @deprecated Should use setPaymentMethodOnCart and placeOrder mutations in single request.
@@ -951,18 +888,8 @@ export type MutationsetCustomerLinkArgs = {
 };
 
 
-export type MutationsetDeliveryMethodOnCartArgs = {
-  input: SetDeliveryMethodOnCartInput;
-};
-
-
 export type MutationsetGuestEmailOnCartArgs = {
   input?: InputMaybe<SetGuestEmailOnCartInput>;
-};
-
-
-export type MutationsetInstallerOnCartArgs = {
-  input: SetInstallerOnCartInput;
 };
 
 
@@ -2292,8 +2219,6 @@ export type ProductInterface = {
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -2439,10 +2364,6 @@ export type ProductInterface = {
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -2659,6 +2580,10 @@ export type ProductInterface = {
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -2766,7 +2691,6 @@ export type CategoryTree = CategoryInterface & RoutableInterface & {
   meta_description?: Maybe<Scalars['String']['output']>;
   meta_keywords?: Maybe<Scalars['String']['output']>;
   meta_title?: Maybe<Scalars['String']['output']>;
-  most_popular?: Maybe<MostPopularData>;
   /** The display name of the category. */
   name?: Maybe<Scalars['String']['output']>;
   /** The full category path. */
@@ -3282,8 +3206,6 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -3431,10 +3353,6 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -3657,6 +3575,10 @@ export type VirtualProduct = ProductInterface & RoutableInterface & Customizable
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -3711,8 +3633,6 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -3860,10 +3780,6 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -4088,6 +4004,10 @@ export type SimpleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -4204,12 +4124,12 @@ export type ProductAttributeFilterInput = {
   sku?: InputMaybe<FilterEqualTypeInput>;
   /** Attribute label: Speed Rating */
   speed_rating?: InputMaybe<FilterEqualTypeInput>;
+  /** Attribute label: Tire Tube Material */
+  tire_tube_material?: InputMaybe<FilterEqualTypeInput>;
   /** Attribute label: Treadlife/Mileage */
   treadlife_warranty?: InputMaybe<FilterEqualTypeInput>;
   /** The part of the URL that identifies the product */
   url_key?: InputMaybe<FilterEqualTypeInput>;
-  /** Attribute label: Website Product Ranking */
-  website_product_ranking?: InputMaybe<FilterRangeTypeInput>;
 };
 
 /** Defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for. */
@@ -4430,7 +4350,6 @@ export type ProductSortInput = {
 export type ProductAttributeSortInput = {
   /** Is product bestsellers. */
   bestsellers?: InputMaybe<SortEnum>;
-  category_ranking?: InputMaybe<SortEnum>;
   /** The product most_viewed. */
   most_viewed?: InputMaybe<SortEnum>;
   /** Attribute label: Product Name */
@@ -4455,7 +4374,6 @@ export type ProductAttributeSortInput = {
   reviews_count?: InputMaybe<SortEnum>;
   /** The product saving. */
   saving?: InputMaybe<SortEnum>;
-  website_product_ranking?: InputMaybe<SortEnum>;
   /** Is product wished. */
   wished?: InputMaybe<SortEnum>;
 };
@@ -5117,15 +5035,12 @@ export type Cart = {
   available_payment_methods?: Maybe<Array<Maybe<AvailablePaymentMethod>>>;
   /** The billing address assigned to the cart. */
   billing_address?: Maybe<BillingCartAddress>;
-  delivery: CartDelivery;
   /** The email address of the guest or customer. */
   email?: Maybe<Scalars['String']['output']>;
   /** The entered gift message for the cart */
   gift_message?: Maybe<GiftMessage>;
   /** The unique ID for a `Cart` object. */
   id: Scalars['ID']['output'];
-  /** Installer and appointment information attached to the cart */
-  installer: CartInstaller;
   /** Indicates whether the cart contains only virtual products. */
   is_virtual: Scalars['Boolean']['output'];
   /**
@@ -5785,8 +5700,6 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -5942,10 +5855,6 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -6168,6 +6077,10 @@ export type DownloadableProduct = ProductInterface & RoutableInterface & Customi
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -6733,8 +6646,6 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -6894,10 +6805,6 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
   /** One of PRICE_RANGE or AS_LOW_AS. */
   price_view?: Maybe<PriceViewEnum>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -7124,6 +7031,10 @@ export type BundleProduct = ProductInterface & RoutableInterface & PhysicalProdu
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -7340,8 +7251,6 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -7489,10 +7398,6 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -7717,6 +7622,10 @@ export type GroupedProduct = ProductInterface & RoutableInterface & PhysicalProd
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -7797,8 +7706,6 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
   bolt_pattern_alternative?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand?: Maybe<Scalars['Int']['output']>;
-  /** Brand logo for a product, looks for brand attribute value, then searches for a file under that name in media/brands dir. Needs refactoring to include integration with UI components win admin. */
-  brand_logo?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   brand_text?: Maybe<Scalars['String']['output']>;
   /** The relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Products' is enabled. */
@@ -7950,10 +7857,6 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
   price_range: PriceRange;
   /** An array of `TierPrice` objects. */
   price_tiers?: Maybe<Array<Maybe<TierPrice>>>;
-  /** Aggregated rating information for the product, including average rating and review count. */
-  productRating?: Maybe<ProductRating>;
-  /** Returns all related productUrl entities for the product. */
-  productUrl?: Maybe<ProductUrl>;
   /** An array of `ProductLinks` objects. */
   product_links?: Maybe<Array<Maybe<ProductLinksInterface>>>;
   /** The average of all the ratings given to the product. */
@@ -8180,6 +8083,10 @@ export type ConfigurableProduct = ProductInterface & RoutableInterface & Physica
   wheel_type?: Maybe<Scalars['Int']['output']>;
   /** @deprecated Use the `custom_attributes` field instead. */
   winter_tire_type?: Maybe<Scalars['Int']['output']>;
+  /** Returns product's rating value from Yotpo. */
+  yotpo_rating_value?: Maybe<Scalars['Float']['output']>;
+  /** Returns product's number of reviews from Yotpo. */
+  yotpo_review_count?: Maybe<Scalars['Int']['output']>;
 };
 
 
@@ -12206,26 +12113,6 @@ export type Specials = {
   rebates?: Maybe<Array<Maybe<Rebate>>>;
 };
 
-export type DeliveryMethod = {
-  code: Scalars['String']['output'];
-  delivery_info: Scalars['String']['output'];
-  title: Scalars['String']['output'];
-};
-
-export type CartDelivery = {
-  available_delivery_methods: Array<Maybe<DeliveryMethod>>;
-  selected_delivery_method?: Maybe<DeliveryMethod>;
-};
-
-export type SetDeliveryMethodOnCartInput = {
-  cart_id: Scalars['String']['input'];
-  delivery_method: Scalars['String']['input'];
-};
-
-export type SetDeliveryMethodOnCartOutput = {
-  cart: Cart;
-};
-
 export type DescriptionOverview = {
   /** Array of bullet points. */
   bullet_points?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -12257,345 +12144,6 @@ export type Specifications = {
   value?: Maybe<Scalars['String']['output']>;
 };
 
-export type MostPopularData = {
-  groups?: Maybe<Array<Maybe<GroupData>>>;
-};
-
-export type GroupData = {
-  category_group_products?: Maybe<Array<Maybe<ProductInfo>>>;
-  default_group_products?: Maybe<Array<Maybe<ProductInterface>>>;
-  enabled?: Maybe<Scalars['Int']['output']>;
-  group_id?: Maybe<Scalars['Int']['output']>;
-  group_name?: Maybe<Scalars['String']['output']>;
-  priority?: Maybe<Scalars['Int']['output']>;
-};
-
-export type ProductInfo = {
-  most_popular_priority?: Maybe<Scalars['Int']['output']>;
-  product?: Maybe<ProductInterface>;
-};
-
-export type Installer = {
-  /** Street address of the installer */
-  address: Scalars['String']['output'];
-  /** List of available appointment time slots */
-  available_appointments: Array<Maybe<Appointment>>;
-  /** City of the installer */
-  city: Scalars['String']['output'];
-  /** Primary email address of the installer */
-  email?: Maybe<Scalars['String']['output']>;
-  /** Unique identifier for the installer */
-  id: Scalars['Int']['output'];
-  /** Latitude coordinate of the installer */
-  lat?: Maybe<Scalars['Float']['output']>;
-  /** Longitude coordinate of the installer */
-  lon?: Maybe<Scalars['Float']['output']>;
-  /** Display name of the installer */
-  name: Scalars['String']['output'];
-  /** Installer contact phone number */
-  phone_number?: Maybe<Scalars['String']['output']>;
-  /** Base price per tire for installation */
-  price_per_tire?: Maybe<Scalars['String']['output']>;
-  /** State of the installer */
-  state: Scalars['String']['output'];
-  /** Thumbnail image for installer store */
-  thumbnail_image?: Maybe<Scalars['String']['output']>;
-  /** Type of installer, 'regular' and 'mobile' is supported */
-  type?: Maybe<Scalars['String']['output']>;
-  /** Website URL of the installer */
-  website?: Maybe<Scalars['String']['output']>;
-  /** Postal code of the installer */
-  zip_code?: Maybe<Scalars['Int']['output']>;
-};
-
-export type Appointment = {
-  /** Closing time of the appointment window */
-  closes_at: Scalars['String']['output'];
-  /** Day of the week for the appointment slot */
-  day_of_week: Scalars['String']['output'];
-  /** Opening time of the appointment window */
-  opens_at: Scalars['String']['output'];
-};
-
-export type CartInstaller = {
-  /** Optional notes or references provided by the customer */
-  appointment_information?: Maybe<Scalars['String']['output']>;
-  /** Customer email address provided during installer selection */
-  email?: Maybe<Scalars['String']['output']>;
-  /** The exact appointment chosen for the cart */
-  scheduled_appointment?: Maybe<SelectedAppointment>;
-  /** The installer selected for the cart */
-  selected_installer?: Maybe<Installer>;
-  /** Vehicle VIN attached to the cart */
-  vin?: Maybe<Scalars['String']['output']>;
-};
-
-export type InstallersInput = {
-  /** Installer type (e.g. regular, mobile) */
-  type: Scalars['String']['input'];
-  /** ZIP/postal code to filter installers by location */
-  zip: Scalars['String']['input'];
-};
-
-export type InstallersSearchResult = {
-  /** List of installer records */
-  items: Array<Maybe<Installer>>;
-  /** Total number of installers found */
-  total_count: Scalars['Int']['output'];
-};
-
-export type SetInstallerOnCartInput = {
-  /** The appointment chosen for the cart (date and time) */
-  appointment?: InputMaybe<SelectedAppointmentInput>;
-  /** Optional notes or references */
-  appointment_information?: InputMaybe<Scalars['String']['input']>;
-  cart_id: Scalars['String']['input'];
-  /** Customer email address */
-  email?: InputMaybe<Scalars['String']['input']>;
-  /** The full installer object to assign to the cart */
-  installer: InstallerInput;
-  /** Optional vehicle VIN */
-  vin?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type SetInstallerOnCartOutput = {
-  /** The updated cart with installer information */
-  cart: Cart;
-};
-
-export type InstallerInput = {
-  /** Street address of the installer */
-  address: Scalars['String']['input'];
-  /** City of the installer */
-  city: Scalars['String']['input'];
-  /** Primary email address of the installer */
-  email?: InputMaybe<Scalars['String']['input']>;
-  /** Unique identifier for the installer */
-  id: Scalars['Int']['input'];
-  /** Latitude coordinate of the installer */
-  lat?: InputMaybe<Scalars['Float']['input']>;
-  /** Longitude coordinate of the installer */
-  lon?: InputMaybe<Scalars['Float']['input']>;
-  /** Display name of the installer */
-  name: Scalars['String']['input'];
-  /** Installer contact phone number */
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  /** Base price per tire for installation */
-  price_per_tire?: InputMaybe<Scalars['String']['input']>;
-  /** State of the installer */
-  state: Scalars['String']['input'];
-  /** Thumbnail image for installer store */
-  thumbnail_image?: InputMaybe<Scalars['String']['input']>;
-  /** Type of installer, 'regular' and 'mobile' is supported */
-  type?: InputMaybe<Scalars['String']['input']>;
-  /** Website URL of the installer */
-  website?: InputMaybe<Scalars['String']['input']>;
-  /** Postal code of the installer */
-  zip_code?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type SelectedAppointment = {
-  /** The appointment date in ISO format (YYYY-MM-DD) */
-  date: Scalars['String']['output'];
-  /** Exact time selected for the appointment, e.g. 14:30 */
-  time: Scalars['String']['output'];
-};
-
-export type SelectedAppointmentInput = {
-  /** The appointment date in ISO format (YYYY-MM-DD) */
-  date: Scalars['String']['input'];
-  /** Exact time selected for the appointment, e.g. 14:30 */
-  time: Scalars['String']['input'];
-};
-
-export type ProductUrl = {
-  /** The brand-specific category URL key, if available. */
-  brandCategory?: Maybe<Scalars['String']['output']>;
-  /** The main category URL key associated with the product. */
-  mainCategory?: Maybe<Scalars['String']['output']>;
-  /** The primary product URL key. For configurable products, this is the main product URL. */
-  primary?: Maybe<Scalars['String']['output']>;
-  /** The secondary product URL key. For simple products, this may be the child product’s URL. */
-  secondary?: Maybe<Scalars['String']['output']>;
-  /** Indicates the product type (e.g. configurable, simple, accessory, assembly, wheels). */
-  type?: Maybe<Scalars['String']['output']>;
-};
-
-export type ProductRating = {
-  /** Total number of reviews that contribute to the product's rating. */
-  ratingCount?: Maybe<Scalars['Int']['output']>;
-  /** Average rating value for the product, between 0 and 5. */
-  ratingValue?: Maybe<Scalars['Float']['output']>;
-};
-
-/** Contains all data needed to display vehicle information. */
-export type VehiclePages = {
-  /** Banner image for the requested vehicle page. */
-  banner?: Maybe<Scalars['String']['output']>;
-  /** Url to the brand logo of the requested vehicle page. */
-  brandLogo?: Maybe<Scalars['String']['output']>;
-  /** Sizes compatible with the vehicle (front, rear, minus, plus, both...). */
-  compatibleSizes?: Maybe<Array<Maybe<CompatibleSizes>>>;
-  /** The description for the selected vehicle. */
-  description?: Maybe<Scalars['String']['output']>;
-  /** Frequently asked questions for the current vehicle page. */
-  faqs?: Maybe<Array<Maybe<Faq>>>;
-  /** List of available options for the provided url key. */
-  items?: Maybe<Array<Maybe<Items>>>;
-  /** Full name of the currently selected vehicle. */
-  title?: Maybe<Scalars['String']['output']>;
-  /** Returns the type (make,model,year,option). */
-  type?: Maybe<Scalars['String']['output']>;
-};
-
-/** A frequently asked question and its answer for a vehicle page. */
-export type Faq = {
-  /** Answer text. */
-  answer: Scalars['String']['output'];
-  /** Question text. */
-  question: Scalars['String']['output'];
-};
-
-export type CompatibleSizes = {
-  /** Tire sizes when the front and back tires are different. */
-  frontRear?: Maybe<Array<Maybe<FrontRearSizeGroup>>>;
-  /** Smaller‑than‑stock tire options for extra clearance. */
-  minusSizes?: Maybe<MinusSizes>;
-  /** Bigger‑than‑stock tire options, sorted by type. */
-  plusSizes?: Maybe<PlusSizes>;
-  /** Tire sizes that match your stock setup (same front and back). */
-  sameSizes?: Maybe<Array<Maybe<SizeGroup>>>;
-};
-
-export type PlusSizes = {
-  /** Upsize tires on both front and back equally. */
-  both?: Maybe<Array<Maybe<SizeGroup>>>;
-  /** Upsize only the front tires. */
-  frontUpstep?: Maybe<Array<Maybe<SizeGroup>>>;
-  /** Upsize only the rear tires. */
-  rearUpstep?: Maybe<Array<Maybe<SizeGroup>>>;
-};
-
-export type MinusSizes = {
-  /** Downsize tires on both front and back equally. */
-  both?: Maybe<Array<Maybe<SizeGroup>>>;
-  /** Downsize only the front tires. */
-  frontDownstep?: Maybe<Array<Maybe<SizeGroup>>>;
-  /** Downsize only the rear tires. */
-  rearDownstep?: Maybe<Array<Maybe<SizeGroup>>>;
-};
-
-export type Front = {
-  /** Compatible size label. */
-  label?: Maybe<Scalars['String']['output']>;
-  /** Number of products in the category */
-  product_count?: Maybe<Scalars['Int']['output']>;
-  /** URL key that leads to a size category/ */
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type Rear = {
-  /** Compatible size label. */
-  label?: Maybe<Scalars['String']['output']>;
-  /** Number of products in the category */
-  product_count?: Maybe<Scalars['Int']['output']>;
-  /** URL key that leads to a size category/ */
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type SizeGroup = {
-  /** Rim diameter (e.g., '18'). */
-  rim?: Maybe<Scalars['String']['output']>;
-  /** List of tire sizes for this rim diameter. */
-  size?: Maybe<Array<Maybe<Sizes>>>;
-};
-
-export type FrontRearSizeGroup = {
-  /** Rim diameter (e.g., '18'). */
-  rim?: Maybe<Scalars['String']['output']>;
-  /** List of tire sizes for this rim diameter. */
-  size?: Maybe<Array<Maybe<FrontRearSizes>>>;
-};
-
-/** Represents a list of sizes that fit the selected vehicle. */
-export type FrontRearSizes = {
-  front?: Maybe<Front>;
-  /** Compatible size label. */
-  label?: Maybe<Scalars['String']['output']>;
-  rear?: Maybe<Rear>;
-  /** URL key that leads to a size category/ */
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-/** Represents a list of sizes that fit the selected vehicle. */
-export type Sizes = {
-  /** Compatible size label. */
-  label?: Maybe<Scalars['String']['output']>;
-  /** Number of products in the category */
-  product_count?: Maybe<Scalars['Int']['output']>;
-  /** URL key that leads to a size category/ */
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-/** A generic item with a display name and slug/url key for navigation. */
-export type Items = {
-  /** Display name (e.g., '2024', 'Toyota', 'Camry', 'XSE'). */
-  name?: Maybe<Scalars['String']['output']>;
-  /** URL key or slug for routing (e.g., '2024','toyota'). */
-  slug?: Maybe<Scalars['String']['output']>;
-};
-
-/** A vehicle manufacturer make. */
-export type Make = {
-  /** The brand's logo. */
-  logo?: Maybe<Scalars['String']['output']>;
-  /** The display name of the make. */
-  name: Scalars['String']['output'];
-  /** The URL key for the make. */
-  slug: Scalars['String']['output'];
-};
-
-/** A group of makes sharing the same first letter. */
-export type MakeGroup = {
-  /** The first letter of the make names. */
-  letter: Scalars['String']['output'];
-  /** Makes beginning with this letter. */
-  makes: Array<Maybe<Make>>;
-};
-
-/** A vehicle model. */
-export type Model = {
-  /** The display name of the model. */
-  name: Scalars['String']['output'];
-  /** The URL key for the model. */
-  slug: Scalars['String']['output'];
-};
-
-/** A vehicle trim or option package. */
-export type Option = {
-  /** Returns the chassis id of the vehicle. */
-  chassis_id: Scalars['Int']['output'];
-  /** The display name of the option. */
-  name: Scalars['String']['output'];
-  /** The URL key for the option. */
-  slug: Scalars['String']['output'];
-};
-
-/** Result of checking whether a tire size fits a given vehicle configuration. */
-export type SizeCompatibility = {
-  /** Sizes compatible with the vehicle (front, rear, minus, plus, both...). */
-  compatibleSizes?: Maybe<CompatibleSizes>;
-  /** Type of fitment: 'oe', 'plus-size-both', 'minus-size-both', 'plus-size-front-only', 'plus-size-rear-only', 'minus-size-front-only', 'minus-size-rear-only', 'oe-front-only', 'oe-rear-only'. */
-  fitmentTypes: Array<Maybe<Scalars['String']['output']>>;
-  /** True if the size is compatible in any way (stock, upsize, downsize, front‑only or rear‑only). */
-  isCompatible: Scalars['Boolean']['output'];
-};
-
-export type VehicleYearGroup = {
-  decade: Scalars['String']['output'];
-  years: Array<Maybe<Scalars['String']['output']>>;
-};
-
 export type BraintreeInput = {
   /** Contains a fingerprint provided by Braintree JS SDK and should be sent with sale transaction details to the Braintree payment gateway. */
   device_data?: InputMaybe<Scalars['String']['input']>;
@@ -12613,61 +12161,6 @@ export type BraintreeCcVaultInput = {
 export type BraintreeVaultInput = {
   device_data?: InputMaybe<Scalars['String']['input']>;
   public_hash: Scalars['String']['input'];
-};
-
-export type TireSizeAttributes = {
-  aspect_ratio?: InputMaybe<Scalars['Float']['input']>;
-  rim_diameter?: InputMaybe<Scalars['Float']['input']>;
-  section_width?: InputMaybe<Scalars['Float']['input']>;
-  tire_size?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type TireSize = {
-  aspect_ratios?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  rim_diameters?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  section_widths?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  tire_size_info?: Maybe<Array<Maybe<SizeLabels>>>;
-};
-
-export type SizeLabels = {
-  categoryUrl?: Maybe<Scalars['String']['output']>;
-  hasFrontOptions?: Maybe<Scalars['Boolean']['output']>;
-  hasRearOptions?: Maybe<Scalars['Boolean']['output']>;
-  size_label?: Maybe<Scalars['String']['output']>;
-};
-
-export type ComplementaryTireSizeAttributes = {
-  aspect_ratio?: InputMaybe<Scalars['Float']['input']>;
-  rim_diameter?: InputMaybe<Scalars['Float']['input']>;
-  section_width?: InputMaybe<Scalars['Float']['input']>;
-  size_label: Scalars['String']['input'];
-};
-
-export type ComplementaryTireSizes = {
-  aspect_ratios?: Maybe<Array<Maybe<CAspectRatios>>>;
-  rim_diameters?: Maybe<Array<Maybe<CRimDiameters>>>;
-  section_widths?: Maybe<Array<Maybe<CSectionWidths>>>;
-  size_labels?: Maybe<Array<Maybe<ComplementarySizeLabels>>>;
-};
-
-export type ComplementarySizeLabels = {
-  categoryUrl?: Maybe<Scalars['String']['output']>;
-  size_label?: Maybe<Scalars['String']['output']>;
-};
-
-export type CSectionWidths = {
-  front?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  rear?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-};
-
-export type CAspectRatios = {
-  front?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  rear?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-};
-
-export type CRimDiameters = {
-  front?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
-  rear?: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -12766,7 +12259,7 @@ export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = 
   MediaGalleryInterface: ( ProductImage ) | ( ProductVideo );
   CustomizableOptionInterface: ( CustomizableAreaOption ) | ( CustomizableDateOption ) | ( CustomizableDropDownOption ) | ( CustomizableMultipleOption ) | ( CustomizableFieldOption ) | ( CustomizableFileOption ) | ( CustomizableRadioOption ) | ( CustomizableCheckboxOption );
   CustomizableProductInterface: ( Omit<VirtualProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<SimpleProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<DownloadableProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<BundleProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'items' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, items?: Maybe<Array<Maybe<_RefType['BundleItem']>>>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<ConfigurableProduct, 'categories' | 'configurable_options' | 'configurable_product_options_selection' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products' | 'variants'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, configurable_options?: Maybe<Array<Maybe<_RefType['ConfigurableProductOptions']>>>, configurable_product_options_selection?: Maybe<_RefType['ConfigurableProductOptionsSelection']>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, variants?: Maybe<Array<Maybe<_RefType['ConfigurableVariant']>>> } );
-  CategoryInterface: ( Omit<CategoryTree, 'children' | 'most_popular' | 'products'> & { children?: Maybe<Array<Maybe<_RefType['CategoryTree']>>>, most_popular?: Maybe<_RefType['MostPopularData']>, products?: Maybe<_RefType['CategoryProducts']> } );
+  CategoryInterface: ( Omit<CategoryTree, 'children' | 'products'> & { children?: Maybe<Array<Maybe<_RefType['CategoryTree']>>>, products?: Maybe<_RefType['CategoryProducts']> } );
   LayerFilterItemInterface: ( LayerFilterItem ) | ( SwatchLayerFilterItem );
   AggregationOptionInterface: ( AggregationOption );
   CartAddressInterface: ( Omit<ShippingCartAddress, 'available_shipping_methods' | 'cart_items_v2'> & { available_shipping_methods?: Maybe<Array<Maybe<_RefType['AvailableShippingMethod']>>>, cart_items_v2?: Maybe<Array<Maybe<_RefType['CartItemInterface']>>> } ) | ( BillingCartAddress );
@@ -12776,7 +12269,7 @@ export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = 
   InvoiceItemInterface: ( Omit<DownloadableInvoiceItem, 'order_item'> & { order_item?: Maybe<_RefType['OrderItemInterface']> } ) | ( Omit<BundleInvoiceItem, 'order_item'> & { order_item?: Maybe<_RefType['OrderItemInterface']> } ) | ( Omit<InvoiceItem, 'order_item'> & { order_item?: Maybe<_RefType['OrderItemInterface']> } );
   ShipmentItemInterface: ( Omit<BundleShipmentItem, 'order_item'> & { order_item?: Maybe<_RefType['OrderItemInterface']> } ) | ( Omit<ShipmentItem, 'order_item'> & { order_item?: Maybe<_RefType['OrderItemInterface']> } );
   CreditMemoItemInterface: ( Omit<DownloadableCreditMemoItem, 'order_item'> & { order_item?: Maybe<_RefType['OrderItemInterface']> } ) | ( Omit<BundleCreditMemoItem, 'order_item'> & { order_item?: Maybe<_RefType['OrderItemInterface']> } ) | ( Omit<CreditMemoItem, 'order_item'> & { order_item?: Maybe<_RefType['OrderItemInterface']> } );
-  RoutableInterface: ( CmsPage ) | ( Omit<CategoryTree, 'children' | 'most_popular' | 'products'> & { children?: Maybe<Array<Maybe<_RefType['CategoryTree']>>>, most_popular?: Maybe<_RefType['MostPopularData']>, products?: Maybe<_RefType['CategoryProducts']> } ) | ( Omit<VirtualProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<SimpleProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<DownloadableProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<BundleProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'items' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, items?: Maybe<Array<Maybe<_RefType['BundleItem']>>>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<GroupedProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'items' | 'media_gallery' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, items?: Maybe<Array<Maybe<_RefType['GroupedProductItem']>>>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<ConfigurableProduct, 'categories' | 'configurable_options' | 'configurable_product_options_selection' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products' | 'variants'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, configurable_options?: Maybe<Array<Maybe<_RefType['ConfigurableProductOptions']>>>, configurable_product_options_selection?: Maybe<_RefType['ConfigurableProductOptionsSelection']>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, variants?: Maybe<Array<Maybe<_RefType['ConfigurableVariant']>>> } ) | ( RoutableUrl ) | ( AwBlogCategory ) | ( AwBlogPost );
+  RoutableInterface: ( CmsPage ) | ( Omit<CategoryTree, 'children' | 'products'> & { children?: Maybe<Array<Maybe<_RefType['CategoryTree']>>>, products?: Maybe<_RefType['CategoryProducts']> } ) | ( Omit<VirtualProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<SimpleProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<DownloadableProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<BundleProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'items' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, items?: Maybe<Array<Maybe<_RefType['BundleItem']>>>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<GroupedProduct, 'categories' | 'crosssell_products' | 'custom_attributesV2' | 'items' | 'media_gallery' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, items?: Maybe<Array<Maybe<_RefType['GroupedProductItem']>>>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>> } ) | ( Omit<ConfigurableProduct, 'categories' | 'configurable_options' | 'configurable_product_options_selection' | 'crosssell_products' | 'custom_attributesV2' | 'media_gallery' | 'options' | 'product_links' | 'related_products' | 'reviews' | 'upsell_products' | 'variants'> & { categories?: Maybe<Array<Maybe<_RefType['CategoryInterface']>>>, configurable_options?: Maybe<Array<Maybe<_RefType['ConfigurableProductOptions']>>>, configurable_product_options_selection?: Maybe<_RefType['ConfigurableProductOptionsSelection']>, crosssell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, custom_attributesV2?: Maybe<_RefType['ProductCustomAttributes']>, media_gallery?: Maybe<Array<Maybe<_RefType['MediaGalleryInterface']>>>, options?: Maybe<Array<Maybe<_RefType['CustomizableOptionInterface']>>>, product_links?: Maybe<Array<Maybe<_RefType['ProductLinksInterface']>>>, related_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, reviews: _RefType['ProductReviews'], upsell_products?: Maybe<Array<Maybe<_RefType['ProductInterface']>>>, variants?: Maybe<Array<Maybe<_RefType['ConfigurableVariant']>>> } ) | ( RoutableUrl ) | ( AwBlogCategory ) | ( AwBlogPost );
   SwatchLayerFilterItemInterface: ( SwatchLayerFilterItem );
   SwatchDataInterface: ( ImageSwatchData ) | ( TextSwatchData ) | ( ColorSwatchData );
   WishlistItemInterface: ( Omit<SimpleWishlistItem, 'product'> & { product?: Maybe<_RefType['ProductInterface']> } ) | ( Omit<VirtualWishlistItem, 'product'> & { product?: Maybe<_RefType['ProductInterface']> } ) | ( Omit<DownloadableWishlistItem, 'product'> & { product?: Maybe<_RefType['ProductInterface']> } ) | ( Omit<BundleWishlistItem, 'product'> & { product?: Maybe<_RefType['ProductInterface']> } ) | ( Omit<GroupedProductWishlistItem, 'product'> & { product?: Maybe<_RefType['ProductInterface']> } ) | ( Omit<ConfigurableWishlistItem, 'configured_variant' | 'product'> & { configured_variant?: Maybe<_RefType['ProductInterface']>, product?: Maybe<_RefType['ProductInterface']> } );
@@ -12855,7 +12348,7 @@ export type ResolversTypes = ResolversObject<{
   PhysicalProductInterface: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['PhysicalProductInterface']>;
   CustomizableAreaOption: ResolverTypeWrapper<CustomizableAreaOption>;
   CustomizableAreaValue: ResolverTypeWrapper<CustomizableAreaValue>;
-  CategoryTree: ResolverTypeWrapper<Omit<CategoryTree, 'children' | 'most_popular' | 'products'> & { children?: Maybe<Array<Maybe<ResolversTypes['CategoryTree']>>>, most_popular?: Maybe<ResolversTypes['MostPopularData']>, products?: Maybe<ResolversTypes['CategoryProducts']> }>;
+  CategoryTree: ResolverTypeWrapper<Omit<CategoryTree, 'children' | 'products'> & { children?: Maybe<Array<Maybe<ResolversTypes['CategoryTree']>>>, products?: Maybe<ResolversTypes['CategoryProducts']> }>;
   CategoryResult: ResolverTypeWrapper<Omit<CategoryResult, 'items'> & { items?: Maybe<Array<Maybe<ResolversTypes['CategoryTree']>>> }>;
   CustomizableDateOption: ResolverTypeWrapper<CustomizableDateOption>;
   CustomizableDateValue: ResolverTypeWrapper<CustomizableDateValue>;
@@ -13302,58 +12795,12 @@ export type ResolversTypes = ResolversObject<{
   Promotion: ResolverTypeWrapper<Promotion>;
   Rebate: ResolverTypeWrapper<Rebate>;
   Specials: ResolverTypeWrapper<Specials>;
-  DeliveryMethod: ResolverTypeWrapper<DeliveryMethod>;
-  CartDelivery: ResolverTypeWrapper<CartDelivery>;
-  SetDeliveryMethodOnCartInput: SetDeliveryMethodOnCartInput;
-  SetDeliveryMethodOnCartOutput: ResolverTypeWrapper<Omit<SetDeliveryMethodOnCartOutput, 'cart'> & { cart: ResolversTypes['Cart'] }>;
   DescriptionOverview: ResolverTypeWrapper<DescriptionOverview>;
   Paragraph: ResolverTypeWrapper<Paragraph>;
   Specifications: ResolverTypeWrapper<Specifications>;
-  MostPopularData: ResolverTypeWrapper<Omit<MostPopularData, 'groups'> & { groups?: Maybe<Array<Maybe<ResolversTypes['GroupData']>>> }>;
-  GroupData: ResolverTypeWrapper<Omit<GroupData, 'category_group_products' | 'default_group_products'> & { category_group_products?: Maybe<Array<Maybe<ResolversTypes['ProductInfo']>>>, default_group_products?: Maybe<Array<Maybe<ResolversTypes['ProductInterface']>>> }>;
-  ProductInfo: ResolverTypeWrapper<Omit<ProductInfo, 'product'> & { product?: Maybe<ResolversTypes['ProductInterface']> }>;
-  Installer: ResolverTypeWrapper<Installer>;
-  Appointment: ResolverTypeWrapper<Appointment>;
-  CartInstaller: ResolverTypeWrapper<CartInstaller>;
-  InstallersInput: InstallersInput;
-  InstallersSearchResult: ResolverTypeWrapper<InstallersSearchResult>;
-  SetInstallerOnCartInput: SetInstallerOnCartInput;
-  SetInstallerOnCartOutput: ResolverTypeWrapper<Omit<SetInstallerOnCartOutput, 'cart'> & { cart: ResolversTypes['Cart'] }>;
-  InstallerInput: InstallerInput;
-  SelectedAppointment: ResolverTypeWrapper<SelectedAppointment>;
-  SelectedAppointmentInput: SelectedAppointmentInput;
-  ProductUrl: ResolverTypeWrapper<ProductUrl>;
-  ProductRating: ResolverTypeWrapper<ProductRating>;
-  VehiclePages: ResolverTypeWrapper<VehiclePages>;
-  Faq: ResolverTypeWrapper<Faq>;
-  CompatibleSizes: ResolverTypeWrapper<CompatibleSizes>;
-  PlusSizes: ResolverTypeWrapper<PlusSizes>;
-  MinusSizes: ResolverTypeWrapper<MinusSizes>;
-  Front: ResolverTypeWrapper<Front>;
-  Rear: ResolverTypeWrapper<Rear>;
-  SizeGroup: ResolverTypeWrapper<SizeGroup>;
-  FrontRearSizeGroup: ResolverTypeWrapper<FrontRearSizeGroup>;
-  FrontRearSizes: ResolverTypeWrapper<FrontRearSizes>;
-  Sizes: ResolverTypeWrapper<Sizes>;
-  Items: ResolverTypeWrapper<Items>;
-  Make: ResolverTypeWrapper<Make>;
-  MakeGroup: ResolverTypeWrapper<MakeGroup>;
-  Model: ResolverTypeWrapper<Model>;
-  Option: ResolverTypeWrapper<Option>;
-  SizeCompatibility: ResolverTypeWrapper<SizeCompatibility>;
-  VehicleYearGroup: ResolverTypeWrapper<VehicleYearGroup>;
   BraintreeInput: BraintreeInput;
   BraintreeCcVaultInput: BraintreeCcVaultInput;
   BraintreeVaultInput: BraintreeVaultInput;
-  TireSizeAttributes: TireSizeAttributes;
-  TireSize: ResolverTypeWrapper<TireSize>;
-  SizeLabels: ResolverTypeWrapper<SizeLabels>;
-  ComplementaryTireSizeAttributes: ComplementaryTireSizeAttributes;
-  ComplementaryTireSizes: ResolverTypeWrapper<ComplementaryTireSizes>;
-  ComplementarySizeLabels: ResolverTypeWrapper<ComplementarySizeLabels>;
-  CSectionWidths: ResolverTypeWrapper<CSectionWidths>;
-  CAspectRatios: ResolverTypeWrapper<CAspectRatios>;
-  CRimDiameters: ResolverTypeWrapper<CRimDiameters>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -13415,7 +12862,7 @@ export type ResolversParentTypes = ResolversObject<{
   PhysicalProductInterface: ResolversInterfaceTypes<ResolversParentTypes>['PhysicalProductInterface'];
   CustomizableAreaOption: CustomizableAreaOption;
   CustomizableAreaValue: CustomizableAreaValue;
-  CategoryTree: Omit<CategoryTree, 'children' | 'most_popular' | 'products'> & { children?: Maybe<Array<Maybe<ResolversParentTypes['CategoryTree']>>>, most_popular?: Maybe<ResolversParentTypes['MostPopularData']>, products?: Maybe<ResolversParentTypes['CategoryProducts']> };
+  CategoryTree: Omit<CategoryTree, 'children' | 'products'> & { children?: Maybe<Array<Maybe<ResolversParentTypes['CategoryTree']>>>, products?: Maybe<ResolversParentTypes['CategoryProducts']> };
   CategoryResult: Omit<CategoryResult, 'items'> & { items?: Maybe<Array<Maybe<ResolversParentTypes['CategoryTree']>>> };
   CustomizableDateOption: CustomizableDateOption;
   CustomizableDateValue: CustomizableDateValue;
@@ -13832,62 +13279,15 @@ export type ResolversParentTypes = ResolversObject<{
   Promotion: Promotion;
   Rebate: Rebate;
   Specials: Specials;
-  DeliveryMethod: DeliveryMethod;
-  CartDelivery: CartDelivery;
-  SetDeliveryMethodOnCartInput: SetDeliveryMethodOnCartInput;
-  SetDeliveryMethodOnCartOutput: Omit<SetDeliveryMethodOnCartOutput, 'cart'> & { cart: ResolversParentTypes['Cart'] };
   DescriptionOverview: DescriptionOverview;
   Paragraph: Paragraph;
   Specifications: Specifications;
-  MostPopularData: Omit<MostPopularData, 'groups'> & { groups?: Maybe<Array<Maybe<ResolversParentTypes['GroupData']>>> };
-  GroupData: Omit<GroupData, 'category_group_products' | 'default_group_products'> & { category_group_products?: Maybe<Array<Maybe<ResolversParentTypes['ProductInfo']>>>, default_group_products?: Maybe<Array<Maybe<ResolversParentTypes['ProductInterface']>>> };
-  ProductInfo: Omit<ProductInfo, 'product'> & { product?: Maybe<ResolversParentTypes['ProductInterface']> };
-  Installer: Installer;
-  Appointment: Appointment;
-  CartInstaller: CartInstaller;
-  InstallersInput: InstallersInput;
-  InstallersSearchResult: InstallersSearchResult;
-  SetInstallerOnCartInput: SetInstallerOnCartInput;
-  SetInstallerOnCartOutput: Omit<SetInstallerOnCartOutput, 'cart'> & { cart: ResolversParentTypes['Cart'] };
-  InstallerInput: InstallerInput;
-  SelectedAppointment: SelectedAppointment;
-  SelectedAppointmentInput: SelectedAppointmentInput;
-  ProductUrl: ProductUrl;
-  ProductRating: ProductRating;
-  VehiclePages: VehiclePages;
-  Faq: Faq;
-  CompatibleSizes: CompatibleSizes;
-  PlusSizes: PlusSizes;
-  MinusSizes: MinusSizes;
-  Front: Front;
-  Rear: Rear;
-  SizeGroup: SizeGroup;
-  FrontRearSizeGroup: FrontRearSizeGroup;
-  FrontRearSizes: FrontRearSizes;
-  Sizes: Sizes;
-  Items: Items;
-  Make: Make;
-  MakeGroup: MakeGroup;
-  Model: Model;
-  Option: Option;
-  SizeCompatibility: SizeCompatibility;
-  VehicleYearGroup: VehicleYearGroup;
   BraintreeInput: BraintreeInput;
   BraintreeCcVaultInput: BraintreeCcVaultInput;
   BraintreeVaultInput: BraintreeVaultInput;
-  TireSizeAttributes: TireSizeAttributes;
-  TireSize: TireSize;
-  SizeLabels: SizeLabels;
-  ComplementaryTireSizeAttributes: ComplementaryTireSizeAttributes;
-  ComplementaryTireSizes: ComplementaryTireSizes;
-  ComplementarySizeLabels: ComplementarySizeLabels;
-  CSectionWidths: CSectionWidths;
-  CAspectRatios: CAspectRatios;
-  CRimDiameters: CRimDiameters;
 }>;
 
 export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  allVehicleMakes?: Resolver<Array<Maybe<ResolversTypes['MakeGroup']>>, ParentType, ContextType>;
   amOrderList?: Resolver<Maybe<Array<Maybe<ResolversTypes['SortingOrder']>>>, ParentType, ContextType>;
   amSocialLoginAccountData?: Resolver<Maybe<Array<Maybe<ResolversTypes['AmLinkedSocialAccounts']>>>, ParentType, ContextType>;
   amSocialLoginButtonConfig?: Resolver<Maybe<Array<Maybe<ResolversTypes['AmSocialLoginButton']>>>, ParentType, ContextType>;
@@ -13928,17 +13328,14 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   customerPaymentTokens?: Resolver<Maybe<ResolversTypes['CustomerPaymentTokens']>, ParentType, ContextType>;
   defaultSorting?: Resolver<Maybe<Array<Maybe<ResolversTypes['SortingOrder']>>>, ParentType, ContextType, RequireFields<QuerydefaultSortingArgs, 'pageType'>>;
   getAmFaqSettings?: Resolver<Maybe<ResolversTypes['AmFaqSettings']>, ParentType, ContextType>;
-  getComplementaryTireSizes?: Resolver<Maybe<ResolversTypes['ComplementaryTireSizes']>, ParentType, ContextType, Partial<QuerygetComplementaryTireSizesArgs>>;
   getHostedProUrl?: Resolver<Maybe<ResolversTypes['HostedProUrl']>, ParentType, ContextType, RequireFields<QuerygetHostedProUrlArgs, 'input'>>;
   getPayflowLinkToken?: Resolver<Maybe<ResolversTypes['PayflowLinkToken']>, ParentType, ContextType, RequireFields<QuerygetPayflowLinkTokenArgs, 'input'>>;
   getPaymentConfig?: Resolver<Maybe<ResolversTypes['PaymentConfigOutput']>, ParentType, ContextType, RequireFields<QuerygetPaymentConfigArgs, 'location'>>;
   getPaymentOrder?: Resolver<Maybe<ResolversTypes['PaymentOrderOutput']>, ParentType, ContextType, RequireFields<QuerygetPaymentOrderArgs, 'cartId' | 'id'>>;
   getPaymentSDK?: Resolver<Maybe<ResolversTypes['GetPaymentSDKOutput']>, ParentType, ContextType, RequireFields<QuerygetPaymentSDKArgs, 'location'>>;
-  getTireSize?: Resolver<Maybe<ResolversTypes['TireSize']>, ParentType, ContextType, Partial<QuerygetTireSizeArgs>>;
   getVaultConfig?: Resolver<Maybe<ResolversTypes['VaultConfigOutput']>, ParentType, ContextType>;
   guestOrder?: Resolver<ResolversTypes['CustomerOrder'], ParentType, ContextType, RequireFields<QueryguestOrderArgs, 'input'>>;
   guestOrderByToken?: Resolver<ResolversTypes['CustomerOrder'], ParentType, ContextType, RequireFields<QueryguestOrderByTokenArgs, 'input'>>;
-  installers?: Resolver<Maybe<ResolversTypes['InstallersSearchResult']>, ParentType, ContextType, RequireFields<QueryinstallersArgs, 'input'>>;
   isEmailAvailable?: Resolver<Maybe<ResolversTypes['IsEmailAvailableOutput']>, ParentType, ContextType, RequireFields<QueryisEmailAvailableArgs, 'email'>>;
   pickupLocations?: Resolver<Maybe<ResolversTypes['PickupLocations']>, ParentType, ContextType, RequireFields<QuerypickupLocationsArgs, 'pageSize' | 'currentPage'>>;
   productReviewRatingsMetadata?: Resolver<ResolversTypes['ProductReviewRatingsMetadata'], ParentType, ContextType>;
@@ -13947,15 +13344,9 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   route?: Resolver<Maybe<ResolversTypes['RoutableInterface']>, ParentType, ContextType, RequireFields<QueryrouteArgs, 'url'>>;
   searchAmFaqCategories?: Resolver<Maybe<ResolversTypes['AmFaqCategoriesSearch']>, ParentType, ContextType, RequireFields<QuerysearchAmFaqCategoriesArgs, 'pageSize' | 'currentPage'>>;
   searchAmFaqQuestions?: Resolver<Maybe<ResolversTypes['AmFaqQuestionsSearch']>, ParentType, ContextType, RequireFields<QuerysearchAmFaqQuestionsArgs, 'pageSize' | 'currentPage'>>;
-  sizeCompatible?: Resolver<Maybe<ResolversTypes['SizeCompatibility']>, ParentType, ContextType, RequireFields<QuerysizeCompatibleArgs, 'chassis_id' | 'size'>>;
   specials?: Resolver<Maybe<ResolversTypes['Specials']>, ParentType, ContextType>;
   storeConfig?: Resolver<Maybe<ResolversTypes['StoreConfig']>, ParentType, ContextType>;
   urlResolver?: Resolver<Maybe<ResolversTypes['EntityUrl']>, ParentType, ContextType, RequireFields<QueryurlResolverArgs, 'url'>>;
-  vehicleMakes?: Resolver<Array<Maybe<ResolversTypes['MakeGroup']>>, ParentType, ContextType, RequireFields<QueryvehicleMakesArgs, 'year'>>;
-  vehicleModels?: Resolver<Array<Maybe<ResolversTypes['Model']>>, ParentType, ContextType, RequireFields<QueryvehicleModelsArgs, 'year' | 'make'>>;
-  vehicleOptions?: Resolver<Array<Maybe<ResolversTypes['Option']>>, ParentType, ContextType, RequireFields<QueryvehicleOptionsArgs, 'year' | 'make' | 'model'>>;
-  vehiclePages?: Resolver<Maybe<ResolversTypes['VehiclePages']>, ParentType, ContextType, Partial<QueryvehiclePagesArgs>>;
-  vehicleYears?: Resolver<Array<Maybe<ResolversTypes['VehicleYearGroup']>>, ParentType, ContextType>;
   wishlist?: Resolver<Maybe<ResolversTypes['WishlistOutput']>, ParentType, ContextType>;
 }>;
 
@@ -14020,9 +13411,7 @@ export type MutationResolvers<ContextType = MeshContext, ParentType extends Reso
   sendEmailToFriend?: Resolver<Maybe<ResolversTypes['SendEmailToFriendOutput']>, ParentType, ContextType, Partial<MutationsendEmailToFriendArgs>>;
   setBillingAddressOnCart?: Resolver<Maybe<ResolversTypes['SetBillingAddressOnCartOutput']>, ParentType, ContextType, Partial<MutationsetBillingAddressOnCartArgs>>;
   setCustomerLink?: Resolver<Maybe<ResolversTypes['SetCustomerLinkOutput']>, ParentType, ContextType, RequireFields<MutationsetCustomerLinkArgs, 'buyerToken' | 'password'>>;
-  setDeliveryMethodOnCart?: Resolver<Maybe<ResolversTypes['SetDeliveryMethodOnCartOutput']>, ParentType, ContextType, RequireFields<MutationsetDeliveryMethodOnCartArgs, 'input'>>;
   setGuestEmailOnCart?: Resolver<Maybe<ResolversTypes['SetGuestEmailOnCartOutput']>, ParentType, ContextType, Partial<MutationsetGuestEmailOnCartArgs>>;
-  setInstallerOnCart?: Resolver<Maybe<ResolversTypes['SetInstallerOnCartOutput']>, ParentType, ContextType, RequireFields<MutationsetInstallerOnCartArgs, 'input'>>;
   setPaymentMethodAndPlaceOrder?: Resolver<Maybe<ResolversTypes['PlaceOrderOutput']>, ParentType, ContextType, Partial<MutationsetPaymentMethodAndPlaceOrderArgs>>;
   setPaymentMethodOnCart?: Resolver<Maybe<ResolversTypes['SetPaymentMethodOnCartOutput']>, ParentType, ContextType, Partial<MutationsetPaymentMethodOnCartArgs>>;
   setShippingAddressesOnCart?: Resolver<Maybe<ResolversTypes['SetShippingAddressesOnCartOutput']>, ParentType, ContextType, Partial<MutationsetShippingAddressesOnCartArgs>>;
@@ -14521,7 +13910,6 @@ export type ProductInterfaceResolvers<ContextType = MeshContext, ParentType exte
   bolt_pattern?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bolt_pattern_alternative?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   brand?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  brand_logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   brand_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   canonical_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   car_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -14587,8 +13975,6 @@ export type ProductInterfaceResolvers<ContextType = MeshContext, ParentType exte
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
-  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
-  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -14688,6 +14074,8 @@ export type ProductInterfaceResolvers<ContextType = MeshContext, ParentType exte
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
 }>;
 
 export type PhysicalProductInterfaceResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['PhysicalProductInterface'] = ResolversParentTypes['PhysicalProductInterface']> = ResolversObject<{
@@ -14750,7 +14138,6 @@ export type CategoryTreeResolvers<ContextType = MeshContext, ParentType extends 
   meta_description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   meta_keywords?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   meta_title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  most_popular?: Resolver<Maybe<ResolversTypes['MostPopularData']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   path_in_store?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -15040,7 +14427,6 @@ export type VirtualProductResolvers<ContextType = MeshContext, ParentType extend
   bolt_pattern?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bolt_pattern_alternative?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   brand?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  brand_logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   brand_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   canonical_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   car_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -15107,8 +14493,6 @@ export type VirtualProductResolvers<ContextType = MeshContext, ParentType extend
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
-  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
-  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -15211,6 +14595,8 @@ export type VirtualProductResolvers<ContextType = MeshContext, ParentType extend
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -15232,7 +14618,6 @@ export type SimpleProductResolvers<ContextType = MeshContext, ParentType extends
   bolt_pattern?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bolt_pattern_alternative?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   brand?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  brand_logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   brand_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   canonical_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   car_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -15299,8 +14684,6 @@ export type SimpleProductResolvers<ContextType = MeshContext, ParentType extends
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
-  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
-  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -15404,6 +14787,8 @@ export type SimpleProductResolvers<ContextType = MeshContext, ParentType extends
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -15643,11 +15028,9 @@ export type CartResolvers<ContextType = MeshContext, ParentType extends Resolver
   applied_coupons?: Resolver<Maybe<Array<Maybe<ResolversTypes['AppliedCoupon']>>>, ParentType, ContextType>;
   available_payment_methods?: Resolver<Maybe<Array<Maybe<ResolversTypes['AvailablePaymentMethod']>>>, ParentType, ContextType>;
   billing_address?: Resolver<Maybe<ResolversTypes['BillingCartAddress']>, ParentType, ContextType>;
-  delivery?: Resolver<ResolversTypes['CartDelivery'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gift_message?: Resolver<Maybe<ResolversTypes['GiftMessage']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  installer?: Resolver<ResolversTypes['CartInstaller'], ParentType, ContextType>;
   is_virtual?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   items?: Resolver<Maybe<Array<Maybe<ResolversTypes['CartItemInterface']>>>, ParentType, ContextType>;
   itemsV2?: Resolver<Maybe<ResolversTypes['CartItems']>, ParentType, ContextType, RequireFields<CartitemsV2Args, 'pageSize' | 'currentPage'>>;
@@ -16012,7 +15395,6 @@ export type DownloadableProductResolvers<ContextType = MeshContext, ParentType e
   bolt_pattern?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bolt_pattern_alternative?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   brand?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  brand_logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   brand_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   canonical_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   car_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16083,8 +15465,6 @@ export type DownloadableProductResolvers<ContextType = MeshContext, ParentType e
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
-  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
-  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16187,6 +15567,8 @@ export type DownloadableProductResolvers<ContextType = MeshContext, ParentType e
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -16477,7 +15859,6 @@ export type BundleProductResolvers<ContextType = MeshContext, ParentType extends
   bolt_pattern?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bolt_pattern_alternative?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   brand?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  brand_logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   brand_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   canonical_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   car_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16550,8 +15931,6 @@ export type BundleProductResolvers<ContextType = MeshContext, ParentType extends
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
   price_view?: Resolver<Maybe<ResolversTypes['PriceViewEnum']>, ParentType, ContextType>;
-  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
-  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16656,6 +16035,8 @@ export type BundleProductResolvers<ContextType = MeshContext, ParentType extends
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -16764,7 +16145,6 @@ export type GroupedProductResolvers<ContextType = MeshContext, ParentType extend
   bolt_pattern?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bolt_pattern_alternative?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   brand?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  brand_logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   brand_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   canonical_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   car_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16831,8 +16211,6 @@ export type GroupedProductResolvers<ContextType = MeshContext, ParentType extend
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
-  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
-  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16936,6 +16314,8 @@ export type GroupedProductResolvers<ContextType = MeshContext, ParentType extend
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -16974,7 +16354,6 @@ export type ConfigurableProductResolvers<ContextType = MeshContext, ParentType e
   bolt_pattern?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bolt_pattern_alternative?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   brand?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  brand_logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   brand_text?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   canonical_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   car_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -17043,8 +16422,6 @@ export type ConfigurableProductResolvers<ContextType = MeshContext, ParentType e
   price?: Resolver<Maybe<ResolversTypes['ProductPrices']>, ParentType, ContextType>;
   price_range?: Resolver<ResolversTypes['PriceRange'], ParentType, ContextType>;
   price_tiers?: Resolver<Maybe<Array<Maybe<ResolversTypes['TierPrice']>>>, ParentType, ContextType>;
-  productRating?: Resolver<Maybe<ResolversTypes['ProductRating']>, ParentType, ContextType>;
-  productUrl?: Resolver<Maybe<ResolversTypes['ProductUrl']>, ParentType, ContextType>;
   product_links?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductLinksInterface']>>>, ParentType, ContextType>;
   rating_summary?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   rebate_available?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -17149,6 +16526,8 @@ export type ConfigurableProductResolvers<ContextType = MeshContext, ParentType e
   wheel_size?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   wheel_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   winter_tire_type?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  yotpo_rating_value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  yotpo_review_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -18697,24 +18076,6 @@ export type SpecialsResolvers<ContextType = MeshContext, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type DeliveryMethodResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DeliveryMethod'] = ResolversParentTypes['DeliveryMethod']> = ResolversObject<{
-  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  delivery_info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CartDeliveryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CartDelivery'] = ResolversParentTypes['CartDelivery']> = ResolversObject<{
-  available_delivery_methods?: Resolver<Array<Maybe<ResolversTypes['DeliveryMethod']>>, ParentType, ContextType>;
-  selected_delivery_method?: Resolver<Maybe<ResolversTypes['DeliveryMethod']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SetDeliveryMethodOnCartOutputResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SetDeliveryMethodOnCartOutput'] = ResolversParentTypes['SetDeliveryMethodOnCartOutput']> = ResolversObject<{
-  cart?: Resolver<ResolversTypes['Cart'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type DescriptionOverviewResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DescriptionOverview'] = ResolversParentTypes['DescriptionOverview']> = ResolversObject<{
   bullet_points?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   main_paragraph?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -18735,268 +18096,6 @@ export type ParagraphResolvers<ContextType = MeshContext, ParentType extends Res
 export type SpecificationsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Specifications'] = ResolversParentTypes['Specifications']> = ResolversObject<{
   label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type MostPopularDataResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['MostPopularData'] = ResolversParentTypes['MostPopularData']> = ResolversObject<{
-  groups?: Resolver<Maybe<Array<Maybe<ResolversTypes['GroupData']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type GroupDataResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['GroupData'] = ResolversParentTypes['GroupData']> = ResolversObject<{
-  category_group_products?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductInfo']>>>, ParentType, ContextType>;
-  default_group_products?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProductInterface']>>>, ParentType, ContextType>;
-  enabled?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  group_id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  group_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  priority?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ProductInfoResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ProductInfo'] = ResolversParentTypes['ProductInfo']> = ResolversObject<{
-  most_popular_priority?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  product?: Resolver<Maybe<ResolversTypes['ProductInterface']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type InstallerResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Installer'] = ResolversParentTypes['Installer']> = ResolversObject<{
-  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  available_appointments?: Resolver<Array<Maybe<ResolversTypes['Appointment']>>, ParentType, ContextType>;
-  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  phone_number?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  price_per_tire?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  state?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  thumbnail_image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  zip_code?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type AppointmentResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Appointment'] = ResolversParentTypes['Appointment']> = ResolversObject<{
-  closes_at?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  day_of_week?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  opens_at?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CartInstallerResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CartInstaller'] = ResolversParentTypes['CartInstaller']> = ResolversObject<{
-  appointment_information?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  scheduled_appointment?: Resolver<Maybe<ResolversTypes['SelectedAppointment']>, ParentType, ContextType>;
-  selected_installer?: Resolver<Maybe<ResolversTypes['Installer']>, ParentType, ContextType>;
-  vin?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type InstallersSearchResultResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['InstallersSearchResult'] = ResolversParentTypes['InstallersSearchResult']> = ResolversObject<{
-  items?: Resolver<Array<Maybe<ResolversTypes['Installer']>>, ParentType, ContextType>;
-  total_count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SetInstallerOnCartOutputResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SetInstallerOnCartOutput'] = ResolversParentTypes['SetInstallerOnCartOutput']> = ResolversObject<{
-  cart?: Resolver<ResolversTypes['Cart'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SelectedAppointmentResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SelectedAppointment'] = ResolversParentTypes['SelectedAppointment']> = ResolversObject<{
-  date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  time?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ProductUrlResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ProductUrl'] = ResolversParentTypes['ProductUrl']> = ResolversObject<{
-  brandCategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  mainCategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  primary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  secondary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ProductRatingResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ProductRating'] = ResolversParentTypes['ProductRating']> = ResolversObject<{
-  ratingCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  ratingValue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type VehiclePagesResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['VehiclePages'] = ResolversParentTypes['VehiclePages']> = ResolversObject<{
-  banner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  brandLogo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  compatibleSizes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CompatibleSizes']>>>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  faqs?: Resolver<Maybe<Array<Maybe<ResolversTypes['Faq']>>>, ParentType, ContextType>;
-  items?: Resolver<Maybe<Array<Maybe<ResolversTypes['Items']>>>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type FaqResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Faq'] = ResolversParentTypes['Faq']> = ResolversObject<{
-  answer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  question?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CompatibleSizesResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CompatibleSizes'] = ResolversParentTypes['CompatibleSizes']> = ResolversObject<{
-  frontRear?: Resolver<Maybe<Array<Maybe<ResolversTypes['FrontRearSizeGroup']>>>, ParentType, ContextType>;
-  minusSizes?: Resolver<Maybe<ResolversTypes['MinusSizes']>, ParentType, ContextType>;
-  plusSizes?: Resolver<Maybe<ResolversTypes['PlusSizes']>, ParentType, ContextType>;
-  sameSizes?: Resolver<Maybe<Array<Maybe<ResolversTypes['SizeGroup']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type PlusSizesResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['PlusSizes'] = ResolversParentTypes['PlusSizes']> = ResolversObject<{
-  both?: Resolver<Maybe<Array<Maybe<ResolversTypes['SizeGroup']>>>, ParentType, ContextType>;
-  frontUpstep?: Resolver<Maybe<Array<Maybe<ResolversTypes['SizeGroup']>>>, ParentType, ContextType>;
-  rearUpstep?: Resolver<Maybe<Array<Maybe<ResolversTypes['SizeGroup']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type MinusSizesResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['MinusSizes'] = ResolversParentTypes['MinusSizes']> = ResolversObject<{
-  both?: Resolver<Maybe<Array<Maybe<ResolversTypes['SizeGroup']>>>, ParentType, ContextType>;
-  frontDownstep?: Resolver<Maybe<Array<Maybe<ResolversTypes['SizeGroup']>>>, ParentType, ContextType>;
-  rearDownstep?: Resolver<Maybe<Array<Maybe<ResolversTypes['SizeGroup']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type FrontResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Front'] = ResolversParentTypes['Front']> = ResolversObject<{
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  product_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type RearResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Rear'] = ResolversParentTypes['Rear']> = ResolversObject<{
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  product_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SizeGroupResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SizeGroup'] = ResolversParentTypes['SizeGroup']> = ResolversObject<{
-  rim?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  size?: Resolver<Maybe<Array<Maybe<ResolversTypes['Sizes']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type FrontRearSizeGroupResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['FrontRearSizeGroup'] = ResolversParentTypes['FrontRearSizeGroup']> = ResolversObject<{
-  rim?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  size?: Resolver<Maybe<Array<Maybe<ResolversTypes['FrontRearSizes']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type FrontRearSizesResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['FrontRearSizes'] = ResolversParentTypes['FrontRearSizes']> = ResolversObject<{
-  front?: Resolver<Maybe<ResolversTypes['Front']>, ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  rear?: Resolver<Maybe<ResolversTypes['Rear']>, ParentType, ContextType>;
-  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SizesResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Sizes'] = ResolversParentTypes['Sizes']> = ResolversObject<{
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  product_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ItemsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Items'] = ResolversParentTypes['Items']> = ResolversObject<{
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type MakeResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Make'] = ResolversParentTypes['Make']> = ResolversObject<{
-  logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type MakeGroupResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['MakeGroup'] = ResolversParentTypes['MakeGroup']> = ResolversObject<{
-  letter?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  makes?: Resolver<Array<Maybe<ResolversTypes['Make']>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ModelResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Model'] = ResolversParentTypes['Model']> = ResolversObject<{
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type OptionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Option'] = ResolversParentTypes['Option']> = ResolversObject<{
-  chassis_id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SizeCompatibilityResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SizeCompatibility'] = ResolversParentTypes['SizeCompatibility']> = ResolversObject<{
-  compatibleSizes?: Resolver<Maybe<ResolversTypes['CompatibleSizes']>, ParentType, ContextType>;
-  fitmentTypes?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
-  isCompatible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type VehicleYearGroupResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['VehicleYearGroup'] = ResolversParentTypes['VehicleYearGroup']> = ResolversObject<{
-  decade?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  years?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type TireSizeResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TireSize'] = ResolversParentTypes['TireSize']> = ResolversObject<{
-  aspect_ratios?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
-  rim_diameters?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
-  section_widths?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
-  tire_size_info?: Resolver<Maybe<Array<Maybe<ResolversTypes['SizeLabels']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SizeLabelsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['SizeLabels'] = ResolversParentTypes['SizeLabels']> = ResolversObject<{
-  categoryUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  hasFrontOptions?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  hasRearOptions?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  size_label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ComplementaryTireSizesResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ComplementaryTireSizes'] = ResolversParentTypes['ComplementaryTireSizes']> = ResolversObject<{
-  aspect_ratios?: Resolver<Maybe<Array<Maybe<ResolversTypes['CAspectRatios']>>>, ParentType, ContextType>;
-  rim_diameters?: Resolver<Maybe<Array<Maybe<ResolversTypes['CRimDiameters']>>>, ParentType, ContextType>;
-  section_widths?: Resolver<Maybe<Array<Maybe<ResolversTypes['CSectionWidths']>>>, ParentType, ContextType>;
-  size_labels?: Resolver<Maybe<Array<Maybe<ResolversTypes['ComplementarySizeLabels']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ComplementarySizeLabelsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ComplementarySizeLabels'] = ResolversParentTypes['ComplementarySizeLabels']> = ResolversObject<{
-  categoryUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  size_label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CSectionWidthsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CSectionWidths'] = ResolversParentTypes['CSectionWidths']> = ResolversObject<{
-  front?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
-  rear?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CAspectRatiosResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CAspectRatios'] = ResolversParentTypes['CAspectRatios']> = ResolversObject<{
-  front?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
-  rear?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type CRimDiametersResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CRimDiameters'] = ResolversParentTypes['CRimDiameters']> = ResolversObject<{
-  front?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
-  rear?: Resolver<Maybe<Array<Maybe<ResolversTypes['Float']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -19340,48 +18439,9 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Promotion?: PromotionResolvers<ContextType>;
   Rebate?: RebateResolvers<ContextType>;
   Specials?: SpecialsResolvers<ContextType>;
-  DeliveryMethod?: DeliveryMethodResolvers<ContextType>;
-  CartDelivery?: CartDeliveryResolvers<ContextType>;
-  SetDeliveryMethodOnCartOutput?: SetDeliveryMethodOnCartOutputResolvers<ContextType>;
   DescriptionOverview?: DescriptionOverviewResolvers<ContextType>;
   Paragraph?: ParagraphResolvers<ContextType>;
   Specifications?: SpecificationsResolvers<ContextType>;
-  MostPopularData?: MostPopularDataResolvers<ContextType>;
-  GroupData?: GroupDataResolvers<ContextType>;
-  ProductInfo?: ProductInfoResolvers<ContextType>;
-  Installer?: InstallerResolvers<ContextType>;
-  Appointment?: AppointmentResolvers<ContextType>;
-  CartInstaller?: CartInstallerResolvers<ContextType>;
-  InstallersSearchResult?: InstallersSearchResultResolvers<ContextType>;
-  SetInstallerOnCartOutput?: SetInstallerOnCartOutputResolvers<ContextType>;
-  SelectedAppointment?: SelectedAppointmentResolvers<ContextType>;
-  ProductUrl?: ProductUrlResolvers<ContextType>;
-  ProductRating?: ProductRatingResolvers<ContextType>;
-  VehiclePages?: VehiclePagesResolvers<ContextType>;
-  Faq?: FaqResolvers<ContextType>;
-  CompatibleSizes?: CompatibleSizesResolvers<ContextType>;
-  PlusSizes?: PlusSizesResolvers<ContextType>;
-  MinusSizes?: MinusSizesResolvers<ContextType>;
-  Front?: FrontResolvers<ContextType>;
-  Rear?: RearResolvers<ContextType>;
-  SizeGroup?: SizeGroupResolvers<ContextType>;
-  FrontRearSizeGroup?: FrontRearSizeGroupResolvers<ContextType>;
-  FrontRearSizes?: FrontRearSizesResolvers<ContextType>;
-  Sizes?: SizesResolvers<ContextType>;
-  Items?: ItemsResolvers<ContextType>;
-  Make?: MakeResolvers<ContextType>;
-  MakeGroup?: MakeGroupResolvers<ContextType>;
-  Model?: ModelResolvers<ContextType>;
-  Option?: OptionResolvers<ContextType>;
-  SizeCompatibility?: SizeCompatibilityResolvers<ContextType>;
-  VehicleYearGroup?: VehicleYearGroupResolvers<ContextType>;
-  TireSize?: TireSizeResolvers<ContextType>;
-  SizeLabels?: SizeLabelsResolvers<ContextType>;
-  ComplementaryTireSizes?: ComplementaryTireSizesResolvers<ContextType>;
-  ComplementarySizeLabels?: ComplementarySizeLabelsResolvers<ContextType>;
-  CSectionWidths?: CSectionWidthsResolvers<ContextType>;
-  CAspectRatios?: CAspectRatiosResolvers<ContextType>;
-  CRimDiameters?: CRimDiametersResolvers<ContextType>;
 }>;
 
 
@@ -19433,7 +18493,7 @@ const additionalTypeDefs = [] as any[];
 const M2Handler = await import("@graphql-mesh/graphql").then(handleImport);
 const m2Handler = new M2Handler({
               name: "m2",
-              config: {"endpoint":"https://staging.prioritytire.dev/graphql","useGETForQueries":true,"batch":false,"operationHeaders":{"Store":"{context.headers.store}","Authorization":"{context.headers.authorization}","X-ReCaptcha":"{context.headers['x-recaptcha']}","Preview-Version":"{context.headers['preview-version']}","Content-Currency":"{context.headers['content-currency']}","X-Magento-Cache-Id":"{context.headers['x-magento-cache-id']}","X-Forwarded-For":"{context.headers['x-forwarded-for']}"}},
+              config: {"endpoint":"https://www.prioritytire.com/graphql","useGETForQueries":true,"batch":false,"operationHeaders":{"Store":"{context.headers.store}","Authorization":"{context.headers.authorization}","X-ReCaptcha":"{context.headers['x-recaptcha']}","Preview-Version":"{context.headers['preview-version']}","Content-Currency":"{context.headers['content-currency']}","X-Magento-Cache-Id":"{context.headers['x-magento-cache-id']}","X-Forwarded-For":"{context.headers['x-forwarded-for']}"}},
               baseDir,
               cache,
               pubsub,

@@ -8,7 +8,7 @@ const imageTagHandler = ({ $el }: HandlerProps) => {
   const src = srcFromEl.startsWith("http")
     ? srcFromEl
     : srcFromEl
-    ? `https://staging.prioritytire.dev${srcFromEl}`
+    ? `https://www.prioritytire.com${srcFromEl}`
     : fallbackSrc;
 
   const alt = $el.attr("alt") || "Image";
